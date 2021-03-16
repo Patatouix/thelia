@@ -58,6 +58,7 @@ templates/frontOffice/*
 !templates/backOffice
 templates/backOffice/*
 !templates/backOffice/default
+!templates/backOffice/bs4
 !templates/email
 templates/email/*
 !templates/email/default

@@ -147,6 +147,10 @@
             <tag name="thelia.asset.filter" key="sass"  />
         </service>
 
+        <service id="scss.php.assetic.filter" class="Assetic\Filter\ScssphpFilter">
+            <tag name="thelia.asset.filter" key="scssphp"  />
+        </service>
+
         <service id="cssembed.assetic.filter" class="Assetic\Filter\PhpCssEmbedFilter">
             <tag name="thelia.asset.filter" key="cssembed" />
         </service>
