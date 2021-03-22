@@ -1,0 +1,66 @@
+//
+// Modals
+// --------------------------------------------------
+
+// Base modal
+.modal {
+    form {
+        margin-bottom: 0;
+    }
+}
+
+.modal-header {
+    text-transform: uppercase;
+    background: $primary;
+    color: #fff;
+
+    h3,
+    .modal-title {
+        margin-bottom: 0;
+        padding-bottom: 0;
+        color: #fff;
+        line-height: 1;
+    }
+
+    .close {
+        color: #fff;
+        //width: 20px;
+        //height: 20px;
+        //border-radius: 50%;
+        //background: $primary;
+        //border: 1px solid #fff;
+        //@include opacity(1);      Vendor prefixes no longer required in BS4
+        //font-weight: lighter;
+        //line-height: 1em;
+        //font-size: 14px;
+
+        //&:hover,
+        /*&:focus {
+            background: #fff;
+            color: $primary;
+        }*/
+    }
+}
+
+// Body (where all modal content resides)
+.modal-body {
+  max-height: none;
+  .scrollable {
+      border: 1px solid $input-border;
+      border-radius: $input-border-radius;
+      height: 458px;
+      overflow: auto;
+      padding-bottom: 5px;
+      padding-left: 10px;
+      padding-top: 5px;
+  }
+}
+
+// Get fancy tables in modules information dialog.
+#module-information {
+    table {
+        @include table;
+        @include table-bordered();
+        @include table-hover();
+    }
+}

@@ -10,14 +10,14 @@
 {block name="check-access"}view{/block}
 
 {block name="main-content"}
-<div class="features">
+<!-- <div class="features"> -->
 
-    <div id="wrapper" class="container">
+    <div class="container-fluid">
 
         <ul class="breadcrumb">
-            <li><a href="{url path='/admin/home'}">{intl l="Home"}</a></li>
-            <li><a href="{url path='/admin/configuration'}">{intl l="Configuration"}</a></li>
-            <li><a href="{url path='/admin/configuration/features'}">{intl l="Product features"}</a></li>
+            <li class="breadcrumb-item"><a href="{url path='/admin/home'}">{intl l="Home"}</a></li>
+            <li class="breadcrumb-item"><a href="{url path='/admin/configuration'}">{intl l="Configuration"}</a></li>
+            <li class="breadcrumb-item"><a href="{url path='/admin/configuration/features'}">{intl l="Product features"}</a></li>
         </ul>
 
         {hook name="features.top" location="features_top" }
@@ -27,7 +27,7 @@
                 <form action="#" method="post">
 	                <div class="general-block-decorator">
                         <div class="table-responsive">
-    	                    <table class="table table-striped table-condensed table-left-aligned">
+    	                    <table class="table table-striped table-sm table-left-aligned">
     	                        <caption>
     	                           {intl l='Thelia product features'}
 
@@ -177,7 +177,7 @@
         {hook name="features.bottom" location="features_bottom" }
 
     </div>
-</div>
+<!-- </div> -->
 
 {* Adding a new feature *}
 
@@ -194,15 +194,17 @@
 
         {form_field field='title'}
             <div class="form-group {if $error}has-error{/if}">
-                <label for="{$label_attr.for}" class="control-label">{$label} : </label>
+                <label for="{$label_attr.for}" class="col-form-label">{$label} : </label>
 
                 {loop type="lang" name="default-lang" default_only="1"}
                     <div class="input-group">
                         <input type="text" id="{$label_attr.for}" required="required" name="{$name}" class="form-control" value="{$value}" title="{intl l='Feature title'}" placeholder="{intl l='Title'}">
-                        <span class="input-group-addon"><img src="{image file="assets/img/flags/{$CODE}.png"}" alt="{$TITLE}" /></span>
+                        <div class="input-group-append">
+                            <span class="input-group-text"><img src="{image file="assets/img/flags/{$CODE}.png"}" alt="{$TITLE}" /></span>
+                        </div>
                     </div>
 
-                    <div class="help-block">{intl l="Enter here the feature name in the default language (%title)" title={$TITLE}}</div>
+                    <div class="form-text">{intl l="Enter here the feature name in the default language (%title)" title={$TITLE}}</div>
 
                     {* Switch edition to the current locale *}
                     <input type="hidden" name="edit_language_id" value="{$ID}" />
@@ -217,11 +219,11 @@
         {form_field field='add_to_all'}
             <div class="form-group {if $error}has-error{/if}">
                 <div class="checkbox {if $error}has-error{/if}">
-                    <label for="{$label_attr.for}" class="control-label">
+                    <label for="{$label_attr.for}" class="col-form-label">
                         <input type="checkbox" name="{$name}" value="1" {if $value != 0}checked="checked"{/if}>
                         {$label}
                     </label>
-                    <span class="help-block">{intl l='Check this box if you want to add this features to all product templates'}</span>
+                    <span class="form-text">{intl l='Check this box if you want to add this features to all product templates'}</span>
                 </div>
             </div>
         {/form_field}

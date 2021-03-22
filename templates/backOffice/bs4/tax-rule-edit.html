@@ -17,13 +17,13 @@
 
 <div class="taxes-rules edit-taxes-rules">
 
-    <div id="wrapper" class="container">
+    <div class="container-fluid">
 
         <ul class="breadcrumb">
-            <li><a href="{url path='/admin/home'}">{intl l="Home"}</a></li>
-            <li><a href="{url path='/admin/configuration'}">{intl l="Configuration"}</a></li>
-            <li><a href="{url path='/admin/configuration/taxes_rules'}">{intl l="Taxes rules"}</a></li>
-            <li>{intl l='Editing tax rule'}</li>
+            <li class="breadcrumb-item"><a href="{url path='/admin/home'}">{intl l="Home"}</a></li>
+            <li class="breadcrumb-item"><a href="{url path='/admin/configuration'}">{intl l="Configuration"}</a></li>
+            <li class="breadcrumb-item"><a href="{url path='/admin/configuration/taxes_rules'}">{intl l="Taxes rules"}</a></li>
+            <li class="breadcrumb-item">{intl l='Editing tax rule'}</li>
         </ul>
 
         {loop type="tax-rule" name="tax-rule" id=$tax_rule_id backend_context="1" lang=$edit_language_id}
@@ -34,8 +34,8 @@
             <div class="col-md-12 general-block-decorator clearfix">
 
                 <ul class="nav nav-tabs clearfix">
-                    <li {if $oder_tab == 'data'}class="active"{/if}><a href="#data" data-tab-name="cart" data-toggle="tab"><span class="glyphicon glyphicon-shopping-cart"></span> {intl l="Description"}</a></li>
-                    <li {if $oder_tab == 'taxes'}class="active"{/if}><a href="#taxes" data-tab-name="bill" data-toggle="tab"><span class="glyphicon glyphicon-list-alt"></span> {intl l="Taxes"}</a></li>
+                    <li {if $oder_tab == 'data'}class="active"{/if}><a href="#data" data-tab-name="cart" data-toggle="tab"><span class="fas fa-shopping-cart"></span> {intl l="Description"}</a></li>
+                    <li {if $oder_tab == 'taxes'}class="active"{/if}><a href="#taxes" data-tab-name="bill" data-toggle="tab"><span class="far fa-list-alt"></span> {intl l="Taxes"}</a></li>
                 </ul>
 
                 <div class="tab-content">
@@ -72,16 +72,16 @@
 
                                     {form_field field='title'}
                                         <div class="form-group {if $error}has-error{/if}">
-                                            <label for="{$label_attr.for}" class="control-label">{$label} : </label>
+                                            <label for="{$label_attr.for}" class="col-form-label">{$label} : </label>
                                             <input type="text" id="{$label_attr.for}" name="{$name}" required="required" title="{intl l='Title'}" placeholder="{intl l='Title'}" class="form-control" value="{if $error}{$value}{else}{if $IS_TRANSLATED == 1}{$TITLE}{/if}{/if}">
                                         </div>
                                     {/form_field}
 
                                     {form_field field='description'}
                                         <div class="form-group {if $error}has-error{/if}">
-                                            <label for="{$label_attr.for}" class="control-label">
+                                            <label for="{$label_attr.for}" class="col-form-label">
                                                 {$label} :
-                                                <span class="label-help-block">{intl l="The detailed description."}</span>
+                                                <span class="label-form-text">{intl l="The detailed description."}</span>
                                             </label>
 
                                             <textarea name="{$name}" id="{$label_attr.for}" rows="10" class="form-control wysiwyg">{if $error}{$value}{else}{if $IS_TRANSLATED == 1}{$DESCRIPTION}{/if}{/if}</textarea>
@@ -113,9 +113,9 @@
 
                         <hr class="space">
 
-                        <div class="panel panel-default">
+                        <div class="card">
                             <div class="panel-heading">{intl l="Select a configuration"}</div>
-                            <div class="panel-body">
+                            <div class="card-body">
                                 <div class="row">
 
                                     <div class="col-md-6">
@@ -151,17 +151,17 @@
 
                                 </div>
                             </div>
-                            <div class="panel-footer">
-                                <span class="glyphicon glyphicon-info-sign"></span>
+                            <div class="card-footer">
+                                <span class="fas fa-info-circle"></span>
                                 {intl l="For a tax rule, you can have multiple configurations, as only one tax rule is affected to a product."}
                                 {intl l="(according to a country the taxes applied could be different)"}<br>
                                 {intl l="So, each configuration is a list of taxes applied to a list of countries/states."}
                             </div>
                         </div>
 
-                        <div class="panel panel-default">
+                        <div class="card">
                             <div class="panel-heading">{intl l="Countries/states configuration"}</div>
-                            <div class="panel-body">
+                            <div class="card-body">
                                 <div id="country-list-filter">
                                     <div class="row">
                                         <div class="col-md-6">
@@ -190,56 +190,56 @@
                                 <div id="country-list" class="">
                                     <div class="u-margin-bottom">
                                         {loop type="country" name="country-list" visible="1" has_states="0"}
-                                            <span class="label" data-id="{$ID}-0">{$TITLE}</span>
+                                            <span class="badge" data-id="{$ID}-0">{$TITLE}</span>
                                         {/loop}
                                     </div>
                                     {loop type="country" name="country-list" visible="1" has_states="1"}
                                         {$country_id=$ID}
                                         {$country_title=$TITLE}
-                                        <div class="panel panel-default country-states">
+                                        <div class="card country-states">
                                             <div class="panel-heading">{$country_title}</div>
-                                            <div class="panel-body">
-                                                <span class="label" data-id="{$ID}-0">{intl l="all states/provinces"}</span>
+                                            <div class="card-body">
+                                                <span class="badge" data-id="{$ID}-0">{intl l="all states/provinces"}</span>
                                                 {loop type="state" name="state-list" visible="*" country={$country_id}}
-                                                    <span class="label" data-id="{$country_id}-{$ID}">{$TITLE}</span>
+                                                    <span class="badge" data-id="{$country_id}-{$ID}">{$TITLE}</span>
                                                 {/loop}
                                             </div>
                                         </div>
                                     {/loop}
 
                                     <div>
-                                        <button type="button" id="reset-country-list" class="btn btn-default btn-danger">
-                                            <span class="glyphicon glyphicon-refresh">
+                                        <button type="button" id="reset-country-list" class="btn btn-danger">
+                                            <span class="fas fa-sync-alt">
                                             {intl l="Reset"}
                                         </button>
                                     </div>
                                 </div>
                             </div>
-                            <div class="panel-footer">
-                                <span class="glyphicon glyphicon-info-sign"></span> {intl l="caption"} :
-                                <span class="label label-default">{intl l="country has no configuration"}</span>
-                                <span class="label label-success">{intl l="country has the current configuration"}</span>
-                                <span class="label label-danger">{intl l="country has an other configuration"}</span>
+                            <div class="card-footer">
+                                <span class="fas fa-info-circle"></span> {intl l="caption"} :
+                                <span class="badge badge-secondary">{intl l="country has no configuration"}</span>
+                                <span class="badge badge-success">{intl l="country has the current configuration"}</span>
+                                <span class="badge badge-danger">{intl l="country has an other configuration"}</span>
                             </div>
                         </div>
 
-                        <div class="panel panel-default">
+                        <div class="card">
                             <div class="panel-heading">{intl l="Taxes configuration"}</div>
-                            <div class="panel-body">
+                            <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-6">
 
-                                        <div id="panel" class="panel panel-default place">
+                                        <div id="panel" class="card place">
                                             <div class="panel-heading">
-                                                <h3 class="panel-title">{intl l="Manage the tax rule taxes appliance order"}</h3>
+                                                <h3 class="card-title">{intl l="Manage the tax rule taxes appliance order"}</h3>
                                             </div>
-                                            <div class="panel-body">
+                                            <div class="card-body">
 
                                             </div>
 
-                                            <div class="panel-footer droppable create-group">
+                                            <div class="card-footer droppable create-group">
                                                 <p class="drop-message">
-                                                    <span class="glyphicon glyphicon-plus"></span>
+                                                    <span class="fas fa-plus"></span>
                                                     <span class="message">{intl l="Drop tax here to create a tax group"}</span>
                                                 </p>
                                             </div>
@@ -248,16 +248,16 @@
 
                                     <div class="col-md-6">
 
-                                        <div id="panel-list" class="panel panel-default take">
+                                        <div id="panel-list" class="card take">
                                             <div class="panel-heading">
-                                                <h3 class="panel-title">{intl l="Available taxes"}</h3>
+                                                <h3 class="card-title">{intl l="Available taxes"}</h3>
                                             </div>
-                                            <div class="panel-body">
+                                            <div class="card-body">
 
                                             </div>
-                                            <div class="panel-footer droppable remove-from-group">
+                                            <div class="card-footer droppable remove-from-group">
                                                 <p class="drop-message">
-                                                    <span class="glyphicon glyphicon-minus"></span>
+                                                    <span class="glyphicon fas fa-minus"></span>
                                                     <span class="message">{intl l="Drop tax here to delete from group"}</span>
                                                 </p>
                                             </div>
@@ -268,8 +268,8 @@
                                 </div><!--//row-->
 
                             </div>
-                            <div class="panel-footer">
-                                <span class="glyphicon glyphicon-info-sign"></span>
+                            <div class="card-footer">
+                                <span class="fas fa-info-circle"></span>
                                 {intl l="Here, just drag and drog the available taxes in groups."}<br>
                                 {intl l="Each group of taxes are applied from top to bottom."}
                                 {intl l="In a group, each taxes are applied independently on the incomming price (the price without tax for the first group)."}
@@ -279,7 +279,7 @@
                         </div><!--//panel-->
 
                         <div class="row">
-                            <a href="#tax_list_update_dialog" data-toggle="modal" id="apply-taxes-rules" class="btn btn-primary btn-block"><span class="glyphicon glyphicon-check"></span> {intl l="Apply"}</a>
+                            <a href="#tax_list_update_dialog" data-toggle="modal" id="apply-taxes-rules" class="btn btn-primary btn-block"><span class="far fa-check-square"></span> {intl l="Apply"}</a>
                         </div>
 
                     </div>
@@ -310,16 +310,16 @@
 
         {form_hidden_fields}
 
-        <div class="panel panel-default">
+        <div class="card">
             <div class="panel-heading">{intl l="Countries/states that will use this configuration"}</div>
-            <div id="countries-added" class="panel-body">
+            <div id="countries-added" class="card-body">
                 <div></div>
             </div>
         </div>
 
-        <div class="panel panel-default">
+        <div class="card">
             <div class="panel-heading">{intl l="Countries/states deleted of this configuration"}</div>
-            <div id="countries-deleted" class="panel-body">
+            <div id="countries-deleted" class="card-body">
                 <div></div>
             </div>
         </div>
@@ -361,7 +361,7 @@
 <script id="tax-group" type="text/html">
     <div class="drop-group droppable add-to-group">
         <p class="drop-message">
-            <span class="glyphicon glyphicon-plus"></span>
+            <span class="fas fa-plus"></span>
             <span class="message">{intl l="Add tax to this group"}</span>
         </p>
 
@@ -408,7 +408,7 @@
             var tpl = {
                 'select-configuration-new': _.template('<option value=""><%- i18n.configuration_new %></option>')
                 , 'select-configuration': _.template('<option value="<%= spec %>"><%- i18n.configuration %> #<%= i + 1 %> (<%= specCount %> <%- i18n.countries %>)</option>')
-                , 'country-item': _.template('<span class="label label-"<%= status %>" data-id="<%= id %>"><%- title %></span>')
+                , 'country-item': _.template('<span class="badge badge-"<%= status %>" data-id="<%= id %>"><%- title %></span>')
                 , 'tax-group': _.template($("#tax-group").html())
                 , 'tax-list': _.template($("#tax-list").html())
             };
@@ -450,7 +450,7 @@
                         if($empty_group.size() > 0){ // if yes (Use the first empty group)
                             $drop = $empty_group.filter(':first');
                         }else{ //if no (Create a new group)
-                            $drop = $group.find('.drop-group:last-child').clone().appendTo($group.find('.panel-body'));
+                            $drop = $group.find('.drop-group:last-child').clone().appendTo($group.find('.card-body'));
 
                             // Remove taxes
                             $drop.find('> div').remove();
@@ -652,7 +652,7 @@
                     }
                 });
 
-                $groupContainer = $group.find('.panel-body');
+                $groupContainer = $group.find('.card-body');
                 $groupContainer.empty();
                 if (taxesUsed.length != 0) {
                     for (var i = 0; i < taxesUsed.length; i++) {
@@ -662,7 +662,7 @@
                     $groupContainer.append(render('tax-group', {taxes: []}));
                 }
 
-                $groupContainer = $list.find('.panel-body');
+                $groupContainer = $list.find('.card-body');
                 $groupContainer.empty();
                 $groupContainer.append(render('tax-list', {taxes: taxesUnused}));
 
@@ -672,7 +672,7 @@
                 $('.droppable', $group)
                     .droppable(dropOptions)
                     .sortable(sortOptions);
-                $('.place .panel-body').sortable(sortOptions);
+                $('.place .card-body').sortable(sortOptions);
 
                 taxesConfigurationInitialized = true;
             };
@@ -683,7 +683,7 @@
                     accept: "#panel .drag",
                     hoverClass: 'over',
                     drop: function( event, ui ) {
-                        $("<div></div>").addClass('draggable bg-warning').text( ui.draggable.text() ).attr('data-id', ui.draggable.data('id')).draggable(dragOptions).appendTo(  $list.find('.panel-body') );
+                        $("<div></div>").addClass('draggable bg-warning').text( ui.draggable.text() ).attr('data-id', ui.draggable.data('id')).draggable(dragOptions).appendTo(  $list.find('.card-body') );
                         ui.draggable.remove();
 
                     }

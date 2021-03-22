@@ -7,14 +7,14 @@
 {block name="main-content"}
     <div class="documents edit-image">
 
-        <div id="wrapper" class="container">
+        <div class="container-fluid">
 
             {loop type="image" name="image_edit" source="{$imageType}" id="{$imageId}" width="580" backend_context="1" lang="$edit_language_id" visible="*" with_prev_next_info="true"}
                 <ul class="breadcrumb">
                     {foreach $breadcrumb as $label=>$link}
-                    <li><a href="{$link}">{$label}</a></li>
+                    <li class="breadcrumb-item"><a href="{$link}">{$label}</a></li>
                     {/foreach}
-                    <li>{intl l='Editing image "%name"' name={$TITLE}}</li>
+                    <li class="breadcrumb-item">{intl l='Editing image "%name"' name={$TITLE}}</li>
                 </ul>
 
             {hook name="image-edit.top" image_id=$imageId}
@@ -50,14 +50,14 @@
                                             <p class="title title-without-tabs">{intl l="Image information"}</p>
 
                                             <div class="actions">
-                                                <a {if $HAS_PREVIOUS != 0}href="{url path="/admin/image/type/%image/%id/update" image=$imageType id=$PREVIOUS}"{else}disabled="disabled"{/if} class="btn btn-default" title="{intl l='Edit previous image'}"><span class="glyphicon glyphicon-arrow-left"></span></a>
-                                                <a {if $HAS_NEXT != 0}href="{url path="/admin/image/type/%image/%id/update" image=$imageType id=$NEXT}"{else}disabled="disabled"{/if} class="btn btn-default" title="{intl l='Edit next image'}"><span class="glyphicon glyphicon-arrow-right"></span></a>
+                                                <a {if $HAS_PREVIOUS != 0}href="{url path="/admin/image/type/%image/%id/update" image=$imageType id=$PREVIOUS}"{else}disabled="disabled"{/if} class="btn btn-secondary" title="{intl l='Edit previous image'}"><span class="fas fa-arrow-left"></span></a>
+                                                <a {if $HAS_NEXT != 0}href="{url path="/admin/image/type/%image/%id/update" image=$imageType id=$NEXT}"{else}disabled="disabled"{/if} class="btn btn-secondary" title="{intl l='Edit next image'}"><span class="fas fa-arrow-right"></span></a>
                                             </div>
 
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label class="control-label">{intl l="Preview"} : </label>
+                                                        <label class="col-form-label">{intl l="Preview"} : </label>
                                                         <p>
                                                             <a href="{$ORIGINAL_IMAGE_URL nofilter}" alt="{$TITLE}" target="_blank">
                                                                 {if $PROCESSING_ERROR}
@@ -75,7 +75,7 @@
 
                                                     {form_field field='visible'}
                                                     <div class="form-group {if $error}has-error{/if}">
-                                                        <label for="{$label_attr.for}" class="control-label">{intl l='Visibility'}</label>
+                                                        <label for="{$label_attr.for}" class="col-form-label">{intl l='Visibility'}</label>
 
                                                         <div class="checkbox">
                                                             <label>
@@ -124,8 +124,8 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="row inner-toolbar clearfix">
-                            <div class="col-md-6 inner-actions pull-right">
-                                <a href="{url path="{$redirectUrl}" current_tab="images"}" class="btn btn-default btn-info">{intl l='Back'} <span class="glyphicon glyphicon-remove"></span></a>
+                            <div class="col-md-6 inner-actions float-right">
+                                <a href="{url path="{$redirectUrl}" current_tab="images"}" class="btn btn-info">{intl l='Back'} <span class="fas fa-times"></span></a>
                             </div>
                         </div>
                         <div class="alert alert-error">

@@ -8,15 +8,15 @@
 {block name="main-content"}
 <div class="module-hooks edit-module-hook">
 
-    <div id="wrapper" class="container">
+    <div class="container-fluid">
 
         {loop name="module_hook_edit" type="module_hook" id="$module_hook_id" backend_context="1" lang="$edit_language_id"}
 
         <ul class="breadcrumb">
-            <li><a href="{url path='/admin/home'}">{intl l="Home"}</a></li>
-            <li><a href="{url path='/admin/configuration'}">{intl l="Configuration"}</a></li>
-            <li><a href="{url path='/admin/module-hooks'}">{intl l="Hook positions"}</a></li>
-            <li>{intl l='Editing hook for module "%name"' name="{$MODULE_TITLE}"}</li>
+            <li class="breadcrumb-item"><a href="{url path='/admin/home'}">{intl l="Home"}</a></li>
+            <li class="breadcrumb-item"><a href="{url path='/admin/configuration'}">{intl l="Configuration"}</a></li>
+            <li class="breadcrumb-item"><a href="{url path='/admin/module-hooks'}">{intl l="Hook positions"}</a></li>
+            <li class="breadcrumb-item">{intl l='Editing hook for module "%name"' name="{$MODULE_TITLE}"}</li>
         </ul>
 
         {hook name="module-hook-edit.top" module_hook_id=$module_hook_id}

@@ -1,13 +1,13 @@
 {* Breadcrumb for categories browsing and editing *}
 
 <ul class="breadcrumb">
-	<li><a href="{url path='admin/home'}">{intl l="Home"}</a></li>
-	<li><a href="{url path='admin/catalog'}">{intl l="Catalog"}</a></li>
+	<li class="breadcrumb-item"><a href="{url path='admin/home'}">{intl l="Home"}</a></li>
+	<li class="breadcrumb-item"><a href="{url path='admin/catalog'}">{intl l="Catalog"}</a></li>
 
 	{ifloop rel="category_path"}
 		{loop name="category_path" type="category-path" visible="*" category=$category_id}
 			{if $ID == $category_id && $editing_product == false}
-				<li class="active">
+				<li class="breadcrumb-item active">
 				   {if $editing_category == true}
                        {intl l='Editing %cat' cat="{$TITLE}"} <a href="{url path='/admin/categories' category_id=$ID}" title="{intl l='Browse this category'}">{intl l="(browse)"}</a>
 				   {else}
@@ -15,7 +15,7 @@
 			        {/if}
 				</li>
 			{else}
-			   <li><a href="{url path='/admin/categories' category_id=" $ID" action='browse'}">{$TITLE}</a></li>
+			   <li class="breadcrumb-item"><a href="{url path='/admin/categories' category_id=" $ID" action='browse'}">{$TITLE}</a></li>
 			{/if}
 	   {/loop}
 	{/ifloop}

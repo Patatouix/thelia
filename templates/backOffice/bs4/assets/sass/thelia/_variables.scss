@@ -1,0 +1,177 @@
+//
+// Variables
+// --------------------------------------------------
+
+
+// Global values
+// --------------------------------------------------
+$imgDir : '../img';
+$topBarHeight: 50px;
+
+// Brand colors
+// -------------------------
+$green:   #28a745 !default;
+$cyan:    #17a2b8 !default;
+$yellow:  #ffc107 !default;
+$red:     #dc3545 !default;
+
+$primary:       #f39922;
+$secondary:     #ffffff;
+$success:       $green;
+$info:          $cyan;
+$warning:       $yellow;
+$danger:        $red;
+
+// Nav
+// -------------------------
+$active-menu:         #eeeeee;
+
+// Links
+// -------------------------
+$link-color: #FF9805;
+$link-hover-color: $primary;
+
+$text-color: #646464;
+
+// Typography
+// -------------------------
+$font-family-sans-serif: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+$font-size-base:          0.8125rem;    //13px
+$font-size-lg:            $font-size-base * 1.25;
+$font-size-sm:            $font-size-base * .875;
+
+$headings-font-family: "Source Sans Pro", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+$headings-font-weight: 600;
+
+$font-size-h1: 25px;
+$font-size-h2: 20px;
+$font-size-h3: 18px;
+$font-size-h4: 16px;
+
+$line-height-base:            1.5;
+
+// Buttons
+// -------------------------
+$btn-primary-bg:              $primary;
+
+
+// Iconography
+// -------------------------
+
+$icon-font-path:          "../fonts/bootstrap/";
+$icon-font-name:          "glyphicons-halflings-regular";
+
+// COMPONENT VARIABLES
+// --------------------------------------------------
+$border-radius-base: 0;
+$border-radius-small: 0;
+$border-radius-large: 0;
+
+// Z-index master list
+// -------------------------
+// Used for a bird's eye view of components dependent on the z-axis
+// Try to avoid customizing these :)
+
+$zindex-dropdown:          1005;
+
+// Forms
+// -------------------------
+
+$input-border-focus:             $link-color;
+
+// Breadcrumbs
+// -------------------------
+$breadcrumb-color:            #333;
+
+// Product image / document association
+$associated-color: $btn-primary-bg;
+
+$assoc-image-size-x: 100px;
+$assoc-image-size-y: 75px;
+
+$navbar-default-color:             #fff;
+$navbar-default-bg:                #333;
+$navbar-default-border:            darken($navbar-default-bg, 6.5%);
+
+// Navbar links
+$navbar-default-link-color:                #dedede;
+$navbar-default-link-hover-color:          #fff;
+$navbar-default-link-hover-bg:             darken($navbar-default-bg, 6.5%);
+
+$navbar-default-link-active-color:         #555;
+$navbar-default-link-active-bg:            darken($navbar-default-bg, 6.5%);
+$navbar-default-link-disabled-color:       #ccc;
+$navbar-default-link-disabled-bg:          transparent;
+
+$input-border: #e6e6e6;
+$input-color: #646464;
+$input-border-focus: #ccc;
+
+$table-border-color: #f0f0f0;
+
+//== Components
+//
+//## Define common padding and border radius sizes and more.
+
+$padding-base-vertical:     .375rem;
+$padding-base-horizontal:   .75rem;
+
+$padding-large-vertical:    .625rem;
+$padding-large-horizontal:  1rem;
+
+$padding-small-vertical:    .3125rem;
+$padding-small-horizontal:  .625rem;
+
+//== Typography
+//
+//## Font, line-height, and color for body text, headings, and more.
+
+//** Computed "line-height" (`font-size` * `line-height`) for use with `margin`, `padding`, etc.
+$line-height-computed:    floor(($font-size-base * $line-height-base)); // ~20px
+
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px
+);
+
+$screen-phone:      480px;
+$screen-tablet:     map-get($grid-breakpoints, "md");
+$screen-desktop:    map-get($grid-breakpoints, "lg");
+$screen-lg:         map-get($grid-breakpoints, "xl");
+
+$screen-xs-max:     (map-get($grid-breakpoints, "sm") - 1);
+$screen-sm-max:     (map-get($grid-breakpoints, "md") - 1);
+
+$white:    #fff;
+$gray-100: #f8f9fa;
+$gray-200: #e9ecef;
+$gray-300: #dee2e6;
+$gray-400: #ced4da;
+$gray-500: #adb5bd;
+$gray-600: #6c757d;
+$gray-700: #495057;
+$gray-800: #343a40;
+$gray-900: #212529;
+$black:    #000;
+
+$gray-lighter:  $gray-300;
+$gray-light:    $gray-600;
+$gray:          $gray-900;
+
+$font-size-small: $font-size-sm;
+$font-size-large: $font-size-lg;
+
+
+
+$table-cell-padding-sm:         .3rem;
+$table-condensed-cell-padding:  $table-cell-padding-sm;
+
+$table-accent-bg:       #f9f9f9;
+$table-bg-accent:       $table-accent-bg;
+
+$page-header-border-color:    $gray-lighter;
+
+$enable-shadows:    true;

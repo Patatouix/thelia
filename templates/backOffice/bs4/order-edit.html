@@ -13,14 +13,14 @@
 
     {assign order_tab {$tab|default:$smarty.get.tab|default:"cart"}}
 
-    <div class="orders edit-order">
+    <!-- <div class="orders edit-order"> -->
 
-        <div id="wrapper" class="container">
+        <div class="container-fluid">
 
             <ul class="breadcrumb">
-	            <li><a href="{url path='/admin/home'}">{intl l="Home"}</a></li>
-                <li><a href="{url path='/admin/orders'}">{intl l="Orders"}</a></li>
-                <li>{intl l="Order details"}</a></li>
+	            <li class="breadcrumb-item"><a href="{url path='/admin/home'}">{intl l="Home"}</a></li>
+                <li class="breadcrumb-item"><a href="{url path='/admin/orders'}">{intl l="Orders"}</a></li>
+                <li class="breadcrumb-item">{intl l="Order details"}</a></li>
 	        </ul>
 
             {hook name="order-edit.top" order_id=$order_id}
@@ -48,7 +48,7 @@
                                         <form class="form-horizontal" role="form" id="order-update-status-form" action="{url path="/admin/order/update/$ID/status"}" method="post">
                                             <input class="js-current-tab" type="hidden" name="tab" value="{$order_tab}">
                                             <div class="form-group">
-                                                <label class="col-sm-6 control-label">{intl l="Order status:"}</label>
+                                                <label class="col-sm-6 col-form-label">{intl l="Order status:"}</label>
                                                 <div class="col-sm-6">
                                                     <select class="js-update-order-status" name="status_id" data-toggle="selectpicker">
                                                     {assign "orderStatusId" $STATUS}
@@ -63,15 +63,15 @@
 
                                     <div class="col-md-2 actions">
                                         {if $HAS_PREVIOUS != 0}
-                                        <a href="{url path="/admin/order/update/%previous" previous=$PREVIOUS}" class="btn btn-default" title="{intl l='Edit previous order'}"><span class="glyphicon glyphicon-arrow-left"></span></a>
+                                        <a href="{url path="/admin/order/update/%previous" previous=$PREVIOUS}" class="btn btn-secondary" title="{intl l='Edit previous order'}"><span class="fas fa-arrow-left"></span></a>
                                         {else}
-                                        <a href="#" disabled="disabled" class="btn btn-default"><span class="glyphicon glyphicon-arrow-left"></span></a>
+                                        <a href="#" disabled="disabled" class="btn btn-secondary"><span class="fas fa-arrow-left"></span></a>
                                         {/if}
 
                                         {if $HAS_NEXT != 0}
-                                        <a href="{url path="/admin/order/update/%next" next=$NEXT}" class="btn btn-default" title="{intl l='Edit next order'}"><span class="glyphicon glyphicon-arrow-right"></span></a>
+                                        <a href="{url path="/admin/order/update/%next" next=$NEXT}" class="btn btn-secondary" title="{intl l='Edit next order'}"><span class="fas fa-arrow-right"></span></a>
                                         {else}
-                                        <a href="#" disabled="disabled" class="btn btn-default"><span class="glyphicon glyphicon-arrow-right"></span></a>
+                                        <a href="#" disabled="disabled" class="btn btn-secondary"><span class="fas fa-arrow-right"></span></a>
                                         {/if}
                                     </div>
                                 </div>
@@ -107,10 +107,10 @@
 
 
                                 <ul class="nav nav-tabs clearfix">
-                                    <li {if $order_tab == 'cart'}class="active"{/if}><a href="#cart" data-tab-name="cart" data-toggle="tab"><span class="glyphicon glyphicon-shopping-cart"></span> {intl l="Ordered products"}</a></li>
-                                    <li {if $order_tab == 'bill'}class="active"{/if}><a href="#bill" data-tab-name="bill" data-toggle="tab"><span class="glyphicon glyphicon-list-alt"></span> {intl l="Invoice and Delivery"}</a></li>
+                                    <li {if $order_tab == 'cart'}class="active"{/if}><a href="#cart" data-tab-name="cart" data-toggle="tab"><span class="fas fa-shopping-cart"></span> {intl l="Ordered products"}</a></li>
+                                    <li {if $order_tab == 'bill'}class="active"{/if}><a href="#bill" data-tab-name="bill" data-toggle="tab"><span class="far fa-list-alt"></span> {intl l="Invoice and Delivery"}</a></li>
                                     {$smarty.capture.order_tab_tab nofilter}
-                                    <li {if $order_tab == 'modules'}class="active"{/if}><a href="#modules" data-tab-name="modules" data-toggle="tab"><span class="glyphicon glyphicon-paperclip"></span> {intl l="Modules"}</a></li>
+                                    <li {if $order_tab == 'modules'}class="active"{/if}><a href="#modules" data-tab-name="modules" data-toggle="tab"><span class="fas fa-paperclip"></span> {intl l="Modules"}</a></li>
                                 </ul>
 
                                 <div class="tab-content">
@@ -127,7 +127,7 @@
 
                                             {hook name="order-edit.before-order-product-list" location="before-order-product-list" order_id=$order_id}
 
-                                            <table class="table table-striped table-condensed table-left-aligned table-order-items">
+                                            <table class="table table-striped table-sm table-left-aligned table-order-items">
                                                 <caption class="clearfix">
                                                    {intl l='Cart - Prices in %currency' currency={$orderCurrency}}
                                                 </caption>
@@ -161,7 +161,7 @@
                                                             {ifloop rel="my_product_loop"}
                                                                 {loop type="product" name="my_product_loop" visible="*" ref=$REF return_url=false}
                                                                     <a href="{url path='/admin/products/update' product_id=$ID}">{$REF} - {$TITLE}</a>
-                                                                    {if $VIRTUAL}<span class="glyphicon glyphicon-download text-muted" title="{intl l='Virtual product'}"></span>{/if}
+                                                                    {if $VIRTUAL}<span class="far fa-arrow-alt-circle-down text-muted" title="{intl l='Virtual product'}"></span>{/if}
                                                                 {/loop}
                                                                 <dl class="dl-horizontal">
                                                                     <dt>{intl l='Combination reference'}</dt>
@@ -171,7 +171,7 @@
                                                             {elseloop rel="my_product_loop"}
                                                                 {* The product doesn't exist anymore *}
                                                                 {$TITLE}
-                                                                {if $VIRTUAL}<span class="glyphicon glyphicon-download text-muted"></span>{/if}
+                                                                {if $VIRTUAL}<span class="far fa-arrow-alt-circle-down text-muted"></span>{/if}
                                                             {/elseloop}
                                                             {ifloop rel="combinations"}
                                                             <dl class="dl-horizontal">
@@ -199,10 +199,10 @@
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-lg-5 col-lg-push-7 col-md-6 col-md-push-6">
-                                                <div class="panel panel-default">
-                                                    <table class="table table-condensed table-left-aligned">
-                                                        <tbody class="table-condensed">
+                                            <div class="col-lg-5 col-md-6 order-md-2">
+                                                <div class="card">
+                                                    <table class="table table-sm table-left-aligned">
+                                                        <tbody class="table-sm">
                                                             <tr>
                                                                 <th>{intl l="Total without tax"}</th>
                                                                 <td class="text-right">{format_money number=$TOTAL_ITEMS_AMOUNT currency_id=$CURRENCY}</td>
@@ -232,14 +232,14 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-lg-5 col-lg-pull-5 col-md-6 col-md-pull-6">
-                                                <div class="panel panel-default">
+                                            <div class="col-lg-5 order-md-1 col-md-6">
+                                                <div class="card">
                                                     <div class="panel-heading">
-                                                        <h3 class="panel-title">{intl l='Taxes'}</h3>
+                                                        <h3 class="card-title">{intl l='Taxes'}</h3>
                                                     </div>
 
-                                                    <table class="table table-condensed table-left-aligned">
-                                                        <tbody class="table-condensed">
+                                                    <table class="table table-sm table-left-aligned">
+                                                        <tbody class="table-sm">
                                                             <tr>
                                                                 <th colspan="2">{intl l='Items taxes'}</th>
                                                             </tr>
@@ -299,9 +299,9 @@
                                                     </table>
                                                 </div>
 
-                                                <div class="panel panel-default">
-                                                    <table class="table table-condensed table-left-aligned">
-                                                        <tbody class="table-condensed">
+                                                <div class="card">
+                                                    <table class="table table-sm table-left-aligned">
+                                                        <tbody class="table-sm">
                                                         <tr>
                                                             <th>{intl l="Coupon code"}</th>
                                                             <td class="text-right">
@@ -335,13 +335,13 @@
                                             {assign "orderInvoiceCompany" $COMPANY}
                                         {/loop}
 
-                                        <div class="panel panel-default">
+                                        <div class="card">
                                             <div class="panel-heading">
-                                                <h3 class="panel-title">
+                                                <h3 class="card-title">
                                                     {intl l='Customer information'}
                                                 </h3>
                                             </div>
-                                            <table class="table table-condensed table-left-aligned">
+                                            <table class="table table-sm table-left-aligned">
                                                 <tbody>
                                                 <tr>
                                                     <th>{intl l="Customer"}</th>
@@ -363,13 +363,13 @@
                                             {hook name="order-edit.customer-information-bottom" order_id=$order_id customer_id=$CUSTOMER}
                                         </div>
 
-                                        <div class="panel panel-default">
+                                        <div class="card">
                                             <div class="panel-heading">
-                                                <h3 class="panel-title">
+                                                <h3 class="card-title">
                                                     {intl l='Payment information'}
                                                 </h3>
                                             </div>
-                                            <table class="table table-condensed table-left-aligned">
+                                            <table class="table table-sm table-left-aligned">
                                                 <tbody>
                                                 <tr>
                                                     <th>{intl l="Payment module"}</th>
@@ -404,11 +404,11 @@
 
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <div class="panel panel-default">
+                                                <div class="card">
                                                     <div class="panel-heading">
-                                                        <h3 class="panel-title">{intl l='Delivery module'}</h3>
+                                                        <h3 class="card-title">{intl l='Delivery module'}</h3>
                                                     </div>
-                                                    <div class="panel-body">
+                                                    <div class="card-body">
                                                         {loop name="delivery-module" type="module" id=$DELIVERY_MODULE order="code"}
                                                             <p class="payment-module-title"><strong>{$CODE} - {$TITLE}</strong></p>
 
@@ -423,17 +423,17 @@
                                             </div>
 
                                             <div class="col-md-6">
-                                                <div class="panel panel-default">
+                                                <div class="card">
                                                     <div class="panel-heading">
-                                                        <h3 class="panel-title">{intl l='tracking reference'}</h3>
+                                                        <h3 class="card-title">{intl l='tracking reference'}</h3>
                                                     </div>
-                                                    <div class="panel-body">
+                                                    <div class="card-body">
                                                         <form action="{url path="/admin/order/update/%id/delivery-ref" id=$ID}" method="post">
                                                             <input class="js-current-tab" type="hidden" name="tab" value="{$order_tab}">
                                                             <div class="input-group">
                                                                 <input class="form-control" type="text" name="delivery_ref" value="{$DELIVERY_REF}" placeholder="{intl l="tracking reference"}"/>
                                                                 <span class="input-group-btn">
-                                                                    <button class="btn btn-success">{intl l="Save"} <span class="glyphicon glyphicon-ok"></span></button>
+                                                                    <button class="btn btn-success">{intl l="Save"} <span class="fas fa-check"></span></button>
                                                                 </span>
                                                             </div>
                                                         </form>
@@ -450,11 +450,11 @@
 
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <div class="panel panel-default">
+                                                <div class="card">
                                                     <div class="panel-heading">
-                                                        <h3 class="panel-title">{intl l='Invoice informations'}</h3>
+                                                        <h3 class="card-title">{intl l='Invoice informations'}</h3>
                                                     </div>
-                                                    <div class="panel-body">
+                                                    <div class="card-body">
                                                         {include file='renderer/buttons.html' with_text=false buttons=[
                                                             [
                                                                 'type' => 'view',
@@ -478,7 +478,7 @@
                                                             ]
                                                         ]}
 
-                                                        <div class="pull-right">
+                                                        <div class="float-right">
                                                             {include file='renderer/buttons.html' with_text=false buttons=[
                                                                 [
                                                                 'type' => 'edit',
@@ -494,7 +494,7 @@
                                                         </div>
                                                     </div>
 
-                                                    <table class="table table-condensed table-left-aligned">
+                                                    <table class="table table-sm table-left-aligned">
                                                     <tbody>
                                                     <tr>
                                                         <th>{intl l="Invoice reference"}</th>
@@ -580,12 +580,12 @@
                                             </div>
 
                                             <div class="col-md-6">
-                                                <div class="panel panel-default">
+                                                <div class="card">
                                                     <div class="panel-heading">
-                                                        <h3 class="panel-title">{intl l='Delivery address'}</h3>
+                                                        <h3 class="card-title">{intl l='Delivery address'}</h3>
                                                     </div>
 
-                                                    <div class="panel-body">
+                                                    <div class="card-body">
                                                         {include file='renderer/buttons.html' with_text=false buttons=[
                                                             [
                                                                 'type' => 'view',
@@ -609,7 +609,7 @@
                                                             ]
                                                         ]}
 
-                                                        <div class="pull-right">
+                                                        <div class="float-right">
                                                             {include file='renderer/buttons.html' with_text=false buttons=[
                                                                 [
                                                                     'type' => 'edit',
@@ -625,7 +625,7 @@
                                                         </div>
                                                     </div>
 
-                                                    <table class="table table-condensed table-left-aligned">
+                                                    <table class="table table-sm table-left-aligned">
                                                         <tbody>
                                                         {ifhook rel="order-edit.bill-delivery-address"}
                                                             {* delivery module can customize the delivery address *}
@@ -733,7 +733,7 @@
             {hook name="order-edit.bottom" order_id=$order_id}
 
         </div>
-    </div>
+    <!-- </div> -->
 
 	{* Update an Address *}
 

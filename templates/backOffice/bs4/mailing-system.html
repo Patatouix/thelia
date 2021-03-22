@@ -12,12 +12,12 @@
 {block name="main-content"}
 <div class="mailing-system">
 
-    <div id="wrapper" class="container">
+    <div class="container-fluid">
 
         <ul class="breadcrumb">
-            <li><a href="{url path='/admin/home'}">{intl l="Home"}</a></li>
-            <li><a href="{url path='/admin/configuration'}">{intl l="Configuration"}</a></li>
-            <li><a href="{url path='/admin/configuration/mailingSystem'}">{intl l="Mailing system"}</a></li>
+            <li class="breadcrumb-item"><a href="{url path='/admin/home'}">{intl l="Home"}</a></li>
+            <li class="breadcrumb-item"><a href="{url path='/admin/configuration'}">{intl l="Configuration"}</a></li>
+            <li class="breadcrumb-item"><a href="{url path='/admin/configuration/mailingSystem'}">{intl l="Mailing system"}</a></li>
         </ul>
 
         {hook name="mailing-system.top" location="mailing_system_top" }
@@ -34,7 +34,7 @@
 
                         <div class="row inner-toolbar">
                             <div class="col-md-12 inner-actions clearfix">
-                                <button type="submit" name="save_mode" value="stay" class="btn btn-default btn-success pull-right" title="{intl l="Save SMTP configuration"}">{intl l="Save"} <span class="glyphicon glyphicon-ok"></span></button>
+                                <button type="submit" name="save_mode" value="stay" class="btn btn-success float-right" title="{intl l="Save SMTP configuration"}">{intl l="Save"} <span class="fas fa-check"></span></button>
                             </div>
                         </div>
 
@@ -87,7 +87,7 @@
 
                         <div class="row inner-toolbar">
                             <div class="col-md-12 inner-actions clearfix">
-                                <button type="submit" name="save_mode" value="stay" class="btn btn-default btn-success pull-right" title="{intl l="Save SMTP configuration"}">{intl l="Save"} <span class="glyphicon glyphicon-ok"></span></button>
+                                <button type="submit" name="save_mode" value="stay" class="btn btn-success float-right" title="{intl l="Save SMTP configuration"}">{intl l="Save"} <span class="fas fa-check"></span></button>
                             </div>
                         </div>
                     </form>

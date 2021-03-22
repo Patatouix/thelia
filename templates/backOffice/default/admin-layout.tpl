@@ -59,7 +59,7 @@
 
 <body>
     <div id="wrapper">
-        
+
         {* display top bar only if admin is connected *}
         {loop name="top-bar-auth" type="auth" role="ADMIN"}
 
@@ -85,7 +85,7 @@
 
                 <ul class="nav navbar-top-links navbar-right">
                     {hook name="main.topbar-top" }
-                    
+
                     <li>
                         <a href="{navigate to="index"}" title="{intl l='View site'}" target="_blank"><span class="glyphicon glyphicon-eye-open"></span> {intl l="View shop"}</a>
                     </li>
@@ -118,20 +118,20 @@
 
                 <div class="navbar-default sidebar" role="navigation">
                     <div class="sidebar-nav navbar-collapse">
-                        
+
                         {include file="includes/main-menu.html"}
-                        
+
                         {hook name="main.inside-topbar" location="inside_topbar" }
                     </div>
                     <!-- /.sidebar-collapse -->
                 </div>
                 <!-- /.navbar-static-side -->
-                
+
                 {hook name="main.after-topbar" location="after_topbar" }
             </nav>
 
             <div id="page-wrapper">
-                
+
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">{block name="page-title"}{/block}</h1>
@@ -139,16 +139,16 @@
                     <!-- /.col-lg-12 -->
                 </div>
                 <!-- /.row -->
-                
+
                 {* -- Main page content section ----------------------------------------- *}
                 {hook name="main.before-content" location="before_content"}
-                
+
                 <div class="row">
                     {block name="main-content"}Put here the content of the template{/block}
                 </div>
-                
+
                 {hook name="main.after-content" location="after_content"}
-                
+
             </div>
         {/loop}
 
@@ -204,7 +204,7 @@
     {javascripts file='assets/js/bootstrap/bootstrap.js'}
         <script src="{$asset_url}"></script>
     {/javascripts}
-    
+
     {javascripts file='assets/js/libs/jquery.toolbar.min.js'}
         <script src="{$asset_url}"></script>
     {/javascripts}

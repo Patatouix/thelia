@@ -11,15 +11,15 @@
 
 {block name="main-content"}
     <div class="order-status edit-order-status">
-        <div id="wrapper" class="container">
+        <div class="container-fluid">
             {loop name="order_status__edit" type="order-status" id=$order_status_id backend_context="1" lang=$edit_language_id}
 
                 <nav>
                     <ul class="breadcrumb">
-                        <li><a href="{url path='/admin/home'}">{intl l="Home"}</a></li>
-                        <li><a href="{url path='/admin/configuration'}">{intl l="Configuration"}</a></li>
-                        <li><a href="{url path='/admin/configuration/order-status'}">{intl l="Order status"}</a></li>
-                        <li>{intl l='Editing order status "%title"' title="{$TITLE}"}</li>
+                        <li class="breadcrumb-item"><a href="{url path='/admin/home'}">{intl l="Home"}</a></li>
+                        <li class="breadcrumb-item"><a href="{url path='/admin/configuration'}">{intl l="Configuration"}</a></li>
+                        <li class="breadcrumb-item"><a href="{url path='/admin/configuration/order-status'}">{intl l="Order status"}</a></li>
+                        <li class="breadcrumb-item">{intl l='Editing order status "%title"' title="{$TITLE}"}</li>
                     </ul>
                 </nav>
 

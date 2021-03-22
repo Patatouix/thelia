@@ -12,7 +12,7 @@
 {block name="main-content"}
 
     <div class="catalog edit-category">
-        <div id="wrapper" class="container">
+        <div class="container-fluid">
 
             {include file="includes/catalog-breadcrumb.html" editing_category="true"}
 
@@ -36,9 +36,9 @@
                         </div>
 
                         <div class="col-md-5 actions">
-                            <a {if $HAS_PREVIOUS != 0}href="{url path='/admin/categories/update' category_id=$PREVIOUS}"{else}disabled="disabled"{/if} class="btn btn-default" title="{intl l='Edit previous category'}"><span class="glyphicon glyphicon-arrow-left"></span></a>
-                            <a  href="{$URL nofilter}" target="_blank" class="btn btn-default" title="{intl l='Preview category page'}"><span class="glyphicon glyphicon-eye-open"></span></a>
-                            <a {if $HAS_NEXT != 0}href="{url path='/admin/categories/update' category_id=$NEXT}"{else}disabled="disabled"{/if} class="btn btn-default" title="{intl l='Edit next category'}"><span class="glyphicon glyphicon-arrow-right"></span></a>
+                            <a {if $HAS_PREVIOUS != 0}href="{url path='/admin/categories/update' category_id=$PREVIOUS}"{else}disabled="disabled"{/if} class="btn btn-secondary" title="{intl l='Edit previous category'}"><span class="fas fa-arrow-left"></span></a>
+                            <a  href="{$URL nofilter}" target="_blank" class="btn btn-secondary" title="{intl l='Preview category page'}"><span class="fas fa-eye"></span></a>
+                            <a {if $HAS_NEXT != 0}href="{url path='/admin/categories/update' category_id=$NEXT}"{else}disabled="disabled"{/if} class="btn btn-secondary" title="{intl l='Edit next category'}"><span class="fas fa-arrow-right"></span></a>
                         </div>
                     </div>
 
@@ -197,7 +197,7 @@
                                                                 {/loop}
                                                             </select>
                                                         </div>
-                                                        <span class="help-block">{intl l='Select a folder to get its content'}</span>
+                                                        <span class="form-text">{intl l='Select a folder to get its content'}</span>
                                                     </div>
 
                                                     <div class="col-md-6">
@@ -207,11 +207,11 @@
                                                                     <option value="">{intl l='Select a folder content...'}</option>
                                                                 </select>
                                                                 <span class="input-group-btn" id="content_add_button">
-                                                                   <button class="btn btn-primary action-btn" type="submit"><span class="glyphicon glyphicon-plus-sign"></span></button>
+                                                                   <button class="btn btn-primary action-btn" type="submit"><i class="fas fa-plus-circle"></i></button>
                                                                 </span>
                                                             </div>
 
-                                                            <span class="help-block">{intl l='Select a content and click (+) to add it to this category'}</span>
+                                                            <span class="form-text">{intl l='Select a content and click (+) to add it to this category'}</span>
                                                         </div>
 
                                                         <div id="content_selector_empty" class="hide">
@@ -232,7 +232,7 @@
                                         </div>
 
                                         <div class="table-responsive">
-                                            <table class="table table-striped table-condensed table-left-aligned">
+                                            <table class="table table-striped table-sm table-left-aligned">
                                                 <thead>
                                                     <tr>
                                                         <th>{intl l='ID'}</th>
@@ -256,8 +256,8 @@
 
                                                         <td class="actions">
                                                             {loop type="auth" name="can_create" role="ADMIN" resource="admin.configuration.category" access="UPDATE"}
-                                                               <a class="btn btn-default btn-xs delete-content" title="{intl l='Delete this content'}" href="#delete_content_dialog" data-id="{$CONTENT_ID}" data-toggle="modal">
-                                                                   <span class="glyphicon glyphicon-trash"></span>
+                                                               <a class="btn btn-secondary btn-xs delete-content" title="{intl l='Delete this content'}" href="#delete_content_dialog" data-id="{$CONTENT_ID}" data-toggle="modal">
+                                                                   <span class="fas fa-trash-alt"></span>
                                                                </a>
                                                             {/loop}
                                                         </td>

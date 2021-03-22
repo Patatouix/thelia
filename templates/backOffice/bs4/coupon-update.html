@@ -11,14 +11,14 @@
 
 {block name="main-content"}
 <div class="coupon edit-coupon">
-    <div id="wrapper" class="container">
+    <div class="container-fluid">
 
         <nav>
             <ul class="breadcrumb">
-                <li><a href="{url path='admin/home'}">{intl l='Home'}</a></li>
-                <li><a href="{url path='admin/tools'}">{intl l='Tools'}</a></li>
-                <li><a href="{url path='admin/coupon'}">{intl l='Coupon'}</a></li>
-                <li>{intl l='Editing coupon "%title"' title={$couponCode}}</li>
+                <li class="breadcrumb-item"><a href="{url path='admin/home'}">{intl l='Home'}</a></li>
+                <li class="breadcrumb-item"><a href="{url path='admin/tools'}">{intl l='Tools'}</a></li>
+                <li class="breadcrumb-item"><a href="{url path='admin/coupon'}">{intl l='Coupon'}</a></li>
+                <li class="breadcrumb-item">{intl l='Editing coupon "%title"' title={$couponCode}}</li>
             </ul>
         </nav>
 

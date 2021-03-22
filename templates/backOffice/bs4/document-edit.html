@@ -7,14 +7,14 @@
 {block name="main-content"}
     <div class="documents edit-document">
 
-        <div id="wrapper" class="container">
+        <div class="container-fluid">
 
             {loop type="document" name="document_edit" source="{$documentType}" id="{$documentId}" backend_context="1" lang="$edit_language_id" visible="*" with_prev_next_info="true"}
                 <ul class="breadcrumb">
                     {foreach $breadcrumb as $label=>$link}
-                        <li><a href="{$link}">{$label}</a></li>
+                        <li class="breadcrumb-item"><a href="{$link}">{$label}</a></li>
                     {/foreach}
-                    <li>{intl l='Editing document "%name"' name="{$TITLE}"}</li>
+                    <li class="breadcrumb-item">{intl l='Editing document "%name"' name="{$TITLE}"}</li>
                 </ul>
 
             {hook name="document-edit.top" document_id=$documentId}
@@ -50,15 +50,15 @@
                                             <p class="title title-without-tabs">{intl l="Document informations"}</p>
 
                                             <div class="actions">
-                                                <a {if $HAS_PREVIOUS != 0}href="{url path="/admin/document/type/%document/%id/update" document=$documentType id=$PREVIOUS}"{else}disabled="disabled"{/if} class="btn btn-default" title="{intl l='Edit previous image'}"><span class="glyphicon glyphicon-arrow-left"></span></a>
-                                                <a {if $HAS_NEXT != 0}href="{url path="/admin/document/type/%document/%id/update" document=$documentType id=$NEXT}"{else}disabled="disabled"{/if} class="btn btn-default" title="{intl l='Edit next image'}"><span class="glyphicon glyphicon-arrow-right"></span></a>
+                                                <a {if $HAS_PREVIOUS != 0}href="{url path="/admin/document/type/%document/%id/update" document=$documentType id=$PREVIOUS}"{else}disabled="disabled"{/if} class="btn btn-secondary" title="{intl l='Edit previous image'}"><span class="fas fa-arrow-left"></span></a>
+                                                <a {if $HAS_NEXT != 0}href="{url path="/admin/document/type/%document/%id/update" document=$documentType id=$NEXT}"{else}disabled="disabled"{/if} class="btn btn-secondary" title="{intl l='Edit next image'}"><span class="fas fa-arrow-right"></span></a>
                                             </div>
 
                                             <div class="row">
 
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label class="control-label">{intl l="File"} : </label>
+                                                        <label class="col-form-label">{intl l="File"} : </label>
                                                         <p><a href="{$DOCUMENT_PATH}" title="{$TITLE}" target="_blank">{$TITLE}</a>
                                                     </div>
                                                 </div>
@@ -68,7 +68,7 @@
 
                                                     {form_field field='visible'}
                                                     <div class="form-group {if $error}has-error{/if}">
-                                                        <label for="{$label_attr.for}" class="control-label">{intl l='Visibility'}</label>
+                                                        <label for="{$label_attr.for}" class="col-form-label">{intl l='Visibility'}</label>
 
                                                         <div class="checkbox">
                                                             <label>
@@ -117,8 +117,8 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="row inner-toolbar clearfix">
-                            <div class="col-md-6 inner-actions pull-right">
-                                <a href="{url path="{$redirectUrl}" current_tab="documents"}" class="btn btn-default btn-info">{intl l='Back'} <span class="glyphicon glyphicon-remove"></span></a>
+                            <div class="col-md-6 inner-actions float-right">
+                                <a href="{url path="{$redirectUrl}" current_tab="documents"}" class="btn btn-info">{intl l='Back'} <span class="fas fa-times"></span></a>
                             </div>
                         </div>
                         <div class="alert alert-error">

@@ -12,13 +12,13 @@
 {block name="main-content"}
     <div class="taxes-rules">
 
-        <div id="wrapper" class="container">
+        <div class="container-fluid">
 
             <div class="clearfix">
                 <ul class="breadcrumb">
-                    <li><a href="{url path='/admin/home'}">{intl l="Home"}</a></li>
-                    <li><a href="{url path='/admin/configuration'}">{intl l="Configuration"}</a></li>
-                    <li><a href="{url path='/admin/configuration/taxes_rules'}">{intl l="Taxes rules"}</a></li>
+                    <li class="breadcrumb-item"><a href="{url path='/admin/home'}">{intl l="Home"}</a></li>
+                    <li class="breadcrumb-item"><a href="{url path='/admin/configuration'}">{intl l="Configuration"}</a></li>
+                    <li class="breadcrumb-item"><a href="{url path='/admin/configuration/taxes_rules'}">{intl l="Taxes rules"}</a></li>
                 </ul>
             </div>
 
@@ -56,7 +56,7 @@
 
                     <div class="general-block-decorator">
                         <div class="table-responsive">
-                            <table class="table table-striped table-condensed table-left-aligned">
+                            <table class="table table-striped table-sm table-left-aligned">
                                 <caption class="clearfix">
                                     {intl l="Taxes"}
                                     {include file='renderer/buttons.html' btn_group=false buttons=[
@@ -125,7 +125,7 @@
 
                     <div class="general-block-decorator">
                         <div class="table-responsive">
-                            <table class="table table-striped table-condensed table-left-aligned">
+                            <table class="table table-striped table-sm table-left-aligned">
                                 <caption class="clearfix">
                                     {intl l="Taxes rules"}
                                     {include file='renderer/buttons.html' btn_group=false buttons=[
@@ -165,7 +165,7 @@
                                         <td class="description">{$DESCRIPTION nofilter}</td>
                                         <td class="text-center">
                                             {if $IS_DEFAULT == 1}
-                                                <span class="glyphicon glyphicon-star"></span>
+                                                <span class="fas fa-star"></span>
                                             {/if}
                                         </td>
                                         <td class="actions">
@@ -184,7 +184,7 @@
                                                     'title' => {intl l='Set as default tax rule'},
                                                     'href' => {url path="/admin/configuration/taxes_rules/update/set_default/%id" id=$ID},
                                                     'auth' => ['resource' => 'admin.configuration.tax'],
-                                                    'icon' => ['class' => 'glyphicon glyphicon-star']
+                                                    'icon' => ['class' => 'fas fa-star']
                                                 ],
                                                 [
                                                     'type' => 'delete',
@@ -240,14 +240,16 @@
 
                 <div class="input-group">
                     <input type="text" {form_field_attributes field="title"}>
-                    <span class="input-group-addon"><img src="{image file="assets/img/flags/`$CODE`.png"}" alt="{$TITLE}" /></span>
+                    <div class="input-group-append">
+                        <span class="input-group-text"><img src="{image file="assets/img/flags/`$CODE`.png"}" alt="{$TITLE}" /></span>
+                    </div>
                 </div>
             {/loop}
         {/custom_render_form_field}
 
         {form_field field='type'}
             <div class="form-group {if $error}has-error{/if}">
-                <label for="{$label_attr.for}" class="control-label">
+                <label for="{$label_attr.for}" class="col-form-label">
                     {$label} :
                 </label>
 
@@ -267,7 +269,7 @@
 
         {form_tagged_fields tag='requirements'}
             <div class="form-group {if $error}has-error{/if} js-tax-requirements" data-tax-type="{$attr_list.tax_type}" {if !$form_error && $attr_list.tax_type != $typeValue || $form_error && $attr_list.tax_type != $typeValueWithError}style="display: none"{/if}>
-                <label for="{$label_attr.for}" class="control-label">
+                <label for="{$label_attr.for}" class="col-form-label">
                     {$label}
                 </label>
                 {if $formType == 'choice'}
@@ -351,7 +353,9 @@ form_content        = {$smarty.capture.tax_delete_dialog nofilter}
 
                 <div class="input-group">
                 <input type="text" {form_field_attributes field="title"}>
-                <span class="input-group-addon"><img src="{image file="assets/img/flags/`$CODE`.png"}" alt="{$TITLE}" /></span>
+                <div class="input-group-append">
+                    <span class="input-group-text"><img src="{image file="assets/img/flags/`$CODE`.png"}" alt="{$TITLE}" /></span>
+                </div>
             </div>
             {/loop}
         {/custom_render_form_field}

@@ -1,8 +1,8 @@
 {* Breadcrumb for folders browsing and editing *}
 
 <ul class="breadcrumb">
-	<li><a href="{url path='admin/home'}">{intl l="Home"}</a></li>
-	<li><a href="{url path='admin/folders'}">{intl l="Folders"}</a></li>
+	<li class="breadcrumb-item"><a href="{url path='admin/home'}">{intl l="Home"}</a></li>
+	<li class="breadcrumb-item"><a href="{url path='admin/folders'}">{intl l="Folders"}</a></li>
 
 	{ifloop rel="folder_path"}
 		{loop name="folder_path" type="folder-path" visible="*" folder=$folder_id}

@@ -1,0 +1,38 @@
+.btn-primary,
+.btn-secondary
+.btn-success,
+.btn-danger,
+.btn-warning,
+.btn-info {
+    font-weight: 600;
+}
+
+@media screen and (max-width: 1400px) {
+    .btn-responsive span {
+        display: none;
+    }
+}
+
+.btn-primary {
+    color: #FFFFFF;
+}
+
+.btn-warning,
+.btn-warning:hover {
+    color: #FFFFFF;
+}
+
+.btn {
+    border-radius: 0;
+}
+
+.btn-secondary {
+    //color: #333333;
+    border-color: #cccccc;
+
+    &:hover,
+    &:focus,
+    &:active {
+        border-color: darken(#cccccc, 12%);
+    }
+}

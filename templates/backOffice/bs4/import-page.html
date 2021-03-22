@@ -11,19 +11,19 @@
 
 {block name="main-content"}
     {loop type="import" name="import" id=$importId}
-        <div id="wrapper" class="container">
+        <div class="container-fluid">
             <nav>
                 <ul class="breadcrumb">
-                    <li>
+                    <li class="breadcrumb-item">
                         <a href="{url path='admin/home'}">{intl l='Home'}</a>
                     </li>
-                    <li>
+                    <li class="breadcrumb-item">
                         <a href="{url path='admin/tools'}">{intl l='Tools'}</a>
                     </li>
-                    <li>
+                    <li class="breadcrumb-item">
                         <a href="{url path='admin/import'}">{intl l="Imports"}</a>
                     </li>
-                    <li>
+                    <li class="breadcrumb-item">
                         {intl l="Import"}&nbsp;: {$TITLE}
                     </li>
                 </ul>

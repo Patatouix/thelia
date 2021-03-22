@@ -12,15 +12,15 @@
 {block name="main-content"}
     {$coupon_page = {$smarty.get.page|default:1}}
 
-    <div class="coupons">
+    <!-- <div class="coupons"> -->
 
-    <div id="wrapper" class="container">
+    <div class="container-fluid">
 
         <nav>
             <ul class="breadcrumb">
-                <li><a href="{url path='admin/home'}">{intl l='Home'}</a></li>
-                <li><a href="{url path='admin/tools'}">{intl l='Tools'}</a></li>
-                <li><a href="{url path='admin/coupon'}">{intl l='Coupons'}</a></li>
+                <li class="breadcrumb-item"><a href="{url path='admin/home'}">{intl l='Home'}</a></li>
+                <li class="breadcrumb-item"><a href="{url path='admin/tools'}">{intl l='Tools'}</a></li>
+                <li class="breadcrumb-item"><a href="{url path='admin/coupon'}">{intl l='Coupons'}</a></li>
             </ul>
         </nav>
 
@@ -30,7 +30,7 @@
             <div class="col-md-12">
                 <div class="general-block-decorator">
                     <div class="table-responsive">
-                        <table class="table table-striped table-condensed" id="folder_list">
+                        <table class="table table-striped table-sm" id="folder_list">
 
                             <caption>
                                 {intl l='Coupons'}
@@ -43,10 +43,7 @@
                                         'class' => 'action-btn',
                                         'title' => {intl l='Create a new coupon'},
                                         'href' => {url path='/admin/coupon/create'},
-                                        'auth' => ['resource' => 'admin.coupon'],
-                                        'data' => [
-                                            'toggle' => 'modal'
-                                        ]
+                                        'auth' => ['resource' => 'admin.coupon']
                                     ]
                                 ]}
                             </caption>
@@ -144,9 +141,9 @@
 
                                         <td class="text-center">
                                             {if $IS_ENABLED}
-                                                <span class="label label-success">{intl l="Enabled"}</span>
+                                                <span class="badge badge-success">{intl l="Enabled"}</span>
                                             {else}
-                                                <span class="label label-default">{intl l="Disabled"}</span>
+                                                <span class="badge badge-secondary">{intl l="Disabled"}</span>
                                             {/if}
                                         </td>
 
@@ -162,7 +159,7 @@
 
                                         <td class="text-center">
                                             {if $DAY_LEFT_BEFORE_EXPIRATION <= 0}
-                                                <span class="label label-default">{intl l='Expired'}</span>
+                                                <span class="badge badge-secondary">{intl l='Expired'}</span>
                                             {else}
                                                 {$DAY_LEFT_BEFORE_EXPIRATION}
                                             {/if}
@@ -174,7 +171,7 @@
                                             {elseif $USAGE_LEFT}
                                                 {$USAGE_LEFT}
                                             {else}
-                                                <span class="label label-default">0</span>
+                                                <span class="badge badge-secondary">0</span>
                                             {/if}
                                         </td>
 
@@ -239,7 +236,7 @@
             </div>
         </div>
 
-    </div> <!-- #wrapper -->
+    <!-- </div> --> <!-- #wrapper -->
 
     {* DELETE MODAL *}
     {capture "delete_dialog"}

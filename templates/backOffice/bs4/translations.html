@@ -12,12 +12,12 @@
 {block name="main-content"}
 <div class="variables translations">
 
-    <div id="wrapper" class="container">
+    <div class="container-fluid">
 
         <ul class="breadcrumb">
-			<li><a href="{url path='/admin/home'}">{intl l="Home"}</a></li>
-            <li><a href="{url path='/admin/configuration'}">{intl l="Configuration"}</a></li>
-            <li><a href="{url path='/admin/configuration/translations'}">{intl l="Translations"}</a></li>
+			<li class="breadcrumb-item"><a href="{url path='/admin/home'}">{intl l="Home"}</a></li>
+            <li class="breadcrumb-item"><a href="{url path='/admin/configuration'}">{intl l="Configuration"}</a></li>
+            <li class="breadcrumb-item"><a href="{url path='/admin/configuration/translations'}">{intl l="Translations"}</a></li>
         </ul>
 
 		<div class="row">
@@ -43,7 +43,7 @@
 	                                <div class="row">
 	                                    <div class="col-md-4">
 			                                <div class="form-group">
-												<label class="control-label" for="item_to_translate">{intl l='Items to translate'}</label>
+												<label class="col-form-label" for="item_to_translate">{intl l='Items to translate'}</label>
 
 												<select id="item_to_translate" required="required" name="item_to_translate" class="submit-on-change form-control">
 	                                                <option value="">{intl l='Please select items to translate'}</option>
@@ -62,7 +62,7 @@
 	                                    {if $item_to_translate == 'mo'}
 		                                    <div class="col-md-4 item-id-selector">
 		                                        <div class="form-group">
-		                                            <label class="control-label" for="item_name">{intl l='Module you want to translate'}</label>
+		                                            <label class="col-form-label" for="item_name">{intl l='Module you want to translate'}</label>
 
 		                                            <select id="item_name" required="required" name="item_name" class="submit-on-change form-control">
 		                                                <option value="">{intl l='Please select the module to translate'}</option>
@@ -75,7 +75,7 @@
 	                                    {else if $item_to_translate == 'fo'}
 	                                        <div class="col-md-4 item-id-selector">
 	                                            <div class="form-group">
-	                                                <label class="control-label" for="item_name">{intl l='Front-office template you want to translate'}</label>
+	                                                <label class="col-form-label" for="item_name">{intl l='Front-office template you want to translate'}</label>
 
 	                                                <select id="item_name" required="required" name="item_name" class="submit-on-change form-control">
 	                                                    <option value="">{intl l='Please select the F.O. template to translate'}</option>
@@ -88,7 +88,7 @@
 	                                    {else if $item_to_translate == 'bo'}
 	                                        <div class="col-md-4 item-id-selector">
 	                                            <div class="form-group">
-	                                                <label class="control-label" for="item_name">{intl l='Back-office template you want to translate'}</label>
+	                                                <label class="col-form-label" for="item_name">{intl l='Back-office template you want to translate'}</label>
 
 	                                                <select id="item_name" required="required" name="item_name" class="submit-on-change form-control">
 	                                                    <option value="">{intl l='Please select the B.O. template to translate'}</option>
@@ -101,7 +101,7 @@
                                         {else if $item_to_translate == 'ma'}
                                             <div class="col-md-4 item-id-selector">
                                                 <div class="form-group">
-                                                    <label class="control-label" for="item_name">{intl l='E-mail template you want to translate'}</label>
+                                                    <label class="col-form-label" for="item_name">{intl l='E-mail template you want to translate'}</label>
 
                                                     <select id="item_name" required="required" name="item_name" class="submit-on-change form-control">
                                                         <option value="">{intl l='Please select the E-mail template to translate'}</option>
@@ -114,7 +114,7 @@
 	                                    {else if $item_to_translate == 'pf'}
 	                                        <div class="col-md-4 item-id-selector">
 	                                            <div class="form-group">
-	                                                <label class="control-label" for="item_name">{intl l='PDF template you want to translate'}</label>
+	                                                <label class="col-form-label" for="item_name">{intl l='PDF template you want to translate'}</label>
 
 	                                                <select id="item_name" required="required" name="item_name" class="submit-on-change form-control">
 	                                                    <option value="">{intl l='Please select the PDF template to translate'}</option>
@@ -129,7 +129,7 @@
                                         {if $item_to_translate == 'mo' && $item_name != ''}
                                         <div class="col-md-4 item-id-selector">
                                             <div class="form-group">
-                                                <label class="control-label" for="module_part">{intl l='Module component'}</label>
+                                                <label class="col-form-label" for="module_part">{intl l='Module component'}</label>
 
                                                 <select id="module_part" required="required" name="module_part" class="submit-on-change form-control">
                                                     <option value="">{intl l='Please select the module component'}</option>
@@ -183,7 +183,7 @@
                                         <div class="row">
                                             <div class="col-md-9">
                                                 <p>
-                                                <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                                                <span class="fas fa-info-circle" aria-hidden="true"></span>
                                                 {intl l='This page allows you to translate each <strong>resources</strong> of your website : Thelia, modules, templates.<br>'}
                                                 {intl l='Keep attention that in translating you can override the resource translations.<br>'}
                                                 {intl l='This is not a problem as long as you <strong>do not update</strong> this resources (Thelia, module, template).<br>'}
@@ -192,11 +192,11 @@
                                                 </p>
                                                 <ul class="list-unstyled">
                                                     <li>
-                                                        <span class="glyphicon glyphicon-play"></span>
+                                                        <span class="fas fa-play"></span>
                                                         {intl l='Redefine the text only for this resource.'}
                                                     </li>
                                                     <li>
-                                                        <span class="glyphicon glyphicon-forward"></span>
+                                                        <span class="fas fa-forward"></span>
                                                         {intl l='Redefine the text globally. Every text will be translated with this translation, except if there is a translation for this resource.'}
                                                     </li>
                                                 </ul>
@@ -234,7 +234,7 @@
                                         {/if}
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label class="checkbox control-label">
+                                                <label class="checkbox col-form-label">
                                                     <input class="submit-on-change" type="checkbox" name="view_missing_traductions_only" value="1" {if $view_missing_traductions_only}checked="checked"{/if}> {intl l='View only missing translations.'}
                                                     (<a class="copy-all" href="#" title="{intl l='Copy all missing translations.'}">{intl l='Copy all translations.'}</a>)
                                                 </label>
@@ -286,7 +286,7 @@
 
                                             {$currfile = $file_names}
 
-											<div class="panel panel-default">
+											<div class="card">
 											    <div class="panel-heading">
                                                     {loop name="lang_list" type="lang" id=$edit_language_id}
                                                         <img src="{image file="assets/img/flags/{$CODE}.png"}" alt="{$TITLE}" />
@@ -296,7 +296,7 @@
 
 											    </div>
 
-											    <table class="table table-condensed table-hover">
+											    <table class="table table-sm table-hover">
 											        <tbody>
 											        {$close_last_panel = true}
                                         {/if}
@@ -308,7 +308,7 @@
 
 												{if $info.dollar}
 												    <div>
-												        <span class="label label-warning">{intl l='Warning'}</span>
+												        <span class="badge badge-warning">{intl l='Warning'}</span>
 												        {intl l='Il seems that this string contains a Smarty variable (&#36;). If \'s the case, it cannot be transleted properly.'}
 												    </div>
 												{/if}
@@ -318,7 +318,7 @@
 	                                            <div class="input-group input-group-default {if $not_translated}has-error{/if}">
 												    <span class="input-group-addon">
 												        <a href="#" data-text-num="{$idx}" class="copy-translation" title="{intl l='Copy source text in input field'}">
-												            <span class="glyphicon glyphicon-chevron-right"></span>
+												            <span class="fas fa-chevron-right"></span>
 												        </a>
                                                     </span>
 												    <input type="text" name="translation[]" id="translation_{$idx}"
@@ -328,7 +328,7 @@
 												<div class="input-group input-group-custom">
 												    <span class="input-group-addon">
 												        <a href="#" data-text-num="{$idx}" class="copy-translation-custom" title="{intl l='Copy source text in input field'}">
-												            <span class="glyphicon glyphicon-play"></span>
+												            <span class="fas fa-play"></span>
 												        </a>
                                                     </span>
 												    <input type="text" name="translation_custom[]" id="translation_custom_{$idx}"
@@ -338,7 +338,7 @@
 												<div class="input-group input-group-global">
 												    <span class="input-group-addon">
 												        <a href="#" data-text-num="{$idx}" class="copy-translation-global" title="{intl l='Copy source text in input field'}">
-												            <span class="glyphicon glyphicon-forward"></span>
+												            <span class="fas fa-forward"></span>
                                                         </a>
                                                     </span>
 												    <input type="text" name="translation_global[]" id="translation_global_{$idx}"
@@ -543,4 +543,3 @@
 
     {hook name="translations.js" location="translations-js" }
 {/block}
-

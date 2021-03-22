@@ -11,7 +11,7 @@
 
 {block name="main-content"}
 <div class="folder edit-folder">
-	<div id="wrapper" class="container">
+	<div class="container-fluid">
 
         {include file="includes/folder-breadcrumb.html" }
 
@@ -30,9 +30,9 @@
 		            </div>
 
                     <div class="col-md-5 actions">
-                        <a {if $HAS_PREVIOUS != 0}href="{url path="/admin/folders/update/%previous" previous=$PREVIOUS}"{else}disabled="disabled"{/if} class="btn btn-default" title="{intl l='Edit previous folder'}"><span class="glyphicon glyphicon-arrow-left"></span></a>
-                        <a  href="{$URL nofilter}" target="_blank" class="btn btn-default" title="{intl l='Preview folder page'}"><span class="glyphicon glyphicon-eye-open"></span></a>
-                        <a {if $HAS_NEXT != 0}href="{url path="/admin/folders/update/%next" next=$NEXT}"{else}disabled="disabled"{/if} class="btn btn-default" title="{intl l='Edit next folder'}"><span class="glyphicon glyphicon-arrow-right"></span></a>
+                        <a {if $HAS_PREVIOUS != 0}href="{url path="/admin/folders/update/%previous" previous=$PREVIOUS}"{else}disabled="disabled"{/if} class="btn btn-secondary" title="{intl l='Edit previous folder'}"><span class="fas fa-arrow-left"></span></a>
+                        <a  href="{$URL nofilter}" target="_blank" class="btn btn-secondary" title="{intl l='Preview folder page'}"><span class="fas fa-eye"></span></a>
+                        <a {if $HAS_NEXT != 0}href="{url path="/admin/folders/update/%next" next=$NEXT}"{else}disabled="disabled"{/if} class="btn btn-secondary" title="{intl l='Edit next folder'}"><span class="fas fa-arrow-right"></span></a>
                     </div>
                 </div>
 
@@ -115,7 +115,7 @@
                                                 {form_field field='parent'}
 		                                            <div class="form-group {if $error}has-error{/if}">
 
-		                                                <label for="{$label_attr.for}" class="control-label">
+		                                                <label for="{$label_attr.for}" class="col-form-label">
 		                                                    {$label} :
 		                                                </label>
 
@@ -135,7 +135,7 @@
 
 									            {form_field field='visible'}
 									                <div class="form-group {if $error}has-error{/if}">
-									                    <label for="{$label_attr.for}" class="control-label">{intl l='Visibility'}</label>
+									                    <label for="{$label_attr.for}" class="col-form-label">{intl l='Visibility'}</label>
 									                    <div class="checkbox">
 									                        <label>
 									                            <input type="checkbox" id="{$label_attr.for}" name="{$name}" value="1" {if $value != 0}checked="checked"{/if}>

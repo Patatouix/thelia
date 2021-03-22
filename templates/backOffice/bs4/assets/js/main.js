@@ -1,6 +1,6 @@
 "use strict";
 (function($, window){
-    $('#side-menu').metisMenu();
+    //$('#side-menu').metisMenu();
 
     $(window).bind("load resize", function(){
         var topOffset = 52;

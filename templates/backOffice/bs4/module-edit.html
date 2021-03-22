@@ -13,12 +13,12 @@
 
 <div class="edit-module">
 
-    <div id="wrapper" class="container">
+    <div class="container-fluid">
 
         <ul class="breadcrumb">
-            <li><a href="{url path='/admin/home'}">{intl l="Home"}</a></li>
-            <li><a href="{url path='/admin/modules'}">{intl l="Modules"}</a></li>
-            <li>{intl l='Editing module'}</li>
+            <li class="breadcrumb-item"><a href="{url path='/admin/home'}">{intl l="Home"}</a></li>
+            <li class="breadcrumb-item"><a href="{url path='/admin/modules'}">{intl l="Modules"}</a></li>
+            <li class="breadcrumb-item">{intl l='Editing module'}</li>
         </ul>
 
         {loop type="module" name="module" id=$module_id backend_context="1" lang=$edit_language_id}

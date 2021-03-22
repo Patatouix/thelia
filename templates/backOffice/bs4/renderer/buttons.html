@@ -42,7 +42,7 @@
             {$button['title'] = {intl l='View'}}
         {/if}
         {if !$button['icon']['class']}
-            {$button['icon']['class'] = 'glyphicon glyphicon-eye-open'}
+            {$button['icon']['class'] = 'fas fa-eye'}
         {/if}
         {if $button['auth'] && !$button['auth']['access']}
             {$button['auth']['access'] = 'VIEW'}
@@ -55,7 +55,7 @@
             {$button['title'] = {intl l='Create'}}
         {/if}
         {if !$button['icon']['class']}
-            {$button['icon']['class'] = 'glyphicon glyphicon-plus-sign'}
+            {$button['icon']['class'] = 'fas fa-plus-circle'}
         {/if}
         {if $button['auth'] && !$button['auth']['access']}
             {$button['auth']['access'] = 'CREATE'}
@@ -68,7 +68,7 @@
             {$button['title'] = {intl l='Edit'}}
         {/if}
         {if !$button['icon']['class']}
-            {$button['icon']['class'] = 'glyphicon glyphicon-edit'}
+            {$button['icon']['class'] = 'fas fa-edit'}
         {/if}
         {if $button['auth'] && !$button['auth']['access']}
             {$button['auth']['access'] = 'UPDATE'}
@@ -81,7 +81,7 @@
             {$button['title'] = {intl l='Delete'}}
         {/if}
         {if !$button['icon']['class']}
-            {$button['icon']['class'] = 'glyphicon glyphicon-trash'}
+            {$button['icon']['class'] = 'fas fa-trash-alt'}
         {/if}
         {if $button['auth'] && !$button['auth']['access']}
             {$button['auth']['access'] = 'DELETE'}
@@ -94,14 +94,14 @@
             {$button['title'] = {intl l='Save'}}
         {/if}
         {if !$button['icon']['class']}
-            {$button['icon']['class'] = 'glyphicon glyphicon-ok'}
+            {$button['icon']['class'] = 'fas fa-check'}
         {/if}
         {if $button['auth'] && !$button['auth']['access']}
             {$button['auth']['access'] = 'UPDATE'}
         {/if}
     {elseif $button['type'] == 'default'}
         {if !$button['baseClass']}
-            {$button['baseClass'] = 'btn btn-default'}
+            {$button['baseClass'] = 'btn btn-secondary'}
         {/if}
     {elseif $button['type'] == 'secondary'}
         {if !$button['baseClass']}
@@ -131,7 +131,7 @@
             {$button['title'] = {intl l='Open'}}
         {/if}
         {if !$button['icon']['class']}
-            {$button['icon']['class'] = 'glyphicon glyphicon-folder-open'}
+            {$button['icon']['class'] = 'fas fa-folder-open'}
         {/if}
         {if $button['auth'] && !$button['auth']['access']}
             {$button['auth']['access'] = 'VIEW'}
@@ -144,7 +144,7 @@
             {$button['title'] = {intl l='Duplicate'}}
         {/if}
         {if !$button['icon']['class']}
-            {$button['icon']['class'] = 'glyphicon glyphicon-plus-sign'}
+            {$button['icon']['class'] = 'fas fa-plus-circle'}
         {/if}
         {if $button['auth'] && !$button['auth']['access']}
             {$button['auth']['access'] = 'CREATE'}
@@ -157,7 +157,7 @@
             {$button['title'] = {intl l='Add'}}
         {/if}
         {if !$button['icon']['class']}
-            {$button['icon']['class'] = 'glyphicon glyphicon-plus'}
+            {$button['icon']['class'] = 'fas fa-plus'}
         {/if}
         {if $button['auth'] && !$button['auth']['access']}
             {$button['auth']['access'] = 'CREATE'}
@@ -170,7 +170,7 @@
             {$button['title'] = {intl l='Remove'}}
         {/if}
         {if !$button['icon']['class']}
-            {$button['icon']['class'] = 'glyphicon glyphicon-minus'}
+            {$button['icon']['class'] = 'fas fa-minus'}
         {/if}
         {if $button['auth'] && !$button['auth']['access']}
             {$button['auth']['access'] = 'DELETE'}
@@ -183,7 +183,7 @@
             {$button['title'] = {intl l='Config'}}
         {/if}
         {if !$button['icon']['class']}
-            {$button['icon']['class'] = 'glyphicon glyphicon-wrench'}
+            {$button['icon']['class'] = 'fas fa-wrench'}
         {/if}
         {if $button['auth'] && !$button['auth']['access']}
             {$button['auth']['access'] = 'VIEW'}
@@ -196,33 +196,33 @@
             {$button['title'] = {intl l='Hook'}}
         {/if}
         {if !$button['icon']['class']}
-            {$button['icon']['class'] = 'glyphicon glyphicon-indent-left'}
+            {$button['icon']['class'] = 'fas fa-indent'}
         {/if}
         {if $button['auth'] && !$button['auth']['access']}
             {$button['auth']['access'] = 'VIEW'}
         {/if}
     {elseif $button['type'] == 'print'}
         {if !$button['baseClass']}
-            {$button['baseClass'] = 'btn btn-default'}
+            {$button['baseClass'] = 'btn btn-secondary'}
         {/if}
         {if !$button['title']}
             {$button['title'] = {intl l='Print'}}
         {/if}
         {if !$button['icon']['class']}
-            {$button['icon']['class'] = 'glyphicon glyphicon-print'}
+            {$button['icon']['class'] = 'fas fa-print'}
         {/if}
         {if $button['auth'] && !$button['auth']['access']}
             {$button['auth']['access'] = 'VIEW'}
         {/if}
     {elseif $button['type'] == 'download'}
         {if !$button['baseClass']}
-            {$button['baseClass'] = 'btn btn-default'}
+            {$button['baseClass'] = 'btn btn-secondary'}
         {/if}
         {if !$button['title']}
             {$button['title'] = {intl l='Download'}}
         {/if}
         {if !$button['icon']['class']}
-            {$button['icon']['class'] = 'glyphicon glyphicon-download-alt'}
+            {$button['icon']['class'] = 'fas fa-download'}
         {/if}
         {if $button['auth'] && !$button['auth']['access']}
             {$button['auth']['access'] = 'VIEW'}

@@ -10,14 +10,14 @@
 {block name="check-access"}view{/block}
 
 {block name="main-content"}
-    <div class="brands">
+    <!-- <div class="brands"> -->
 
-        <div id="wrapper" class="container">
+        <div class="container-fluid">
 
             <ul class="breadcrumb">
-                <li><a href="{url path='/admin/home'}">{intl l="Home"}</a></li>
-                <li><a href="{url path='/admin/tools'}">{intl l="Tools"}</a></li>
-                <li><a href="{url path='/admin/brand'}">{intl l="Brands"}</a></li>
+                <li class="breadcrumb-item"><a href="{url path='/admin/home'}">{intl l="Home"}</a></li>
+                <li class="breadcrumb-item"><a href="{url path='/admin/tools'}">{intl l="Tools"}</a></li>
+                <li class="breadcrumb-item"><a href="{url path='/admin/brand'}">{intl l="Brands"}</a></li>
             </ul>
 
             {hook name='brands.top' location='brands_top'}
@@ -27,7 +27,7 @@
 
                     <div class="general-block-decorator">
                         <div class="table-responsive">
-                            <table class="table table-striped table-condensed">
+                            <table class="table table-striped table-sm">
                                <caption class="clearfix">
                                     {intl l='Brands'}
                                     {include file='renderer/buttons.html' btn_group=false buttons=[
@@ -130,13 +130,13 @@
 
                                             <td class="text-center">
                                                 {loop type="auth" name="can_change" role="ADMIN" resource="admin.brand" access="UPDATE"}
-                                                    <div class="make-switch switch-small visibleToggle" data-id="{$ID}"  data-on="success" data-off="danger" data-on-label="<i class='glyphicon glyphicon-ok'></i>" data-off-label="<i class='glyphicon glyphicon-remove'></i>">
+                                                    <div class="make-switch switch-small visibleToggle" data-id="{$ID}"  data-on="success" data-off="danger" data-on-label="<i class='fas fa-check'></i>" data-off-label="<i class='fas fa-times'></i>">
                                                         <input type="checkbox" class="visibleToggle" {if $VISIBLE == 1}checked="checked"{/if}>
                                                     </div>
                                                 {/loop}
 
                                                 {elseloop rel="can_change"}
-                                                    <div class="make-switch switch-small" data-on="success" data-off="danger" data-on-label="<i class='glyphicon glyphicon-ok'></i>" data-off-label="<i class='glyphicon glyphicon-remove'></i>">
+                                                    <div class="make-switch switch-small" data-on="success" data-off="danger" data-on-label="<i class='fas fa-check'></i>" data-off-label="<i class='fas fa-times'></i>">
                                                         <input type="checkbox" class="disabled" disabled="disabled" {if $VISIBLE == 1}checked="checked"{/if}>
                                                     </div>
                                                 {/elseloop}
@@ -186,7 +186,7 @@
             {hook name='brands.bottom' location='brands_bottom'}
 
         </div>
-    </div>
+    <!-- </div> -->
 
 
     {* Adding a new brand *}
@@ -208,7 +208,9 @@
 
                     <div class="input-group">
                         <input type="text" {form_field_attributes field="title"}>
-                        <span class="input-group-addon"><img src="{image file="assets/img/flags/$CODE.png"}" alt="{$TITLE}" /></span>
+                        <div class="input-group-append">
+                            <span class="input-group-text"><img src="{image file="assets/img/flags/$CODE.png"}" alt="{$TITLE}" /></span>
+                        </div>
                     </div>
                 {/loop}
             {/custom_render_form_field}

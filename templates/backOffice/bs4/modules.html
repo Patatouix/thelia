@@ -12,12 +12,12 @@
 {block name="main-content"}
 <div class="modules">
 
-    <div id="wrapper" class="container">
+    <div class="container-fluid">
 
         <div class="clearfix">
-            <ul class="breadcrumb pull-left">
-                <li><a href="{url path='/admin/home'}">{intl l="Home"}</a></li>
-                <li>{intl l="Modules"}</li>
+            <ul class="breadcrumb float-left">
+                <li class="breadcrumb-item"><a href="{url path='/admin/home'}">{intl l="Home"}</a></li>
+                <li class="breadcrumb-item">{intl l="Modules"}</li>
             </ul>
 
         </div>
@@ -46,8 +46,8 @@
 
             <div class="col-md-12">
                 <div class="text-right">
-                    <a href="{url path='/admin/hooks'}" class="btn btn-primary">{intl l="Manage hooks"} <span class="glyphicon glyphicon-chevron-right"></span></a>
-                    <a href="{url path='/admin/module-hooks'}" class="btn btn-primary">{intl l="Manage modules attachements"}  <span class="glyphicon glyphicon-chevron-right"></span></a>
+                    <a href="{url path='/admin/hooks'}" class="btn btn-primary">{intl l="Manage hooks"} <span class="fas fa-chevron-right"></span></a>
+                    <a href="{url path='/admin/module-hooks'}" class="btn btn-primary">{intl l="Manage modules attachements"}  <span class="fas fa-chevron-right"></span></a>
                 </div>
             </div>
         </div>
@@ -93,8 +93,8 @@
         <div class="modal-content">
 
             <div class="modal-header">
+                <h3 class="modal-title">{intl l="An error occured"}</h3>
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h3>{intl l="An error occured"}</h3>
             </div>
             <div class="modal-body" id="module-failed-body">
 
@@ -109,15 +109,15 @@
         <div class="modal-content">
 
             <div class="modal-header">
+                <h3 id="module-information-title" class="modal-title"></h3>
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h3 id="module-information-title"></h3>
             </div>
 
             <div class="modal-body" id="module-information-body">
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">{intl l='Close'}</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">{intl l='Close'}</button>
             </div>
         </div>
     </div>

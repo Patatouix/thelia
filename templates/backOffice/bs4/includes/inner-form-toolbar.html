@@ -39,7 +39,7 @@ Parameters:
             <div class="col-md-12">
                 <div class="button-group">
                     {loop name="currency_list" type="currency" backend_context="1"}
-                        <a class="btn btn-sm {if $ID == $edit_currency_id}btn-primary{else}btn-default{/if}" href="{url noamp=1 path={$page_url|default:$current_url nofilter} edit_currency_id=$ID product_id=$product_id current_tab='prices'}" title="{intl l='Edit prices in %curr' curr={$NAME}}">
+                        <a class="btn btn-sm {if $ID == $edit_currency_id}btn-primary{else}btn-secondary{/if}" href="{url noamp=1 path={$page_url|default:$current_url nofilter} edit_currency_id=$ID product_id=$product_id current_tab='prices'}" title="{intl l='Edit prices in %curr' curr={$NAME}}">
                             {$SYMBOL}
                         </a>
                     {/loop}
@@ -52,14 +52,14 @@ Parameters:
     <div class="col-md-6 inner-actions text-right">
          {if $hide_submit_buttons != true}
             {if $hide_save_buttons != true}
-                <button type="submit" name="save_mode" value="stay" class="form-submit-button btn btn-sm btn-default btn-success" title="{intl l='Save'}">{intl l='Save'} <span class="glyphicon glyphicon-ok"></span></button>
+                <button type="submit" name="save_mode" value="stay" class="form-submit-button btn btn-sm btn-success" title="{intl l='Save'}">{intl l='Save'} <span class="fas fa-check"></span></button>
             {/if}
             {if $hide_save_and_close_button != true}
-                <button type="submit" name="save_mode" value="close" class="form-submit-button btn btn-sm btn-default btn-info" title="{intl l='Save and close'}">{intl l='Save and close'} <span class="glyphicon glyphicon-remove"></span></button>
+                <button type="submit" name="save_mode" value="close" class="form-submit-button btn btn-sm btn-info" title="{intl l='Save and close'}">{intl l='Save and close'} <span class="fas fa-times"></span></button>
             {/if}
          {/if}
          {if ! empty($close_url)}
-            <a href="{$close_url nofilter}" class="page-close-button btn btn-sm btn-default">{intl l='Close'} <span class="glyphicon glyphicon-remove"></span></a>
+            <a href="{$close_url nofilter}" class="page-close-button btn btn-sm btn-secondary">{intl l='Close'} <span class="fas fa-times"></span></a>
          {/if}
     </div>
 </div>

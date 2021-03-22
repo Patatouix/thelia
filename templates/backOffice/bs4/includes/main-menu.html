@@ -1,34 +1,34 @@
 {hook name="main.before-top-menu" location="before_top_menu" }
-<ul class="nav in" id="side-menu">
+<ul class="nav in flex-column w-100" id="side-menu">
     <li class="sidebar-search">
         {loop name="top-bar-search" type="auth" role="ADMIN" resource="admin.search" access="VIEW"}
-            <form action="{url path='/admin/search'}">                                        
+            <form action="{url path='/admin/search'}">
                 <div class="input-group">
                     <input type="text" class="form-control" id="search_term" name="search_term" placeholder="{intl l='Search'}" value="{trim($smarty.get.search_term)}">
-                    <span class="input-group-btn">
-                        <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
-                    </span>
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-secondary"><i class="fas fa-search"></i></button>
+                    </div>
                 </div>
             </form>
         {/loop}
         <!-- /input-group -->
     </li>
 
-    <li class="{if $admin_current_location == 'home'}active{/if}" id="home_menu">
+    <li class="nav-item {if $admin_current_location == 'home'}active{/if}" id="home_menu">
         <a href="{url path='/admin/home'}" title="{intl l="Home"}"><span class="icon-home"></span> <span class="item-text">{intl l="Home"}</span></a>
     </li>
 
     {loop name="menu-auth-customer" type="auth" role="ADMIN" resource="admin.customer" access="VIEW"}
         {ifhook rel="main.top-menu-customer"}
             {hookblock name="main.top-menu-customer" fields="id,class,url,title"}
-                <li class="{if $admin_current_location == 'customer'}active{/if}" id="customers_menu">
+                <li class="nav-item {if $admin_current_location == 'customer'}active{/if}" id="customers_menu">
 
-                    <a title="{intl l="Customers"}" href="#collapse-customer" {if $admin_current_location == 'customer'}class="open"{/if}>
+                    <a title="{intl l="Customers"}" href="#collapse-customer" {if $admin_current_location == 'customer'}class="collapsed"{/if}>
                         <span class="icon-customers"></span>
                         <span class="item-text">{intl l="Customers"} <span class="caret"></span></span>
                     </a>
 
-                    <ul id="collapse-customer" class="collapse {if $admin_current_location == 'customer'}in{/if}" role="menu">
+                    <ul id="collapse-customer" class="collapse {if $admin_current_location == 'customer'}show{/if}" role="menu">
                         <li role="menuitem" id="customers_menu">
                             <a href="{url path='/admin/customers'}" title="{intl l="Customers"}">
                                 {intl l="Customers"}
@@ -58,17 +58,17 @@
     {loop name="menu-auth-order" type="auth" role="ADMIN" resource="admin.order" access="VIEW"}
     <li class="{if $admin_current_location == 'order'}active{/if}" id="orders_menu">
 
-        <a title="{intl l="Orders"}" href="#collapse-orders" {if $admin_current_location == 'order'}class="open"{/if}>
+        <a title="{intl l="Orders"}" data-target="#collapse-orders" data-toggle="collapse" {if $admin_current_location != 'order'}class="collapsed"{/if}>
             <span class="icon-orders"></span>
-            <span class="item-text">{intl l="Orders"} <span class="caret"></span></span>
+            <span class="item-text">{intl l="Orders"} <i class="fas fa-angle-up rotate-icon"></i></span>
         </a>
 
-        <ul id="collapse-orders" class="collapse {if $admin_current_location == 'order'}in{/if}" role="menu">
+        <ul id="collapse-orders" class="collapse {if $admin_current_location == 'order'}show{/if}" role="menu">
 
             <li role="menuitem">
                 <a class="clearfix" href="{url path='admin/orders'}">
-                    <span class="pull-left">{intl l="All orders"}</span>
-                    <span class="label label-default pull-right">{count type="order" customer="*" backend_context="1"}</span>
+                    <span class="float-left">{intl l="All orders"}</span>
+                    <span class="badge badge-secondary float-right">{count type="order" customer="*" backend_context="1"}</span>
                 </a>
             </li>
 
@@ -77,8 +77,8 @@
                 {if $count}
                 <li role="menuitem">
                     <a class="clearfix" data-target="{url path="admin/orders/$LABEL"}" href="{url path="admin/orders" status={$ID}}">
-                        <span class="pull-left">{$TITLE}</span>
-                        <span class="label pull-right" style="background-color: {$COLOR};">{$count}</span>
+                        <span class="float-left">{$TITLE}</span>
+                        <span class="badge float-right" style="background-color: {$COLOR};">{$count}</span>
                     </a>
                 </li>
                 {/if}
@@ -101,12 +101,12 @@
             {hookblock name="main.top-menu-catalog" fields="id,class,url,title"}
             <li class="{if $admin_current_location == 'catalog'}active{/if}" id="catalog_menu">
 
-                <a title="{intl l="Catalog"}" href="#collapse-catalog" {if $admin_current_location == 'catalog'}class="open"{/if}>
+                <a title="{intl l="Catalog"}" href="#collapse-catalog" {if $admin_current_location == 'catalog'}class="collapsed"{/if}>
                     <span class="icon-catalog"></span>
-                    <span class="item-text">{intl l="Catalog"} <span class="caret"></span></span>
+                    <span class="item-text">{intl l="Catalog"} <i class="fas fa-angle-up rotate-icon"></i></span>
                 </a>
 
-                <ul id="collapse-catalog" class="collapse {if $admin_current_location == 'catalog'}in{/if}" role="menu">
+                <ul id="collapse-catalog" class="collapse {if $admin_current_location == 'catalog'}show{/if}" role="menu">
                     <li role="menuitem" id="catalog_menu">
                         <a title="{intl l="Catalog"}" href="{url path='/admin/catalog'}">
                             {intl l="Catalog"}
@@ -138,12 +138,12 @@
             {hookblock name="main.top-menu-content" fields="id,class,url,title"}
                 <li class="{if $admin_current_location == 'content'}active{/if}" id="contents_menu">
 
-                    <a title="{intl l="Folders"}" href="#collapse-content" {if $admin_current_location == 'content'}class="open"{/if}>
+                    <a title="{intl l="Folders"}" href="#collapse-content" {if $admin_current_location == 'content'}class="collapsed"{/if}>
                         <span class="icon-records"></span>
-                        <span class="item-text">{intl l="Folders"} <span class="caret"></span></span>
+                        <span class="item-text">{intl l="Folders"} <i class="fas fa-angle-up rotate-icon"></i></span>
                     </a>
 
-                    <ul id="collapse-content" class="collapse {if $admin_current_location == 'content'}in{/if}" role="menu">
+                    <ul id="collapse-content" class="collapse {if $admin_current_location == 'content'}show{/if}" role="menu">
                         <li role="menuitem" id="contents_menu">
                             <a title="{intl l="Folders"}" href="{url path='/admin/folders'}">
                                 {intl l="Folders"}
@@ -172,12 +172,12 @@
 
     {loop name="menu-auth-tools" type="auth" role="ADMIN" resource="admin.tools" access="VIEW"}
         <li class="{if $admin_current_location == 'tools'}active{/if}" id="tools_menu">
-            <a title="{intl l="Tools"}" href="#collapse-tools" {if $admin_current_location == 'tools'}class="open"{/if}>
+            <a title="{intl l="Tools"}" data-target="#collapse-tools" data-toggle="collapse" {if $admin_current_location != 'tools'}class="collapsed"{/if}>
                 <span class="icon-tools"></span>
-                <span class="item-text">{intl l="Tools"} <span class="caret"></span></span>
+                <span class="item-text">{intl l="Tools"} <i class="fas fa-angle-up rotate-icon"></i></span>
             </a>
 
-            <ul id="collapse-tools" class="collapse {if $admin_current_location == 'tools'}in{/if}" role="menu">
+            <ul id="collapse-tools" class="collapse {if $admin_current_location == 'tools'}show{/if}" role="menu">
                 {loop name="auth-coupon" type="auth" role="ADMIN" resource="admin.coupon" access="VIEW"}
                     <li role="menuitem"><a href="{url path='/admin/coupon'}">{intl l="Coupons"}</a></li>
                 {/loop}
@@ -215,12 +215,12 @@
         {ifhook rel="main.top-menu-modules"}
             {hookblock name="main.top-menu-modules" fields="id,class,url,title"}
             <li class="{if $admin_current_location == 'modules'}active{/if}" id="modules_menu">
-                <a title="{intl l="Modules"}" href="#collapse-modules" {if $admin_current_location == 'modules'}class="open"{/if}>
+                <a title="{intl l="Modules"}" data-target="#collapse-modules" data-toggle="collapse" {if $admin_current_location != 'modules'}class="collapse"{/if}>
                     <span class="icon-modules"></span>
-                    <span class="item-text">{intl l="Modules"}<span class="caret"></span></span>
+                    <span class="item-text">{intl l="Modules"}<i class="fas fa-angle-up rotate-icon"></i></span>
                 </a>
 
-                <ul id="collapse-modules" class="collapse {if $admin_current_location == 'modules'}in{/if}" role="menu">
+                <ul id="collapse-modules" class="collapse {if $admin_current_location == 'modules'}show{/if}" role="menu">
                     <li role="menuitem" id="modules_menu">
                         <a title="{intl l="Modules"}" href="{url path='/admin/modules'}">
                             {intl l="Modules"}
@@ -251,12 +251,12 @@
         {ifhook rel="main.top-menu-configuration"}
             {hookblock name="main.top-menu-configuration" fields="id,class,url,title"}
                 <li class="{if $admin_current_location == 'configuration'}active{/if}" id="config_menu">
-                    <a title="{intl l="Configuration"}" href="#collapse-configuration" {if $admin_current_location == 'configuration'}class="open"{/if}>
+                    <a title="{intl l="Configuration"}" data-target="#collapse-configuration" data-toggle="collapse" {if $admin_current_location != 'configuration'}class="collapsed"{/if}>
                         <span class="icon-configuration"></span>
-                        <span class="item-text">{intl l="Configuration"}<span class="caret"></span></span>
+                        <span class="item-text">{intl l="Configuration"}<i class="fas fa-angle-up rotate-icon"></i></span>
                     </a>
 
-                    <ul id="collapse-configuration" class="collapse {if $admin_current_location == 'configuration'}in{/if}" role="menu">
+                    <ul id="collapse-configuration" class="collapse {if $admin_current_location == 'configuration'}show{/if}" role="menu">
                         {forhook rel="main.top-menu-configuration"}
                             <li role="menuitem">
                                 <a {if $id}id="{$id}" {/if} class="{$class}" data-target="{$url}" href="{$url}">
@@ -280,9 +280,9 @@
 
 
     {hook name="main.in-top-menu-items" location="in_top_menu_items" admin_current_location=$admin_current_location}
-                                               
+
 </ul>
 
-{hook name="main.topbar-bottom" } 
+{hook name="main.topbar-bottom" }
 
 {hook name="main.after-top-menu" location="after_top_menu" }

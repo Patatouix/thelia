@@ -17,12 +17,12 @@
 
 <div class="edit-sale">
 
-    <div id="wrapper" class="container">
+    <div class="container-fluid">
 
         <ul class="breadcrumb">
-            <li><a href="{url path='/admin/home'}">{intl l="Home"}</a></li>
-            <li><a href="{url path='/admin/sales'}">{intl l="Sales management"}</a></li>
-            <li>{intl l='Sale configuration'}</li>
+            <li class="breadcrumb-item"><a href="{url path='/admin/home'}">{intl l="Home"}</a></li>
+            <li class="breadcrumb-item"><a href="{url path='/admin/sales'}">{intl l="Sales management"}</a></li>
+            <li class="breadcrumb-item">{intl l='Sale configuration'}</li>
         </ul>
 
         {loop type="sale" name="sale" active='*' id=$sale_id backend_context="1" lang=$edit_language_id}
@@ -71,7 +71,9 @@
                                         {* data-date-format is a moment.js date format *}
                                         <div class="input-group">
                                             <input type="text" {form_field_attributes field="start_date" extra_class="datetime-picker"}>
-                                            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                                            <div class="input-group-append">
+                                                <span class="input-group-text"><span class="fas fa-calendar-alt"></span>
+                                            </div>
                                         </div>
                                     {/custom_render_form_field}
 
@@ -79,7 +81,9 @@
 
                                         <div class="input-group">
                                             <input type="text" {form_field_attributes field="end_date" extra_class="datetime-picker"}>
-                                            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                                            <div class="input-group-append">
+                                                <span class="input-group-text"><span class="fas fa-calendar-alt"></span>
+                                            </div>
                                         </div>
                                     {/custom_render_form_field}
                                 </div>
@@ -87,17 +91,21 @@
                                 <div class="col-md-6">
                                     {render_form_field field='price_offset_type'}
 
-                                    <div class="well well-sm">
-                                        {loop type="currency" name="sale.currencies" backend_context="1" lang=$edit_language_id}
-                                            {$aff=($LOOP_COUNT == 1)}
-                                            {custom_render_form_field field='price_offset' value_key=$ID show_label=$aff}
-                                                <div class="input-group">
-                                                    <input type="text" {form_field_attributes field="price_offset" value_key=$ID}>
-                                                    <span class="input-group-addon">{intl l='For prices in %currency' currency={$SYMBOL}}</span>
-                                                </div>
-                                            {/custom_render_form_field}
-                                        {/loop}
-                                        <p>{intl l='You can define here a specific price offset for each of the shop currencies, as a percentage or a constant amount, depending on the selected offset type.'}</p>
+                                    <div class="card">
+                                        <div class="card-body well-sm">
+                                            {loop type="currency" name="sale.currencies" backend_context="1" lang=$edit_language_id}
+                                                {$aff=($LOOP_COUNT == 1)}
+                                                {custom_render_form_field field='price_offset' value_key=$ID show_label=$aff}
+                                                    <div class="input-group">
+                                                        <input type="text" {form_field_attributes field="price_offset" value_key=$ID}>
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text">{intl l='For prices in %currency' currency={$SYMBOL}}</span>
+                                                        </div>
+                                                    </div>
+                                                {/custom_render_form_field}
+                                            {/loop}
+                                            <p>{intl l='You can define here a specific price offset for each of the shop currencies, as a percentage or a constant amount, depending on the selected offset type.'}</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -119,7 +127,7 @@
                                 <div class="col-md-6">
                                     {form_field field="categories"}
                                     <div class="form-group ">
-                                        <label for="cat_source" class="control-label">{intl l='Available product categories'}</label>
+                                        <label for="cat_source" class="col-form-label">{intl l='Available product categories'}</label>
 
                                         <select class="form-control" id="cat_source" name="cat_source" size="10" multiple>
                                         {loop type="category-tree" category=0 name="available-categories"  backend_context=1}
@@ -133,7 +141,7 @@
                                     <div class="form-group ">
                                         <button id="add-to-selection" class="category-manipulation btn-block btn btn-primary">
                                             {intl l='Add to selected categories'}
-                                            <span class="glyphicon glyphicon-forward"></span>
+                                            <span class="fas fa-forward"></span>
                                         </button>
                                     </div>
                                 </div>
@@ -141,7 +149,7 @@
                                 <div class="col-md-6">
                                     {form_field field="categories"}
                                     <div class="form-group ">
-                                        <label for="cat_source" class="control-label">{intl l='Selected categories'}</label>
+                                        <label for="cat_source" class="col-form-label">{intl l='Selected categories'}</label>
                                         <select id="categories" name="{$name}" class="form-control" size="10" multiple aria-required="true" required>
                                         {* protect ourselves against empty $value, which causes all categories to be displayed *}
                                         {if empty($value)}{$value = [ 0 ]}{/if}
@@ -154,7 +162,7 @@
 
                                     <div class="form-group ">
                                         <button id="remove-from-selection" class="category-manipulation btn-block btn btn-primary">
-                                            <span class="glyphicon glyphicon-backward"></span>
+                                            <span class="fas fa-backward"></span>
                                             {intl l='Remove from selected categories'}
                                         </button>
                                     </div>
@@ -217,8 +225,8 @@
         <div class="modal-content">
 
             <div class="modal-header">
+                <h3 class="modal-title">{intl l="Product attribute selection"}</h3>
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h3>{intl l="Product attribute selection"}</h3>
             </div>
 
             <div class="modal-body">
@@ -231,8 +239,8 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove"></span> {intl l='Cancel'}</button>
-                <button type="button" data-dismiss="modal" class="btn btn-primary" aria-hidden="true" id="submit-attribute-selector"><span class="glyphicon glyphicon-check"></span> {intl l='Save'}</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" aria-hidden="true"><span class="fas fa-times"></span> {intl l='Cancel'}</button>
+                <button type="button" data-dismiss="modal" class="btn btn-primary" aria-hidden="true" id="submit-attribute-selector"><span class="far fa-check-square"></span> {intl l='Save'}</button>
             </div>
         </div>
     </div>

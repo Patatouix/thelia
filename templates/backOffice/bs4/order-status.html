@@ -10,14 +10,14 @@
 {block name="check-access"}view{/block}
 
 {block name="main-content"}
-    <div class="orders">
+    <!-- <div class="orders"> -->
 
-        <div id="wrapper" class="container">
+        <div class="container-fluid">
 
             <ul class="breadcrumb">
-                <li><a href="{url path='/admin/home'}">{intl l="Home"}</a></li>
-                <li><a href="{url path='/admin/configuration'}">{intl l="Configuration"}</a></li>
-                <li><a href="#">{intl l="Order status"}</a></li>
+                <li class="breadcrumb-item"><a href="{url path='/admin/home'}">{intl l="Home"}</a></li>
+                <li class="breadcrumb-item"><a href="{url path='/admin/configuration'}">{intl l="Configuration"}</a></li>
+                <li class="breadcrumb-item"><a href="#">{intl l="Order status"}</a></li>
             </ul>
 
             {hook name="order-status.top"}
@@ -31,7 +31,7 @@
                         {/if}
 
                         <div class="table-responsive">
-                            <table class="table table-striped table-condensed table-left-aligned">
+                            <table class="table table-striped table-sm table-left-aligned">
                                 <caption class="clearfix">
                                     {intl l='Orders status'}
                                     {include file='renderer/buttons.html' btn_group=false buttons=[
@@ -145,7 +145,7 @@
 
             {hook name="order-status.bottom"}
         </div>
-    </div>
+    <!-- </div> -->
 
     {form name="thelia.admin.order-status.creation"}
 
@@ -164,7 +164,9 @@
 
                 <div class="input-group">
                     <input type="text" class="form-control" {form_field_attributes field="title"}>
-                    <span class="input-group-addon"><img src="{image file="assets/img/flags/$CODE.png"}" alt="{$TITLE}" /></span>
+                    <div class="input-group-append">
+                        <span class="input-group-text"><img src="{image file="assets/img/flags/$CODE.png"}" alt="{$TITLE}" /></span>
+                    </div>
                 </div>
             {/loop}
         {/custom_render_form_field}

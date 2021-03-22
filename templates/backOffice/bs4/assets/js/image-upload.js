@@ -19,7 +19,7 @@ $(function($){
             dictDefaultMessage : $('.btn-browse').html(),
             uploadMultiple: false,
             acceptedFiles: 'image/png, image/gif, image/jpeg'
-        });    
+        });
 
         var totalFiles      = 0,
             completedFiles  = 0;
@@ -46,8 +46,8 @@ $(function($){
             $.imageUploadManager.onClickDeleteImage();
             $.imageUploadManager.onClickToggleVisibilityImage();
         });
-        
-              
+
+
 
     };
 
@@ -106,7 +106,7 @@ $(function($){
                 $warning = imageDeleteNoImageSelectedMessage;
             }else{
                 $btnSubmit.show();
-                $btnCancel.html('<span class="glyphicon glyphicon-remove"></span>'+textBtnDeleteImageModal_No);
+                $btnCancel.html('<span class="fas fa-times"></span>'+textBtnDeleteImageModal_No);
                 if($count == 1){
                     $warning = imageDeleteOneWarningMessage;
                 } else {

@@ -22,8 +22,8 @@ A generic modal creation dialog template. Parameters
         <div class="modal-content">
 
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h3>{$dialog_title nofilter}</h3>
+                <h3 class="modal-title">{$dialog_title nofilter}</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span>&times;</span></button>
             </div>
 
             <form method="POST" action="{$form_action nofilter}" {$form_enctype nofilter} {$form_attributes nofilter}>
@@ -35,8 +35,8 @@ A generic modal creation dialog template. Parameters
                 </div>
 
 	            <div class="modal-footer">
-	                <button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove"></span> {$dialog_cancel_label|default:{intl l='Cancel'}}</button>
-                    <button {if ! empty($ok_button_id)}id="{$ok_button_id}"{/if} type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-check"></span> {$dialog_ok_label|default:{intl l='OK'}}</button>
+	                <button type="button" class="btn btn-secondary" data-dismiss="modal" aria-hidden="true"><span class="fas fa-times"></span> {$dialog_cancel_label|default:{intl l='Cancel'}}</button>
+                    <button {if ! empty($ok_button_id)}id="{$ok_button_id}"{/if} type="submit" class="btn btn-primary"><span class="far fa-check-square"></span> {$dialog_ok_label|default:{intl l='OK'}}</button>
 	            </div>
 
             </form>

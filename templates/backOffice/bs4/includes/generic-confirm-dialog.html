@@ -22,8 +22,8 @@ Parameters:
         <div class="modal-content">
 
             <div class="modal-header">
+                <h3 class="modal-title">{$dialog_title}</h3>
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h3>{$dialog_title}</h3>
             </div>
 
             <form method="{$form_method|default:POST}" action="{$form_action}" id="{$form_id|default:"{$dialog_id}_form"}">
@@ -35,8 +35,8 @@ Parameters:
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove"></span> {$dialog_cancel_label|default:{intl l="No"}}</button>
-                    <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-check"></span> {$dialog_ok_label|default:{intl l="Yes"}}</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" aria-hidden="true"><span class="fas fa-times"></span> {$dialog_cancel_label|default:{intl l="No"}}</button>
+                    <button type="submit" class="btn btn-primary"><span class="far fa-check-square"></span> {$dialog_ok_label|default:{intl l="Yes"}}</button>
                 </div>
             </form>
 

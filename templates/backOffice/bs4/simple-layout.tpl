@@ -33,7 +33,7 @@
 
     {block name="before-bootstrap-css"}{/block}
 
-    <link rel="stylesheet" href="{stylesheet file='assets/css/styles.css'}">
+    <link rel="stylesheet" href="{stylesheet file='assets/sass/main.scss' filters='scssphp'}">
 
     {block name="after-bootstrap-css"}{/block}
 

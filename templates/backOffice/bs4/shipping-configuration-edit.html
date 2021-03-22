@@ -12,13 +12,13 @@
 {block name="main-content"}
     <div class="shipping-configuration edit-shipping-configuration">
 
-        <div id="wrapper" class="container">
+        <div class="container-fluid">
             {loop name="area-edit" type="area" id=$area_id}
                 <ul class="breadcrumb">
-                    <li><a href="{url path='/admin/home'}">{intl l="Home"}</a></li>
-                    <li><a href="{url path='/admin/configuration'}">{intl l="Configuration"}</a></li>
-                    <li><a href="{url path='/admin/configuration/shipping_configuration'}">{intl l="Shipping configuration"}</a></li>
-                    <li>{intl l='Editing shipping zone "%name"' name={$NAME}}</li>
+                    <li class="breadcrumb-item"><a href="{url path='/admin/home'}">{intl l="Home"}</a></li>
+                    <li class="breadcrumb-item"><a href="{url path='/admin/configuration'}">{intl l="Configuration"}</a></li>
+                    <li class="breadcrumb-item"><a href="{url path='/admin/configuration/shipping_configuration'}">{intl l="Shipping configuration"}</a></li>
+                    <li class="breadcrumb-item">{intl l='Editing shipping zone "%name"' name={$NAME}}</li>
                 </ul>
 
             {hook name="shipping-configuration-edit.top" area_id=$area_id}
@@ -85,8 +85,8 @@
                                                 <select multiple {form_field_attributes field="country_id"}>
                                                 </select>
 
-                                                <button type="submit" class="btn btn-block btn-primary"><i class="glyphicon glyphicon-plus-sign"></i> {intl l="Add selected countries"}</button>
-                                                <button type="button" class="btn btn-block btn-info btn-select-unassigned-countries"><i class="glyphicon glyphicon-cog"></i> {intl l="Select unassigned countries"}</button>
+                                                <button type="submit" class="btn btn-block btn-primary"><i class="fas fa-plus-circle"></i> {intl l="Add selected countries"}</button>
+                                                <button type="button" class="btn btn-block btn-info btn-select-unassigned-countries"><i class="fas fa-cog"></i> {intl l="Select unassigned countries"}</button>
                                             </form>
                                         {/form}
                                     </div>
@@ -143,7 +143,7 @@
                                                 </script>
 
                                                 <div class="table-responsive">
-                                                    <table class="table table-striped table-condensed">
+                                                    <table class="table table-striped table-sm">
                                                         <thead>
                                                         <tr>
                                                             <th>{intl l="Countries assigned to this zone"}</th>
@@ -160,7 +160,7 @@
                                                         {hook name="shipping-configuration.edit" location="shipping-configuration-edit" area_id={$area_id} }
                                                     </table>
 
-                                                    <button type="submit" class="btn btn-default btn-primary pull-right"><span class="glyphicon glyphicon-remove"></span> {intl l="Delete selected countries"}</button>
+                                                    <button type="submit" class="btn btn-primary float-right"><span class="fas fa-times"></span> {intl l="Delete selected countries"}</button>
 
                                                 </div>
                                             </form>

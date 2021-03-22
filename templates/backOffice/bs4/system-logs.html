@@ -12,12 +12,12 @@
 {block name="main-content"}
 <div class="variables edit-variable">
 
-    <div id="wrapper" class="container">
+    <div class="container-fluid">
 
         <ul class="breadcrumb">
-			<li><a href="{url path='/admin/home'}">{intl l="Home"}</a></li>
-            <li><a href="{url path='/admin/configuration'}">{intl l="Configuration"}</a></li>
-            <li>{intl l="System logs"}</li>
+			<li class="breadcrumb-item"><a href="{url path='/admin/home'}">{intl l="Home"}</a></li>
+            <li class="breadcrumb-item"><a href="{url path='/admin/configuration'}">{intl l="Configuration"}</a></li>
+            <li class="breadcrumb-item">{intl l="System logs"}</li>
         </ul>
 
 		<div class="row">
@@ -58,7 +58,7 @@
                                             {form_field field="level"}
 					                        <div class="form-group {if $error}has-error{/if}">
 
-					                            <label for="{$label_attr.for}" class="control-label">{$label}: </label>
+					                            <label for="{$label_attr.for}" class="col-form-label">{$label}: </label>
 
 				                                <select name="{$name}" id="{$label_attr.for}" class="form-control">
 				                                    {foreach $choices as $choice}
@@ -66,7 +66,7 @@
 				                                    {/foreach}
 				                                </select>
 
-				                                <span class="help-block">
+				                                <span class="form-text">
 				                                {intl l='Messages which have a level greater or equal to the selected level will be added to the log destinations. '}
 				                                </span>
                                             </div>
@@ -74,13 +74,13 @@
 
 					                        {form_field field='format'}
 					                           <div class="form-group {if $error}has-error{/if}">
-					                               <label for="{$label_attr.for}" class="control-label">{$label}: </label>
+					                               <label for="{$label_attr.for}" class="col-form-label">{$label}: </label>
 
 					                               <div class="form-group">
 					                                   <input type="text" id="{$label_attr.for}" name="{$name}" class="form-control" value="{$value}" title="{$label}" placeholder="{intl l='Log lines format'}">
 					                               </div>
 
-	                                                <span class="help-block">
+	                                                <span class="form-text">
 	                                                {intl l='Log lines header format. You may use the following variables: '}
 	                                                <ul>
 												        <li>#INDEX : {intl l='Sequential number of log line'}</li>
@@ -97,7 +97,7 @@
 
 					                        {form_field field='show_redirections'}
 					                           <div class="form-group {if $error}has-error{/if}">
-					                               <label for="{$label_attr.for}" class="control-label">{$label}: </label>
+					                               <label for="{$label_attr.for}" class="col-form-label">{$label}: </label>
 
                                                    <div>
 	                                                   <label class="radio-inline">
@@ -108,32 +108,32 @@
 	                                                    </label>
                                                     </div>
 
-                                                   <span class="help-block">{intl l='If yes, redirections through Redirect::exec() will be displayed as links'}</span>
+                                                   <span class="form-text">{intl l='If yes, redirections through Redirect::exec() will be displayed as links'}</span>
 					                           </div>
 					                        {/form_field}
 
 					                        {form_field field='files'}
 					                           <div class="form-group {if $error}has-error{/if}">
-					                               <label for="{$label_attr.for}" class="control-label">{$label}: </label>
+					                               <label for="{$label_attr.for}" class="col-form-label">{$label}: </label>
 
 					                               <div class="form-group">
 					                                   <input type="text" id="{$label_attr.for}" name="{$name}" class="form-control" value="{$value}" title="{$label}" placeholder="{intl l='File names'}">
 					                               </div>
 
-					                               <span class="help-block">{intl l='Enter one or more file names without path separated by ";". Use "!" before a file name to exclude it. Use "*" to activate logs for all files.'}</span>
+					                               <span class="form-text">{intl l='Enter one or more file names without path separated by ";". Use "!" before a file name to exclude it. Use "*" to activate logs for all files.'}</span>
 					                           </div>
 					                        {/form_field}
 
                                             {form_field field='ip_addresses'}
                                                <div class="form-group {if $error}has-error{/if}">
-                                                   <label for="{$label_attr.for}" class="control-label">{$label}: </label>
+                                                   <label for="{$label_attr.for}" class="col-form-label">{$label}: </label>
 
                                                    <div class="form-group">
                                                        <input type="text" id="{$label_attr.for}" name="{$name}" class="form-control" value="{$value}" title="{$label}" placeholder="{intl l='IP Addresses'}">
                                                    </div>
 
-                                                   <span class="help-block">{intl l='Enter one or more IP V4 addresses separated by ";". Leave empty to display logs for all IP addresses'}</span>
-                                                   <span class="help-block">{intl l='Your current IP address is %ip' ip={$ip_address}}</span>
+                                                   <span class="form-text">{intl l='Enter one or more IP V4 addresses separated by ";". Leave empty to display logs for all IP addresses'}</span>
+                                                   <span class="form-text">{intl l='Your current IP address is %ip' ip={$ip_address}}</span>
                                                </div>
                                             {/form_field}
 
@@ -151,37 +151,39 @@
                                         <fieldset>
                                         {foreach $destinations as $classname => $destination}
 	                                        {$active = in_array(get_class($destination), $active_destinations)}
-	                                        <div class="well well-sm">
-	                                            <input type="hidden" name="destinations[{$classname}][classname]" value="{get_class($destination)}" />
+											<div class="card">
+												<div class="card-body well-sm">
+													<input type="hidden" name="destinations[{$classname}][classname]" value="{get_class($destination)}" />
 
-	                                            <p class="title title-without-tabs">{$destination->getTitle()}</p>
-	                                            <p>{$destination->getDescription()}</p>
+													<p class="title title-without-tabs">{$destination->getTitle()}</p>
+													<p>{$destination->getDescription()}</p>
 
-	                                            <div class="form-group">
-	                                                <div>
-	                                                    <label class="checkbox control-label">
-	                                                       <input type="checkbox" class="activation-checkbox" name="destinations[{$classname}][active]" value="{$classname}" {if $active}checked="checked"{/if}> {intl l='Activate this log destination'}
-	                                                    </label>
-	                                                 </div>
-	                                            </div>
+													<div class="form-group">
+														<div>
+															<label class="checkbox col-form-label">
+															<input type="checkbox" class="activation-checkbox" name="destinations[{$classname}][active]" value="{$classname}" {if $active}checked="checked"{/if}> {intl l='Activate this log destination'}
+															</label>
+														</div>
+													</div>
 
-                                                {if count($destination->getConfigs()) > 0}
-		                                            <div class="config config-{$classname}" {if ! $active}style="display: none"{/if}>
-			                                            {foreach $destination->getConfigs() as $config}
-			                                                <div class="form-group">
-			                                                    <label>{$config->getTitle()}</label>
-				                                                {if $config->getType() == 2}
-				                                                    <input  class="form-control" type="text" name="config[{$classname}][{$config->getName()}]" value="{$config->getValue()}" />
-			                                                    {else if $config->getType() == 1}
-			                                                        <textarea  class="form-control" name="config[{$classname}][{$config->getName()}]">{$config->getValue()}</textarea>
-				                                                {/if}
-			                                                   <span class="help-block">{$config->getLabel()}</span>
-			                                                </div>
-			                                            {/foreach}
-		                                            </div>
-	                                            {/if}
+													{if count($destination->getConfigs()) > 0}
+														<div class="config config-{$classname}" {if ! $active}style="display: none"{/if}>
+															{foreach $destination->getConfigs() as $config}
+																<div class="form-group">
+																	<label>{$config->getTitle()}</label>
+																	{if $config->getType() == 2}
+																		<input  class="form-control" type="text" name="config[{$classname}][{$config->getName()}]" value="{$config->getValue()}" />
+																	{else if $config->getType() == 1}
+																		<textarea  class="form-control" name="config[{$classname}][{$config->getName()}]">{$config->getValue()}</textarea>
+																	{/if}
+																<span class="form-text">{$config->getLabel()}</span>
+																</div>
+															{/foreach}
+														</div>
+													{/if}
 
-	                                        </div>
+												</div>
+											</div>
                                         {/foreach}
                                         </fieldset>
 

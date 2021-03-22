@@ -6,7 +6,7 @@
 {block name="page-title"}{intl l='An error occured'}{/block}
 
 {block name="main-content"}
-    <div id="wrapper" class="container">
+    <div class="container-fluid">
 
         <div class="row">
             <div class="col-md-12">
@@ -14,8 +14,8 @@
 	                <h1 style="padding: 40px 0">{intl l="Oops! An Error Occurred"}</h1>
 
 	                {block name="error-message"}<p style="padding: 20px 0">{$error_message}</p>{/block}
-					
-					<a href="{url path='/admin'}" class="btn btn-default btn-info btn-lg"><span class="glyphicon glyphicon-home"></span> {intl l="Go to administration home"}</a>
+
+					<a href="{url path='/admin'}" class="btn btn-info btn-lg"><span class="fas fa-home"></span> {intl l="Go to administration home"}</a>
 	            </div>
             </div>
         </div>

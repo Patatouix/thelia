@@ -9,7 +9,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h3>
+                <h3 class="modal-title">
                     {if $title}
                         {$title}
                     {else}
@@ -27,8 +27,8 @@
                 </p>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-default" data-dismiss="modal">{intl l='Cancel'}</button>
-                <a href="#" class="btn btn-default btn-success" data-confirm="confirm">{intl l='Confirm'}</a>
+                <button class="btn btn-secondary" data-dismiss="modal">{intl l='Cancel'}</button>
+                <a href="#" class="btn btn-success" data-confirm="confirm">{intl l='Confirm'}</a>
             </div>
         </div>
     </div>

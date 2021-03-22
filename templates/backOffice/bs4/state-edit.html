@@ -12,15 +12,15 @@
 {block name="main-content"}
     <div class="states edit-state">
 
-        <div id="wrapper" class="container">
+        <div class="container-fluid">
 
             {loop name="state_edit" type="state" id="$state_id" backend_context="1" lang="$edit_language_id" visible="*"}
 
                 <ul class="breadcrumb">
-        			<li><a href="{url path='/admin/home'}">{intl l="Home"}</a></li>
-                    <li><a href="{url path='/admin/configuration'}">{intl l="Configuration"}</a></li>
-                    <li><a href="{url path='/admin/configuration/states'}">{intl l="States"}</a></li>
-                    <li>{intl l='Editing state "%name"' name="{$TITLE}"}</li>
+        			<li class="breadcrumb-item"><a href="{url path='/admin/home'}">{intl l="Home"}</a></li>
+                    <li class="breadcrumb-item"><a href="{url path='/admin/configuration'}">{intl l="Configuration"}</a></li>
+                    <li class="breadcrumb-item"><a href="{url path='/admin/configuration/states'}">{intl l="States"}</a></li>
+                    <li class="breadcrumb-item">{intl l='Editing state "%name"' name="{$TITLE}"}</li>
                 </ul>
 
             {hook name="state-edit.top" state_id=$state_id}

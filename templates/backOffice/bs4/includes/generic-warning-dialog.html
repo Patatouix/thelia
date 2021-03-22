@@ -16,8 +16,8 @@ A generic modal creation dialog template. Parameters
         <div class="modal-content">
 
             <div class="modal-header">
+                <h3 class="modal-title">{$dialog_title nofilter}</h3>
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h3>{$dialog_title nofilter}</h3>
             </div>
 
 
@@ -26,7 +26,7 @@ A generic modal creation dialog template. Parameters
                 </div>
 
 	            <div class="modal-footer">
-	                <button {if ! empty($ok_button_id)}id="{$ok_button_id}"{/if} type="button" data-dismiss="modal" class="btn btn-primary"><span class="glyphicon glyphicon-check"></span> {$dialog_ok_label|default:{intl l='OK'}}</button>
+	                <button {if ! empty($ok_button_id)}id="{$ok_button_id}"{/if} type="button" data-dismiss="modal" class="btn btn-primary"><span class="far fa-check-square"></span> {$dialog_ok_label|default:{intl l='OK'}}</button>
 	            </div>
 
         </div>

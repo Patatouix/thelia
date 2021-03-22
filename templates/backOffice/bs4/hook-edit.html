@@ -8,15 +8,15 @@
 {block name="main-content"}
 <div class="hooks edit-hook">
 
-    <div id="wrapper" class="container">
+    <div class="container-fluid">
 
         {loop name="hook_edit" type="hook" id="$hook_id" backend_context="1" lang="$edit_language_id"}
 
         <ul class="breadcrumb">
-            <li><a href="{url path='/admin/home'}">{intl l="Home"}</a></li>
-            <li><a href="{url path='/admin/configuration'}">{intl l="Configuration"}</a></li>
-            <li><a href="{url path='/admin/hooks'}">{intl l="Hooks"}</a></li>
-            <li>{intl l='Editing hook "%name"' name="{$TITLE}"}</li>
+            <li class="breadcrumb-item"><a href="{url path='/admin/home'}">{intl l="Home"}</a></li>
+            <li class="breadcrumb-item"><a href="{url path='/admin/configuration'}">{intl l="Configuration"}</a></li>
+            <li class="breadcrumb-item"><a href="{url path='/admin/hooks'}">{intl l="Hooks"}</a></li>
+            <li class="breadcrumb-item">{intl l='Editing hook "%name"' name="{$TITLE}"}</li>
         </ul>
 
         {hook name="hook-edit.top" hook_id=$hook_id}

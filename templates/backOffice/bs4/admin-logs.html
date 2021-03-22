@@ -16,12 +16,12 @@
 {block name="main-content"}
     <div class="admin-logs">
 
-        <div id="wrapper" class="container">
+        <div class="container-fluid">
 
             <ul class="breadcrumb">
-                <li><a href="{url path='/admin/home'}">{intl l="Home"}</a></li>
-                <li><a href="{url path='/admin/configuration'}">{intl l="Configuration"}</a></li>
-                <li><a href="{url path='/admin/configuration/adminLogs'}">{intl l="Administration logs"}</a></li>
+                <li class="breadcrumb-item"><a href="{url path='/admin/home'}">{intl l="Home"}</a></li>
+                <li class="breadcrumb-item"><a href="{url path='/admin/configuration'}">{intl l="Configuration"}</a></li>
+                <li class="breadcrumb-item"><a href="{url path='/admin/configuration/adminLogs'}">{intl l="Administration logs"}</a></li>
             </ul>
 
             {hook name="admin-logs.top" location="admin_logs_top" }
@@ -34,7 +34,7 @@
 
                         <div class="row inner-toolbar">
                             <div class="col-md-12 inner-actions clearfix">
-                                <button type="button" class="btn btn-default btn-success pull-right js-show-logs" title="{intl l='Show logs'}">{intl l='Show logs'} <span class="glyphicon glyphicon-eye-open"></span></button>
+                                <button type="button" class="btn btn-success float-right js-show-logs" title="{intl l='Show logs'}">{intl l='Show logs'} <span class="fas fa-eye"></span></button>
                             </div>
                         </div>
 
@@ -50,7 +50,7 @@
                                         <span class="input-group-addon">{intl l='From'}</span>
                                         <input class="form-control datetime-picker from-datetime-picker" type="text" id="from_date" readonly="readonly">
                                         <span class="input-group-addon">
-                                            <span class="glyphicon glyphicon-calendar"></span>
+                                            <span class="fas fa-calendar-alt"></span>
                                         </span>
                                     </div>
                                 </div>
@@ -62,7 +62,7 @@
                                         <span class="input-group-addon">{intl l='To'}</span>
                                         <input class="form-control datetime-picker to-datetime-picker" type="text" id="to_date" readonly="readonly">
                                         <span class="input-group-addon">
-                                            <span class="glyphicon glyphicon-calendar"></span>
+                                            <span class="fas fa-calendar-alt"></span>
                                         </span>
                                     </div>
                                 </div>
@@ -126,7 +126,7 @@
 
                         <div class="row inner-toolbar">
                             <div class="col-md-12 inner-actions clearfix">
-                                <button type="button" class="btn btn-default btn-success pull-right js-show-logs" title="{intl l='Show logs'}">{intl l='Show logs'} <span class="glyphicon glyphicon-eye-open"></span></button>
+                                <button type="button" class="btn btn-success float-right js-show-logs" title="{intl l='Show logs'}">{intl l='Show logs'} <span class="fas fa-eye"></span></button>
                             </div>
                         </div>
 

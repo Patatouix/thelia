@@ -30,6 +30,7 @@
     {block name="meta"}{/block}
 
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400italic,600,700%7COpen+Sans:300,400,400italic,600,700">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
     {* -- Bootstrap CSS section --------------------------------------------- *}
 
     {block name="before-bootstrap-css"}{/block}
@@ -59,7 +60,7 @@
 
 <body>
     <div id="wrapper">
-        
+
         {* display top bar only if admin is connected *}
         {loop name="top-bar-auth" type="auth" role="ADMIN"}
 
@@ -68,70 +69,77 @@
             {hook name="main.before-topbar" location="before_topbar" }
 
             <!-- Navigation -->
-            <nav class="navbar navbar-default navbar-static-top" role="navigation">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span></span>
-                    </button>
-                    <a class="navbar-brand" href="{url path='/admin/home'}">
-                        {images file='assets/img/logo-white.png'}
-                            <img src="{$asset_url}" alt="{intl l='Version %ver' ver="{$THELIA_VERSION}"}">
-                            <span>{intl l='Version %ver' ver="{$THELIA_VERSION}"}</span>
-                        {/images}
-                    </a>
-                </div>
-                <!-- /.navbar-header -->
+            <nav class="navbar navbar-expand-xl navbar-dark navbar-static-top p-0" role="navigation">
 
-                <ul class="nav navbar-top-links navbar-right">
-                    {hook name="main.topbar-top" }
-                    
-                    <li>
-                        <a href="{navigate to="index"}" title="{intl l='View site'}" target="_blank"><span class="glyphicon glyphicon-eye-open"></span> {intl l="View shop"}</a>
-                    </li>
-                    <li class="dropdown">
-                        <button class="dropdown-toggle" data-toggle="dropdown">
-                            <span class="glyphicon glyphicon-user"></span> {admin attr="firstname"} {admin attr="lastname"}
-                            <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-right">
-                            <li><a class="profile" href="{url path='admin/configuration/administrators/view'}"><span class="glyphicon glyphicon-edit"></span> {intl l="Profil"}</a></li>
-                            <li><a class="logout" href="{url path='admin/logout'}" title="{intl l='Close administation session'}"><span class="glyphicon glyphicon-off"></span> {intl l="Logout"}</a></li>
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        {loop type="lang" name="ui-lang" id={lang attr='id'} backend_context="1"}
-                        <button class="dropdown-toggle" data-toggle="dropdown">
-                            <img src="{image file="assets/img/flags/{$CODE}.png"}" alt="{$TITLE}" /> {$CODE|ucfirst}
-                            <span class="caret"></span>
-                        </button>
-                        {/loop}
+                    <div class="row flex-grow-1 justify-content-between">
+                        <div class="col-12 col-xl-auto justify-content-between">
+                            <a class="navbar-brand mr-xl-auto" href="{url path='/admin/home'}">
+                                {images file='assets/img/logo-white.png'}
+                                    <img src="{$asset_url}" alt="{intl l='Version %ver' ver="{$THELIA_VERSION}"}">
+                                    <span>{intl l='Version %ver' ver="{$THELIA_VERSION}"}</span>
+                                {/images}
+                            </a>
+                            <button type="button" class="navbar-toggler float-right mt-3 mr-3" data-toggle="collapse" data-target=".navbar-collapse">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                        </div>
+                        <div class="col-12 col-xl-auto">
 
-                        <ul class="dropdown-menu">
-                            {loop type="lang" name="ui-lang" backend_context="1"}
-                                <li><a href="{url path="{navigate to="current"}" lang={$CODE}}"><img src="{image file="assets/img/flags/{$CODE}.png"}" alt="{$TITLE}" /> {$CODE|ucfirst}</a></li>
-                            {/loop}
-                         </ul>
-                    </li>
-                </ul>
-                <!-- /.navbar-top-links -->
+                            <ul class="nav navbar-top-links navbar-right">
+                                {hook name="main.topbar-top" }
 
-                <div class="navbar-default sidebar" role="navigation">
-                    <div class="sidebar-nav navbar-collapse">
-                        
-                        {include file="includes/main-menu.html"}
-                        
-                        {hook name="main.inside-topbar" location="inside_topbar" }
+                                <li class="nav-item">
+                                    <a href="{navigate to="index"}" title="{intl l='View site'}" target="_blank" class="nav-link"><i class="fas fa-eye"></i> {intl l="View shop"}</a>
+                                </li>
+                                <li class="dropdown nav-item">
+                                    <button class="dropdown-toggle" data-toggle="dropdown">
+                                        <i class="fas fa-user"></i> {admin attr="firstname"} {admin attr="lastname"}
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-right">
+                                        <li><a class="profile dropdown-item" href="{url path='admin/configuration/administrators/view'}"><i class="fas fa-edit"></i> {intl l="Profil"}</a></li>
+                                        <li><a class="logout dropdown-item" href="{url path='admin/logout'}" title="{intl l='Close administation session'}"><i class="fas fa-power-off"></i> {intl l="Logout"}</a></li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown nav-item">
+                                    {loop type="lang" name="ui-lang" id={lang attr='id'} backend_context="1"}
+                                    <button class="dropdown-toggle" data-toggle="dropdown">
+                                        <img src="{image file="assets/img/flags/{$CODE}.png"}" alt="{$TITLE}" /> {$CODE|ucfirst}
+                                        <span class="caret"></span>
+                                    </button>
+                                    {/loop}
+
+                                    <ul class="dropdown-menu">
+                                        {loop type="lang" name="ui-lang" backend_context="1"}
+                                            <li><a href="{url path="{navigate to="current"}" lang={$CODE}}" class="dropdown-item"><img src="{image file="assets/img/flags/{$CODE}.png"}" alt="{$TITLE}" /> {$CODE|ucfirst}</a></li>
+                                        {/loop}
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="col-12">
+
+                            <div class="navbar-default sidebar" role="navigation">
+                                <div class="sidebar-nav collapse navbar-collapse">
+
+                                    {include file="includes/main-menu.html"}
+
+                                    {hook name="main.inside-topbar" location="inside_topbar" }
+                                </div>
+                                <!-- /.sidebar-collapse -->
+                            </div>
+                        </div>
                     </div>
-                    <!-- /.sidebar-collapse -->
-                </div>
+
+
                 <!-- /.navbar-static-side -->
-                
+
                 {hook name="main.after-topbar" location="after_topbar" }
             </nav>
 
             <div id="page-wrapper">
-                
+
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">{block name="page-title"}{/block}</h1>
@@ -139,16 +147,16 @@
                     <!-- /.col-lg-12 -->
                 </div>
                 <!-- /.row -->
-                
+
                 {* -- Main page content section ----------------------------------------- *}
                 {hook name="main.before-content" location="before_content"}
-                
+
                 <div class="row">
                     {block name="main-content"}Put here the content of the template{/block}
                 </div>
-                
+
                 {hook name="main.after-content" location="after_content"}
-                
+
             </div>
         {/loop}
 
@@ -166,17 +174,17 @@
 
             </div>
             <ul id="follow-us" class="list-unstyled list-inline">
-                <li>
+                <li class="list-inline-item">
                     <a href="https://twitter.com/theliaecommerce" target="_blank">
                         <span class="icon-twitter"></span>
                     </a>
                 </li>
-                <li>
+                <li class="list-inline-item">
                     <a href="https://www.facebook.com/theliaecommerce" target="_blank">
                         <span class="icon-facebook"></span>
                     </a>
                 </li>
-                <li>
+                <li class="list-inline-item">
                     <a href="https://github.com/thelia/thelia" target="_blank">
                         <span class="icon-github"></span>
                     </a>
@@ -190,7 +198,8 @@
 	{* -- Javascript section ------------------------------------------------ *}
 
 	{block name="before-javascript-include"}{/block}
-    <script src="//code.jquery.com/jquery-2.0.3.min.js"></script>
+    <!-- <script src="//code.jquery.com/jquery-2.0.3.min.js"></script> -->
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <script>
         if (typeof jQuery == 'undefined') {
             {javascripts file='assets/js/libs/jquery.js'}
@@ -204,14 +213,14 @@
     {javascripts file='assets/js/bootstrap/bootstrap.js'}
         <script src="{$asset_url}"></script>
     {/javascripts}
-    
+
     {javascripts file='assets/js/libs/jquery.toolbar.min.js'}
         <script src="{$asset_url}"></script>
     {/javascripts}
 
-    {javascripts file='assets/js/libs/metis-menu.min.js'}
+    <!--{javascripts file='assets/js/libs/metisMenu.min.js'}
         <script src="{$asset_url}"></script>
-    {/javascripts}
+    {/javascripts}-->
 
     {block name="javascript-initialization"}{/block}
 

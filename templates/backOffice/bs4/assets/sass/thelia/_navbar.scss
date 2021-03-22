@@ -1,0 +1,165 @@
+//
+// Navbars (Redux)
+// --------------------------------------------------
+
+
+// COMMON STYLES
+// -------------
+@media (min-width: map-get($grid-breakpoints, "xl")){
+    .sidebar {
+        z-index: 1;
+        position: absolute;
+        width: 250px;
+        //margin-top: 52px;
+    }
+}
+
+.sidebar {
+    .sidebar-nav.navbar-collapse {
+        padding-right: 0;
+        padding-left: 0;
+    }
+
+    .sidebar-search {
+        padding: 15px;
+
+        input {
+            background-clip: border-box;
+        }
+    }
+
+    .nav {
+        @include menu-links();
+
+        .collapsed {
+            .fa-angle-up {
+                transform: rotate(-180deg);
+                @include transition(transform 0.3s ease-in-out);
+            }
+        }
+    }
+
+    li:not(.active) {
+        .collapsed {
+            .fa-angle-up {
+                transform: rotate(-180deg);
+            }
+        }
+    }
+}
+
+.navbar-default {
+    .navbar-toggle {
+        margin-top: 25px;
+
+        &,
+        &:hover,
+        &:focus {
+            background: none;
+            border: none;
+        }
+
+        span {
+            transform: rotate(45deg);
+
+            &,
+            &:before,
+            &:after {
+                cursor: pointer;
+                border-radius: 1px;
+                height: 1px;
+                width: 15px;
+                background: white;
+                position: absolute;
+                top: 8px;
+                right: 0px;
+                margin: 0 auto;
+                display: block;
+                content: '';
+                @include transition(all 0.3s ease-in-out);
+            }
+
+            &:after {
+                transform: rotate(90deg);
+                top: 0;
+                right: 0;
+            }
+
+            &:before {
+                @include transition(opacity 0s);
+                //@include opacity(0);      Vendor prefixes no longer required in BS4
+            }
+
+        }
+
+        &.collapsed {
+            span {
+                transform: rotate(0deg);
+
+                &:before {
+                    top: -6px;
+                    width: 10px;
+                    //@include opacity(1);      Vendor prefixes no longer required in BS4
+                }
+
+                &:after {
+                    top: 6px;
+                    width: 20px;
+                }
+
+                &:before,
+                &:after {
+                    right: 0;
+                    transform: rotate(0deg);
+                }
+            }
+        }
+
+    }
+}
+
+.navbar-brand {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: $navbar-padding-x;
+    padding-right: $navbar-padding-x;
+
+    > img {
+        vertical-align: top;
+    }
+
+    > span {
+        color: #888;
+        font-size: 11px;
+        font-weight: bold;
+        display: inline-block;
+        margin-left: 10px;
+        margin-top: 16px;
+    }
+}
+
+.nav {
+    margin-bottom: 0;
+    padding-left: 0; // Override default ul/ol
+    list-style: none;
+
+    > li {
+        position: relative;
+        display: block;
+
+        > a {
+            padding-left: $nav-link-padding-x;
+            padding-right: $nav-link-padding-x;
+        }
+    }
+}
+
+
+@media (min-width: map-get($grid-breakpoints, "xl")) {
+    .navbar-right {
+        .dropdown-menu {
+            left: auto; // Reset the default from `.dropdown-menu`
+            right: 0;
+        }
+    }
+}

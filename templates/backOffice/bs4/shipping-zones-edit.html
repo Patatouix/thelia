@@ -12,15 +12,15 @@
 {block name="main-content"}
 <div class="shipping-zones edit-shipping-zones">
 
-    <div id="wrapper" class="container">
+    <div class="container-fluid">
 
         {loop type="module" id="$delivery_module_id" active="*" name="module.name" backend_context="1" order="code"}
 
         <ul class="breadcrumb">
-            <li><a href="{url path='/admin/home'}">{intl l="Home"}</a></li>
-            <li><a href="{url path='/admin/configuration'}">{intl l="Configuration"}</a></li>
-            <li><a href="{url path='/admin/configuration/shipping_zones'}">{intl l="Shipping configuration"}</a></li>
-            <li>{intl l='Editing shipping configuration for module "%name"' name="{$CODE} - {$TITLE}"}</li>
+            <li class="breadcrumb-item"><a href="{url path='/admin/home'}">{intl l="Home"}</a></li>
+            <li class="breadcrumb-item"><a href="{url path='/admin/configuration'}">{intl l="Configuration"}</a></li>
+            <li class="breadcrumb-item"><a href="{url path='/admin/configuration/shipping_zones'}">{intl l="Shipping configuration"}</a></li>
+            <li class="breadcrumb-item">{intl l='Editing shipping configuration for module "%name"' name="{$CODE} - {$TITLE}"}</li>
         </ul>
 
         {hook name="shipping-zones-edit.top" delivery_module_id=$delivery_module_id}
@@ -35,7 +35,7 @@
                                 {intl l='Shipping configuration of delivery module "%title"' title={$TITLE}}
                             </div>
                             <div class="col-md-2 text-right">
-                                <a href="{url path='/admin/configuration/shipping_zones'}" class="btn btn-sm btn-default">{intl l='Close'} <span class="glyphicon glyphicon-remove"></span></a>
+                                <a href="{url path='/admin/configuration/shipping_zones'}" class="btn btn-sm btn-secondary">{intl l='Close'} <span class="fas fa-times"></span></a>
                             </div>
                         </div>
                     </div>
@@ -57,7 +57,7 @@
                                 {/form_field}
 
                                 {form_field field='area_id'}
-                                <label class="control-label" for="{$label_attr.for}">{$label}</label>
+                                <label class="col-form-label" for="{$label_attr.for}">{$label}</label>
                                 <div class="input-group">
                                     <select name="{$name}" id="{$label_attr.for}" data-toggle="selectpicker">
                                         {loop name="area.module.not_associated" type="area" without_zone=$delivery_module_id}
@@ -65,7 +65,7 @@
                                         {/loop}
                                     </select>
                                     <span class="input-group-btn">
-                                        <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-plus-sign"></span> {intl l="Add"}</button>
+                                        <button type="submit" class="btn btn-primary"><i class="fas fa-plus-circle"></i> {intl l="Add"}</button>
                                     </span>
                                 </div>
                                 {/form_field}
@@ -81,7 +81,7 @@
 
                         <div class="col-md-8">
                             <div class="table-responsive">
-                                <table class="table table-striped table-condensed">
+                                <table class="table table-striped table-sm">
                                     <thead>
                                         <tr>
                                             <th>{intl l="Shipping zone"}</th>
@@ -93,8 +93,8 @@
                                         <tr>
                                             <td>{$NAME}</td>
                                             <td class="text-center">
-                                                <a class="btn btn-default btn-xs delete-zone-area" title="{intl l='Delete this zone'}"  href="#delete_zone_dialog" data-id="{$ID}" data-toggle="modal">
-                                                    <span class="glyphicon glyphicon-trash"></span>
+                                                <a class="btn btn-secondary btn-xs delete-zone-area" title="{intl l='Delete this zone'}"  href="#delete_zone_dialog" data-id="{$ID}" data-toggle="modal">
+                                                    <span class="fas fa-trash-alt"></span>
                                                 </a>
                                             </td>
                                         </tr>

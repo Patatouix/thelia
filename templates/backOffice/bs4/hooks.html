@@ -8,12 +8,12 @@
 {block name="main-content"}
 <div class="hooks">
 
-    <div id="wrapper" class="container">
+    <div class="container-fluid">
 
         <ul class="breadcrumb">
-            <li><a href="{url path='/admin/home'}">{intl l="Home"}</a></li>
-            <li><a href="{url path='/admin/configuration'}">{intl l="Configuration"}</a></li>
-            <li><a href="{url path='/admin/hooks'}">{intl l="Hooks"}</a></li>
+            <li class="breadcrumb-item"><a href="{url path='/admin/home'}">{intl l="Home"}</a></li>
+            <li class="breadcrumb-item"><a href="{url path='/admin/configuration'}">{intl l="Configuration"}</a></li>
+            <li class="breadcrumb-item"><a href="{url path='/admin/hooks'}">{intl l="Hooks"}</a></li>
         </ul>
 
         {hook name="hooks.top" location="hooks_top" }
@@ -50,7 +50,7 @@
                 <form action="" method="post">
                     <div class="general-block-decorator">
                         <div class="table-responsive">
-                            <table class="table table-striped table-condensed">
+                            <table class="table table-striped table-sm">
                                 <caption class="clearfix">
                                     {intl l='Hooks'}
                                     {include file='renderer/buttons.html' btn_group=false buttons=[
@@ -134,13 +134,13 @@
                                     <td><a href="{url path="/admin/hook/update/%id" id=$ID}">{$TITLE}</a></td>
                                     <td>
                                         {if $NATIVE}
-                                        <span class="label label-md label-success"><i class='glyphicon glyphicon-ok-circle'></i></span>
+                                        <span class="badge badge-md badge-success"><i class='far fa-check-circle'></i></span>
                                         {else}
-                                        <span class="label label-md label-warning"><i class='glyphicon glyphicon-remove-circle'></i></span>
+                                        <span class="badge badge-md badge-warning"><i class='far fa-times-circle'></i></span>
                                         {/if}
                                     </td>
                                     <td>
-                                        <div class="make-switch switch-small hook-activation u-toggle-state" data-id="{$ID}" data-on="success" data-off="danger" data-on-label="<i class='glyphicon glyphicon-ok-circle'></i>" data-off-label="<i class='glyphicon glyphicon-remove-circle'></i>">
+                                        <div class="make-switch switch-small hook-activation u-toggle-state" data-id="{$ID}" data-on="success" data-off="danger" data-on-label="<i class='far fa-check-circle'></i>" data-off-label="<i class='far fa-times-circle'></i>">
                                             <input type="checkbox" {if $ACTIVE}checked="checked"{/if} />
                                         </div>
                                     </td>
@@ -191,8 +191,8 @@
 
             <div class="col-md-12">
                 <div class="text-right">
-                    <a href="{url path='/admin/modules'}" class="btn btn-primary">{intl l="Manage modules"} <span class="glyphicon glyphicon-chevron-right"></span></a>
-                    <a href="{url path='/admin/module-hooks'}" class="btn btn-primary">{intl l="Manage modules attachements"}  <span class="glyphicon glyphicon-chevron-right"></span></a>
+                    <a href="{url path='/admin/modules'}" class="btn btn-primary">{intl l="Manage modules"} <span class="fas fa-chevron-right"></span></a>
+                    <a href="{url path='/admin/module-hooks'}" class="btn btn-primary">{intl l="Manage modules attachements"}  <span class="fas fa-chevron-right"></span></a>
                 </div>
             </div>
         </div>
@@ -224,9 +224,11 @@
 
                 <div class="input-group">
                     <input type="text" {form_field_attributes field="title"}>
-                    <span class="input-group-addon"><img src="{image file="assets/img/flags/`$CODE`.png"}" alt="{$TITLE}" /></span>
+                    <div class="input-group-append">
+                        <span class="input-group-text"><img src="{image file="assets/img/flags/`$CODE`.png"}" alt="{$TITLE}" /></span>
+                    </div>
                 </div>
-                <div class="help-block">{intl l="Enter here the value in the default language (%title)" title={$TITLE}}</div>
+                <div class="form-text">{intl l="Enter here the value in the default language (%title)" title={$TITLE}}</div>
             {/loop}
         {/custom_render_form_field}
 
@@ -278,8 +280,8 @@ form_content        = {$smarty.capture.delete_dialog nofilter}
     <div class="modal-dialog">
         <div class="modal-content alert alert-block alert-danger ">
             <div class="modal-header">
+                <h2 class="modal-title">{intl l="Error"}</h2>
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h2>{intl l="Error"}</h2>
             </div>
             <div class="modal-body">
                 <strong>{intl l="Impossible to change official hook. Please contact your administrator or try later"}</strong>
@@ -292,8 +294,8 @@ form_content        = {$smarty.capture.delete_dialog nofilter}
     <div class="modal-dialog">
         <div class="modal-content alert alert-block alert-danger ">
             <div class="modal-header">
+                <h2 class="modal-title">{intl l="Error"}</h2>
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h2>{intl l="Error"}</h2>
             </div>
             <div class="modal-body">
                 <strong>{intl l="Impossible to change active flag. Please contact your administrator or try later"}</strong>
@@ -474,7 +476,7 @@ form_content        = {$smarty.capture.delete_dialog nofilter}
 
 <script id="discover-action" type="text/html">
 <div>
-    <button type="button" name="save" value="save" id="discover-save" class="form-submit-button btn btn-sm btn-default btn-success" title=" Enregistrer"> {intl l="Update"} <span class="glyphicon glyphicon-ok"></span></button>
+    <button type="button" name="save" value="save" id="discover-save" class="form-submit-button btn btn-sm btn-success" title=" Enregistrer"> {intl l="Update"} <span class="fas fa-check"></span></button>
 </div>
 </script>
 
@@ -488,7 +490,7 @@ form_content        = {$smarty.capture.delete_dialog nofilter}
 
 
 <script id="discover-new" type="text/html">
-<table class="table table-striped table-condensed">
+<table class="table table-striped table-sm">
     <caption class="clearfix">
         {intl l='Your template define new hooks'}
     </caption>
@@ -507,19 +509,19 @@ form_content        = {$smarty.capture.delete_dialog nofilter}
             <td><input name="discover-new" value="<%- index %>" class="discover-new" type="checkbox" alt="" data-index="<%- index %>" /></td>
             <td><%- hook.code %></td>
             <td><%- hook.title ? hook.title : "-" %></td>
-            <td><% if (hook.block) { %><span class="label label-md label-success"><i class='glyphicon glyphicon-ok-circle'></i></span><% } else { %><span class="label label-md label-warning"><i class='glyphicon glyphicon-remove-circle'></i></span><% } %></td>
-            <td><% if (hook.module) { %><span class="label label-md label-success"><i class='glyphicon glyphicon-ok-circle'></i></span><% } else { %><span class="label label-md label-warning"><i class='glyphicon glyphicon-remove-circle'></i></span><% } %></td>
+            <td><% if (hook.block) { %><span class="badge badge-md badge-success"><i class='far fa-check-circle'></i></span><% } else { %><span class="badge badge-md badge-warning"><i class='far fa-times-circle'></i></span><% } %></td>
+            <td><% if (hook.module) { %><span class="badge badge-md badge-success"><i class='far fa-check-circle'></i></span><% } else { %><span class="badge badge-md badge-warning"><i class='far fa-times-circle'></i></span><% } %></td>
         </tr>
         <% }); %>
         <tr>
-            <td colspan="5"><i class='glyphicon glyphicon-arrow-up'></i> {intl l="Create this hooks"}</td>
+            <td colspan="5"><i class='fas fa-arrow-up'></i> {intl l="Create this hooks"}</td>
         </tr>
     </tbody>
 </table>
 </script>
 
 <script id="discover-missing" type="text/html">
-    <table class="table table-striped table-condensed">
+    <table class="table table-striped table-sm">
         <caption class="clearfix">
             {intl l='Your template does not support this hooks'}
         </caption>
@@ -537,12 +539,12 @@ form_content        = {$smarty.capture.delete_dialog nofilter}
             <td><input name="discover-missing" value="<%- hook.id %>" class="discover-missing" type="checkbox" data-code="<%- hook.code %>" <% if (!hook.activate){ %>disabled<% }%>  /></td>
             <td><%- hook.code %></td>
             <td><%- hook.title %></td>
-            <td><% if (hook.native) { %><span class="label label-md label-success"><i class='glyphicon glyphicon-ok-circle'></i></span><%
-                } else { %><span class="label label-md label-warning"><i class='glyphicon glyphicon-remove-circle'></i></span><% } %></td>
+            <td><% if (hook.native) { %><span class="badge badge-md badge-success"><i class='far fa-check-circle'></i></span><%
+                } else { %><span class="badge badge-md badge-warning"><i class='far fa-times-circle'></i></span><% } %></td>
         </tr>
         <% }); %>
         <tr>
-            <td colspan="5"><i class='glyphicon glyphicon-arrow-up'></i> {intl l="Deactivate this hooks"}</td>
+            <td colspan="5"><i class='fas fa-arrow-up'></i> {intl l="Deactivate this hooks"}</td>
         </tr>
         </tbody>
     </table>

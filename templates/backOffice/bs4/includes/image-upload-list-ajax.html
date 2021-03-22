@@ -31,25 +31,25 @@ Parameters:
                     </div>
 
                     <div class="container-btn-right btn-group" >
-                        <a class="image-update-btn btn btn-default btn-xs disabled js-sorted-position" href="#">{$POSITION}</a>
+                        <a class="image-update-btn btn btn-secondary btn-xs disabled js-sorted-position" href="#">{$POSITION}</a>
 
                         {loop type="auth" name="can_change" role="ADMIN" resource="{$resource|default:"admin.$imageType"}" access="UPDATE"}
-                        <a class="image-toggle-btn btn btn-default btn-xs {if $VISIBLE}visibility-visible{/if}" href="{url path="/admin/image/type/%image/%id/toggle" image=$imageType id=$ID}" data-error-message="{intl l='Please retry'}">
-                            <i class="glyphicon glyphicon-eye-open"></i><i class="glyphicon glyphicon-eye-close"></i>
+                        <a class="image-toggle-btn btn btn-secondary btn-xs {if $VISIBLE}visibility-visible{/if}" href="{url path="/admin/image/type/%image/%id/toggle" image=$imageType id=$ID}" data-error-message="{intl l='Please retry'}">
+                            <i class="fas fa-eye"></i><i class="fas fa-eye-slash"></i>
                         </a>
-                        <a class="image-update-btn btn btn-default btn-xs" href="{url path="/admin/image/type/%image/%id/update" image=$imageType id=$ID}" data-error-message="{intl l='Please retry'}">
-                            <i class="glyphicon glyphicon-edit"></i>
+                        <a class="image-update-btn btn btn-secondary btn-xs" href="{url path="/admin/image/type/%image/%id/update" image=$imageType id=$ID}" data-error-message="{intl l='Please retry'}">
+                            <i class="fas fa-edit"></i>
                         </a>
                         {/loop}
                         {elseloop rel="can_change"}
-                        <a class="btn btn-default btn-xs">
+                        <a class="btn btn-secondary btn-xs">
                             <i class="glyphicon {if $VISIBLE}glyphicon-eye-open{else}glyphicon-eye-close{/if}"></i>
                         </a>
                         {/elseloop}
 
                         {loop type="auth" name="can_delete" role="ADMIN" resource="{$resource|default:"admin.$imageType"}" access="DELETE"}
-                        <a class="image-delete-btn btn btn-default btn-xs" id="image-{$ID}" href="{url path="/admin/image/type/%image/delete/%id" image=$imageType id=$ID}" data-error-message="{intl l='Please retry'}">
-                            <i class="glyphicon glyphicon-trash"></i>
+                        <a class="image-delete-btn btn btn-secondary btn-xs" id="image-{$ID}" href="{url path="/admin/image/type/%image/delete/%id" image=$imageType id=$ID}" data-error-message="{intl l='Please retry'}">
+                            <i class="fas fa-trash-alt"></i>
                         </a>
                         {/loop}
                     </div>
@@ -66,8 +66,8 @@ Parameters:
                         <input type="text" name="title" class="form-control" placeholder="{intl l='Title'}" value="{$TITLE}">
 
                         <span class="input-group-btn">
-                            <button type="submit" name="save_mode" value="stay" class="form-submit-button btn btn-default btn-success" title="{intl l='Save'}">
-                                <span class="glyphicon glyphicon-ok"></span>
+                            <button type="submit" name="save_mode" value="stay" class="form-submit-button btn btn-success" title="{intl l='Save'}">
+                                <span class="fas fa-check"></span>
                             </button>
                         </span>
                     </div>

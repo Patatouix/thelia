@@ -19,15 +19,15 @@
 
     <div id="export-modal"></div>
 
-    <div class="configuration">
+    <!-- <div class="configuration"> -->
 
-        <div id="wrapper" class="container">
+        <div class="container-fluid">
 
             <nav>
                 <ul class="breadcrumb">
-                    <li><a href="{url path='admin/home'}">{intl l='Home'}</a></li>
-                    <li><a href="{url path='admin/tools'}">{intl l='Tools'}</a></li>
-                    <li>{intl l="Exports"}</li>
+                    <li class="breadcrumb-item"><a href="{url path='admin/home'}">{intl l='Home'}</a></li>
+                    <li class="breadcrumb-item"><a href="{url path='admin/tools'}">{intl l='Tools'}</a></li>
+                    <li class="breadcrumb-item">{intl l="Exports"}</li>
                 </ul>
             </nav>
 
@@ -40,7 +40,7 @@
                         <div class="col-md-12">
                             <div class="general-block-decorator">
                                 <div class="table-responsive">
-                                    <table class="table table-striped table-condensed table-left-aligned">
+                                    <table class="table table-striped table-sm table-left-aligned">
                                         <caption class="clearfix">
                                             {admin_position_block
                                                 resource="admin.export"
@@ -55,41 +55,41 @@
                                         </caption>
                                         <thead>
                                             <tr>
-                                                <th class="col-md-1">
+                                                <th>
                                                     {if $export_order == "id"}
-                                                        <i class="glyphicon glyphicon-chevron-up"></i>
+                                                        <i class="glyphicon fas fa-chevron-up"></i>
                                                     {elseif $export_order == "id_reverse"}
-                                                        <i class="glyphicon glyphicon-chevron-down"></i>
+                                                        <i class="glyphicon fas fa-chevron-down"></i>
                                                     {/if}
                                                     <a href="{url path="/admin/export"}?{if $url_category}{$url_category nofilter}&{/if}export_order=id{if $export_order == "id"}_reverse{/if}#category_{$category_title}">
                                                         {intl l="ID"}
                                                     </a>
                                                 </th>
-                                                <th class="col-md-2">
+                                                <th>
                                                     {if $export_order == "alpha"}
-                                                        <i class="glyphicon glyphicon-chevron-up"></i>
+                                                        <i class="glyphicon fas fa-chevron-up"></i>
                                                     {elseif $export_order == "alpha_reverse"}
-                                                        <i class="glyphicon glyphicon-chevron-down"></i>
+                                                        <i class="glyphicon fas fa-chevron-down"></i>
                                                     {/if}
                                                     <a href="{url path="/admin/export"}?{if $url_category}{$url_category nofilter}&{/if}export_order=alpha{if $export_order == "alpha"}_reverse{/if}#category_{$category_title}">
                                                         {intl l="Name"}
                                                     </a>
                                                 </th>
-                                                <th class="col-md-6">
+                                                <th>
                                                     {intl l="Description"}
                                                 </th>
-                                                <th class="col-md-2">
+                                                <th>
                                                     {if $export_order == "manual"}
-                                                        <i class="glyphicon glyphicon-chevron-up"></i>
+                                                        <i class="glyphicon fas fa-chevron-up"></i>
                                                     {elseif $export_order == "manual_reverse"}
-                                                        <i class="glyphicon glyphicon-chevron-down"></i>
+                                                        <i class="glyphicon fas fa-chevron-down"></i>
                                                     {/if}
                                                     <a href="{url path="/admin/export"}?{if $url_category}{$url_category nofilter}&{/if}export_order=manual{if $export_order == "manual"}_reverse{/if}#category_{$category_title}">
                                                         {intl l="Position"}
                                                     </a>
                                                 </th>
                                                 {hook name="export.table-header"}
-                                                <th class="col-md-1">
+                                                <th>
                                                     {intl l="Actions"}
                                                 </th>
                                             </tr>
@@ -128,7 +128,7 @@
                                                                     'id' => $ID,
                                                                     'url' => {$URL nofilter}
                                                                 ],
-                                                                'icon' => ['class' => 'glyphicon glyphicon-open']
+                                                                'icon' => ['class' => 'fas fa-upload']
                                                             ]
                                                         ]}
                                                     </td>
@@ -154,7 +154,7 @@
 
             {hook name="exports.bottom" location="exports_bottom" }
         </div>
-    </div>
+    <!-- </div> -->
 {/block}
 
 {block name="javascript-initialization"}

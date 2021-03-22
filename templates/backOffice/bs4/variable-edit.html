@@ -12,15 +12,15 @@
 {block name="main-content"}
 <div class="variables edit-variable">
 
-    <div id="wrapper" class="container">
+    <div class="container-fluid">
 
         {loop name="config_edit" type="config" hidden="*" id="$variable_id" backend_context="1" lang="$edit_language_id"}
 
         <ul class="breadcrumb">
-			<li><a href="{url path='/admin/home'}">{intl l="Home"}</a></li>
-            <li><a href="{url path='/admin/configuration'}">{intl l="Configuration"}</a></li>
-            <li><a href="{url path='/admin/configuration/variables'}">{intl l="System variables"}</a></li>
-            <li>{intl l='Editing variable "%name"' name={$NAME}}</li>
+			<li class="breadcrumb-item"><a href="{url path='/admin/home'}">{intl l="Home"}</a></li>
+            <li class="breadcrumb-item"><a href="{url path='/admin/configuration'}">{intl l="Configuration"}</a></li>
+            <li class="breadcrumb-item"><a href="{url path='/admin/configuration/variables'}">{intl l="System variables"}</a></li>
+            <li class="breadcrumb-item">{intl l='Editing variable "%name"' name={$NAME}}</li>
         </ul>
 
 		{hook name="variables-edit.top" variable_id=$variable_id}
@@ -67,14 +67,14 @@
 
 									{form_field field='name'}
 						            <div class="form-group {if $error}has-error{/if}">
-    									<label for="{$label_attr.for}" class="control-label">{$label} : </label>
+    									<label for="{$label_attr.for}" class="col-form-label">{$label} : </label>
 					                    <input type="text" id="{$label_attr.for}" required="required" name="{$name}" value="{$value}" title="{intl l='Variable name'}" placeholder="{intl l='Variable name'}" class="form-control">
 						            </div>
 						            {/form_field}
 
 									{form_field field='value'}
 						            <div class="form-group {if $error}has-error{/if}">
-    									<label for="{$label_attr.for}" class="control-label">{$label} : </label>
+    									<label for="{$label_attr.for}" class="col-form-label">{$label} : </label>
 						                <input type="text" id="{$label_attr.for}" name="{$name}" value="{$value}" title="{intl l='Variable value'}" placeholder="{intl l='Variable value'}" class="form-control">
 						            </div>
 						            {/form_field}

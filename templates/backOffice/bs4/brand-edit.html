@@ -14,16 +14,16 @@
 {block name="page-title"}{intl l='Edit brand'}{/block}
 
 {block name="main-content"}
-    <div class="brand edit-brand">
+    <!-- <div class="brand edit-brand"> -->
         <div id="wrapper" class="container">
             {loop name="brand_edit" type="brand" visible="*" id="{$brand_id}" backend_context="1" lang="$edit_language_id" with_prev_next_info="true"}
 
             <nav>
                 <ul class="breadcrumb">
-                    <li><a href="{url path='admin/home'}">{intl l='Home'}</a></li>
-                    <li><a href="{url path='admin/tools'}">{intl l='Tools'}</a></li>
-                    <li><a href="{url path='admin/brand'}">{intl l='Brands'}</a></li>
-                    <li>{intl l='Editing brand "%title"' title="{$TITLE}"}</li>
+                    <li class="breadcrumb-item"><a href="{url path='admin/home'}">{intl l='Home'}</a></li>
+                    <li class="breadcrumb-item"><a href="{url path='admin/tools'}">{intl l='Tools'}</a></li>
+                    <li class="breadcrumb-item"><a href="{url path='admin/brand'}">{intl l='Brands'}</a></li>
+                    <li class="breadcrumb-item">{intl l='Editing brand "%title"' title="{$TITLE}"}</li>
                 </ul>
             </nav>
 
@@ -39,17 +39,17 @@
                         <div class="col-md-5 actions">
 
                             {if $HAS_PREVIOUS != 0}
-                                <a href="{url path="/admin/brand/update/%previous" previous=$PREVIOUS}" class="btn btn-default" title="{intl l='Edit previous brand'}"><span class="glyphicon glyphicon-arrow-left"></span></a>
+                                <a href="{url path="/admin/brand/update/%previous" previous=$PREVIOUS}" class="btn btn-secondary" title="{intl l='Edit previous brand'}"><span class="fas fa-arrow-left"></span></a>
                             {else}
-                                <a href="#" disabled="disabled" class="btn btn-default"><span class="glyphicon glyphicon-arrow-left"></span></a>
+                                <a href="#" disabled="disabled" class="btn btn-secondary"><span class="fas fa-arrow-left"></span></a>
                             {/if}
 
-                            <a href="{$URL nofilter}" target="_blank" class="btn btn-default" title="{intl l='Preview brand page'}"><span class="glyphicon glyphicon-eye-open"></span></a>
+                            <a href="{$URL nofilter}" target="_blank" class="btn btn-secondary" title="{intl l='Preview brand page'}"><span class="fas fa-eye"></span></a>
 
                             {if $HAS_NEXT != 0}
-                                <a href="{url path="/admin/brand/update/%next" next=$NEXT}" class="btn btn-default" title="{intl l='Edit next brand'}"><span class="glyphicon glyphicon-arrow-right"></span></a>
+                                <a href="{url path="/admin/brand/update/%next" next=$NEXT}" class="btn btn-secondary" title="{intl l='Edit next brand'}"><span class="fas fa-arrow-right"></span></a>
                             {else}
-                                <a href="#" disabled="disabled" class="btn btn-default"><span class="glyphicon glyphicon-arrow-right"></span></a>
+                                <a href="#" disabled="disabled" class="btn btn-secondary"><span class="fas fa-arrow-right"></span></a>
                             {/if}
                         </div>
 
@@ -207,7 +207,7 @@
 
             {/loop}
         </div>
-    </div>
+    <!-- </div> -->
  {/block}
 
 

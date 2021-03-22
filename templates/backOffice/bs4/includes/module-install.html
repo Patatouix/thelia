@@ -23,13 +23,13 @@
 
                 {form_field field='module'}
                 <div class="form-group {if $error}has-error{/if}">
-                    <label for="{$label_attr.for}" class="control-label">{$label}{if $required} <span class="required">*</span>{/if} :
-                        <span class="label-help-block">{intl l="Your module should be packaged in a zip file."}</span>
+                    <label for="{$label_attr.for}" class="col-form-label">{$label}{if $required} <span class="required">*</span>{/if} :
+                        <span class="label-form-text">{intl l="Your module should be packaged in a zip file."}</span>
                     </label>
                     <div class="input-group">
                         <input type="file" id="{$label_attr.for}" {if $required}required="required"{/if} name="{$name}" value="{$value}" title="{intl l='Module file'}" placeholder="{intl l='Module file'}" class="form-control">
                         <span class="input-group-btn">
-                            <input type="submit" class="form-submit-button btn btn-sm btn-success" value="{intl l="Install !"}" >
+                            <input type="submit" class="form-submit-button btn btn-success" value="{intl l="Install !"}" >
                         </span>
                     </div>
                 </div>
@@ -58,7 +58,7 @@
                     <div class="input-group">
                         <input type="text" class="form-control" id="q" name="q" placeholder="{intl l='Search on Thelia Modules'}">
                         <span class="input-group-btn">
-                            <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span></button>
+                            <button type="submit" class="btn btn-primary"><span class="fas fa-search"></span></button>
                         </span>
                     </div>
                 </form>
@@ -73,7 +73,7 @@
                             <option value="1" {if $visible} selected {/if}>{intl l='Yes'}</option>
                         </select>
                         <span class="input-group-btn">
-                            <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-eye-open"></span></button>
+                            <button type="submit" class="btn btn-primary"><span class="fas fa-eye"></span></button>
                         </span>
                     </div>
                 </form>

@@ -11,7 +11,7 @@
 
 {block name="main-content"}
     <div class="content edit-content">
-        <div id="wrapper" class="container">
+        <div class="container-fluid">
 
             {include file="includes/folder-breadcrumb.html" editing_content="true"}
 
@@ -28,17 +28,17 @@
                             <div class="col-md-5 actions">
 
                                 {if $HAS_PREVIOUS != 0}
-                                    <a href="{url path="/admin/content/update/%previous" previous=$PREVIOUS}" class="btn btn-default" title="{intl l='Edit previous content'}"><span class="glyphicon glyphicon-arrow-left"></span></a>
+                                    <a href="{url path="/admin/content/update/%previous" previous=$PREVIOUS}" class="btn btn-secondary" title="{intl l='Edit previous content'}"><span class="fas fa-arrow-left"></span></a>
                                 {else}
-                                    <a href="#" disabled="disabled" class="btn btn-default"><span class="glyphicon glyphicon-arrow-left"></span></a>
+                                    <a href="#" disabled="disabled" class="btn btn-secondary"><span class="fas fa-arrow-left"></span></a>
                                 {/if}
 
-                                <a href="{$URL nofilter}" target="_blank" class="btn btn-default" title="{intl l='Preview content page'}"><span class="glyphicon glyphicon-eye-open"></span></a>
+                                <a href="{$URL nofilter}" target="_blank" class="btn btn-secondary" title="{intl l='Preview content page'}"><span class="fas fa-eye"></span></a>
 
                                 {if $HAS_NEXT != 0}
-                                    <a href="{url path="/admin/content/update/%next" next=$NEXT}" class="btn btn-default" title="{intl l='Edit next content'}"><span class="glyphicon glyphicon-arrow-right"></span></a>
+                                    <a href="{url path="/admin/content/update/%next" next=$NEXT}" class="btn btn-secondary" title="{intl l='Edit next content'}"><span class="fas fa-arrow-right"></span></a>
                                 {else}
-                                    <a href="#" disabled="disabled" class="btn btn-default"><span class="glyphicon glyphicon-arrow-right"></span></a>
+                                    <a href="#" disabled="disabled" class="btn btn-secondary"><span class="fas fa-arrow-right"></span></a>
                                 {/if}
                             </div>
                         </div>
@@ -126,7 +126,7 @@
                                                             {form_field field='default_folder'}
                                                                 <div class="form-group {if $error}has-error{/if}">
 
-                                                                    <label for="{$label_attr.for}" class="control-label">
+                                                                    <label for="{$label_attr.for}" class="col-form-label">
                                                                         {$label} :
                                                                     </label>
 
@@ -144,7 +144,7 @@
 
                                                             {form_field field='visible'}
                                                                 <div class="form-group {if $error}has-error{/if}">
-                                                                    <label for="{$label_attr.for}" class="control-label">{intl l='Visibility'}</label>
+                                                                    <label for="{$label_attr.for}" class="col-form-label">{intl l='Visibility'}</label>
 
                                                                     <div class="checkbox">
                                                                         <label>

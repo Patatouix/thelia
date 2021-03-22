@@ -11,19 +11,19 @@
 
 {block name="main-content"}
     {loop type="export" name="export" id=$exportId}
-        <div id="wrapper" class="container">
+        <div class="container-fluid">
             <nav>
                 <ul class="breadcrumb">
-                    <li>
+                    <li class="breadcrumb-item">
                         <a href="{url path='admin/home'}">{intl l='Home'}</a>
                     </li>
-                    <li>
+                    <li class="breadcrumb-item">
                         <a href="{url path='admin/tools'}">{intl l='Tools'}</a>
                     </li>
-                    <li>
+                    <li class="breadcrumb-item">
                         <a href="{url path='admin/export'}">{intl l="Exports"}</a>
                     </li>
-                    <li>
+                    <li class="breadcrumb-item">
                         {intl l="Export"}&nbsp;: {$TITLE}
                     </li>
                 </ul>
