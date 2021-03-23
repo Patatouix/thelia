@@ -7,10 +7,11 @@
 
         <div class="input-group">
             <input id="coupon-amount" type="money" class="form-control" name="{$amount_field_name}" value="{$amount_value}" placeholder="14.50">
-
-            {loop type="currency" name="get-symbol" default_only="true"}
-                <div class="input-group-addon">{$SYMBOL}</div>
-            {/loop}
+            <div class="input-group-append">
+                {loop type="currency" name="get-symbol" default_only="true"}
+                    <div class="input-group-text">{$SYMBOL}</div>
+                {/loop}
+            </div>
         </div>
     </div>
 {/block}

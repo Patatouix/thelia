@@ -26,7 +26,9 @@
                 <div class="form-group {if $error}has-error{/if}">
                     <label for="{$label_attr.for}" class="col-form-label hidden">{$label} : </label>
                     <div class="input-group">
-                        <span class="input-group-addon"><span class="fas fa-user"></span></span>
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><span class="fas fa-user"></span></span>
+                        </div>
                         <input type="text" id="{$label_attr.for}" name="{$name}" class="form-control form-control-lg" title="{$label}" placeholder="{intl l='Username or e-mail address'}" autofocus>
                     </div>
                 </div>
@@ -36,7 +38,9 @@
                 <div class="form-group {if $error}has-error{/if}">
                     <label for="{$label_attr.for}" class="col-form-label hidden">{$label} : </label>
                     <div class="input-group">
-                        <span class="input-group-addon"><span class="fas fa-lock"></span></span>
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><span class="fas fa-lock"></span></span>
+                        </div>
                         <input type="password" id="{$label_attr.for}" name="{$name}" class="form-control form-control-lg" title="{$label}" placeholder="{intl l='Password'}">
                     </div>
                 </div>

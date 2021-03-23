@@ -316,31 +316,37 @@
 
 	                                        <td class="col-md-6" >
 	                                            <div class="input-group input-group-default {if $not_translated}has-error{/if}">
-												    <span class="input-group-addon">
-												        <a href="#" data-text-num="{$idx}" class="copy-translation" title="{intl l='Copy source text in input field'}">
-												            <span class="fas fa-chevron-right"></span>
-												        </a>
-                                                    </span>
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <a href="#" data-text-num="{$idx}" class="copy-translation" title="{intl l='Copy source text in input field'}">
+                                                                <span class="fas fa-chevron-right"></span>
+                                                            </a>
+                                                        </span>
+                                                    </div>
 												    <input type="text" name="translation[]" id="translation_{$idx}"
 												        class="translation_field translation_field_default form-control" value="{$info.translation}"
                                                     />
 												</div>
 												<div class="input-group input-group-custom">
-												    <span class="input-group-addon">
-												        <a href="#" data-text-num="{$idx}" class="copy-translation-custom" title="{intl l='Copy source text in input field'}">
-												            <span class="fas fa-play"></span>
-												        </a>
-                                                    </span>
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <a href="#" data-text-num="{$idx}" class="copy-translation-custom" title="{intl l='Copy source text in input field'}">
+                                                                <span class="fas fa-play"></span>
+                                                            </a>
+                                                        </span>
+                                                    </div>
 												    <input type="text" name="translation_custom[]" id="translation_custom_{$idx}"
 												        class="translation_field translation_field_custom form-control" value="{$info.custom_fallback}"
 												        placeholder="specific redefinition" />
 												</div>
 												<div class="input-group input-group-global">
-												    <span class="input-group-addon">
-												        <a href="#" data-text-num="{$idx}" class="copy-translation-global" title="{intl l='Copy source text in input field'}">
-												            <span class="fas fa-forward"></span>
-                                                        </a>
-                                                    </span>
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <a href="#" data-text-num="{$idx}" class="copy-translation-global" title="{intl l='Copy source text in input field'}">
+                                                                <span class="fas fa-forward"></span>
+                                                            </a>
+                                                        </span>
+                                                    </div>
 												    <input type="text" name="translation_global[]" id="translation_global_{$idx}"
 												        class="translation_field translation_field_global form-control" value="{$info.global_fallback}"
 												        placeholder="global redefinition" />

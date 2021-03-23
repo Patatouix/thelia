@@ -3,9 +3,10 @@
 
     <div class="input-group">
         <input id="coupon-amount" type="money" class="col-form-label" name="{$amount_field_name}" value="{$amount_value}" placeholder="{intl l="Amount, e.g. 12.50"}">
-
-        {loop type="currency" name="get-symbol" default_only="true"}
-            <div class="input-group-addon">{$SYMBOL}</div>
-        {/loop}
+        <div class="input-group-append">
+            {loop type="currency" name="get-symbol" default_only="true"}
+                <div class="input-group-text">{$SYMBOL}</div>
+            {/loop}
+        </div>
     </div>
 </div>

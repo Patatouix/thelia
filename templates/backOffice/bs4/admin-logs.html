@@ -47,11 +47,13 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <div class="input-group date">
-                                        <span class="input-group-addon">{intl l='From'}</span>
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">{intl l='From'}</span>
+                                        </div>
                                         <input class="form-control datetime-picker from-datetime-picker" type="text" id="from_date" readonly="readonly">
-                                        <span class="input-group-addon">
-                                            <span class="fas fa-calendar-alt"></span>
-                                        </span>
+                                        <div class="input-group-append">
+                                            <span class="input-group-text"><span class="fas fa-calendar-alt"></span></span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -59,11 +61,15 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <div class="input-group date">
-                                        <span class="input-group-addon">{intl l='To'}</span>
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">{intl l='To'}</span>
+                                        </div>
                                         <input class="form-control datetime-picker to-datetime-picker" type="text" id="to_date" readonly="readonly">
-                                        <span class="input-group-addon">
-                                            <span class="fas fa-calendar-alt"></span>
-                                        </span>
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">
+                                                <span class="fas fa-calendar-alt"></span>
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

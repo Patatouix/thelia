@@ -26,7 +26,9 @@
 
         {custom_render_form_field field='url'}
             <div class="input-group">
-                <span class="input-group-addon">{$url_language|default:{config key="url_site"} nofilter}/</span>
+                <div class="input-group-prepend">
+                    <span class="input-group-text">{$url_language|default:{config key="url_site"} nofilter}/</span>
+                </div>
                 <input type="text" {form_field_attributes field='url'}>
             </div>
         {/custom_render_form_field}
