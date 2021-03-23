@@ -50,7 +50,7 @@
                         {/loop}
                     {/loop}
                     {if $has_combinations}
-                        <button {if ! $selected}disabled="disabled"{/if} title="{intl l='Product\'s attributes included in this sale operation'}" class="btn btn-primary btn-xs product-attribute-selector" data-product-id="{$ID}">{intl l='All'}</button>
+                        <button {if ! $selected}disabled="disabled"{/if} title="{intl l='Product\'s attributes included in this sale operation'}" class="btn btn-primary btn-sm product-attribute-selector" data-product-id="{$ID}">{intl l='All'}</button>
                         <input data-product-id="{$ID}" type="hidden" {form_field_attributes field="product_attributes" value="" value_key=$ID extra_class="product-selected-attributes-ids"}>
                     {else}
                         {intl l="No attributes."}

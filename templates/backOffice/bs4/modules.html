@@ -222,7 +222,7 @@
                     url: url
                 }).always(function(){
                     $("#loading-event").remove();
-                }).success(function(data) {
+                }).done(function(data) {
                     $('#module-information-title').html(data.title);
                     $('#module-information-body').html(data.body);
                     $("#module-information").modal("show");

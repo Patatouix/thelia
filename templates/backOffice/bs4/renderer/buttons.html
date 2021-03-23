@@ -247,7 +247,7 @@
     {if $button['id']} id="{$button['id']}"{/if}
     {if $button['title']} title="{$button['title']}"{/if}
     {if $button['href']} href="{$button['href'] nofilter}"{/if}
-     class="{$button['baseClass']}{if $btn_small} btn-xs{/if}{if $btn_big} btn-lg{/if}{if $btn_responsive} btn-responsive{/if}{if $button['class']} {$button['class']}{/if}"
+     class="{$button['baseClass']}{if $btn_small} btn-sm{/if}{if $btn_big} btn-lg{/if}{if $btn_responsive} btn-responsive{/if}{if $button['class']} {$button['class']}{/if}"
     {if $button['data'] && $button['data']|is_array}
     {foreach from=$button['data'] key=name item=data}
         data-{$name}="{$data}"

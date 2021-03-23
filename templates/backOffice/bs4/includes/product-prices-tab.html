@@ -410,20 +410,20 @@
                                     {/form_field}
 
                                     <div class="btn-group">
-                                        <a class="btn btn-secondary btn-xs pse-assoc-image pse-assoc-image-document" data-target="#pse-assoc-image-document-modal" data-id="{$value}" title="{intl l="Associate images"}">
+                                        <a class="btn btn-secondary btn-sm pse-assoc-image pse-assoc-image-document" data-target="#pse-assoc-image-document-modal" data-id="{$value}" title="{intl l="Associate images"}">
                                             <span class="far fa-image"></span>
                                         </a>
-                                        <a class="btn btn-secondary btn-xs pse-assoc-document pse-assoc-image-document" data-target="#pse-assoc-image-document-modal" data-id="{$value}" title="{intl l="Associate documents"}">
+                                        <a class="btn btn-secondary btn-sm pse-assoc-document pse-assoc-image-document" data-target="#pse-assoc-image-document-modal" data-id="{$value}" title="{intl l="Associate documents"}">
                                             <span class="fas fa-file"></span>
                                         </a>
                                         {if $VIRTUAL}
-                                        <a class="btn btn-success btn-xs pse-assoc-virtual pse-assoc-image-document" data-type="virtual" data-target="#pse-assoc-image-document-modal" data-id="{$value}" title="{intl l="Associate downloadable file"}">
+                                        <a class="btn btn-success btn-sm pse-assoc-virtual pse-assoc-image-document" data-type="virtual" data-target="#pse-assoc-image-document-modal" data-id="{$value}" title="{intl l="Associate downloadable file"}">
                                             <span class="far fa-arrow-alt-circle-down"></span>
                                         </a>
                                         {/if}
                                     </div>
 
-                                    <a class="btn btn-secondary btn-xs combination-delete" title="{intl l='Delete this combination'}"  href="#combination_delete_dialog" data-id="{$current_pse_id}" data-toggle="modal"><i class="fas fa-trash-alt"></i></a>
+                                    <a class="btn btn-secondary btn-sm combination-delete" title="{intl l='Delete this combination'}"  href="#combination_delete_dialog" data-id="{$current_pse_id}" data-toggle="modal"><i class="fas fa-trash-alt"></i></a>
 
 									{assign var='combination_list' value=array()}
 									{loop name="product.sales.elements.combinations" type="attribute_combination" product_sale_elements=$current_pse_id backend_context="1" order="manual"}
@@ -612,7 +612,7 @@
 	        {intl l='To remove a value from the combination, select it and click "remove"'}
 
 	        <div class="float-right">
-	            <button class="btn btn-info btn-xs remove-value-from-combination" type="button">
+	            <button class="btn btn-info btn-sm remove-value-from-combination" type="button">
 	                {intl l="Remove selected values"} <span class="glyphicon fas fa-minus-circle"></span>
 	            </button>
 	        </div>

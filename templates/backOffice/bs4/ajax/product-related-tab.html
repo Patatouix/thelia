@@ -108,7 +108,7 @@
 
 								<td class="actions">
 									{loop type="auth" name="can_create" role="ADMIN" resources="admin.product" access="UPDATE"}
-									<a class="btn btn-secondary btn-xs delete-content" title="{intl l='Delete this content'}" href="#delete_content_dialog" data-id="{$CONTENT_ID}" data-toggle="modal">
+									<a class="btn btn-secondary btn-sm delete-content" title="{intl l='Delete this content'}" href="#delete_content_dialog" data-id="{$CONTENT_ID}" data-toggle="modal">
 										<span class="fas fa-trash-alt"></span>
 									</a>
 									{/loop}
@@ -236,7 +236,7 @@
 
 								<td class="actions">
 									{loop type="auth" name="can_create" role="ADMIN" resources="admin.product" access="UPDATE"}
-									<a class="btn btn-secondary btn-xs delete-accessory" title="{intl l='Delete this accessory'}" href="#delete_accessory_dialog" data-id="{$ACCESSORY_ID}" data-toggle="modal">
+									<a class="btn btn-secondary btn-sm delete-accessory" title="{intl l='Delete this accessory'}" href="#delete_accessory_dialog" data-id="{$ACCESSORY_ID}" data-toggle="modal">
 										<span class="fas fa-trash-alt"></span>
 									</a>
 									{/loop}
@@ -343,7 +343,7 @@
 
 								<td class="actions">
 									{loop type="auth" name="can_delete" role="ADMIN" resources="admin.product" access="UPDATE"}
-									<a class="btn btn-secondary btn-xs delete-category" title="{intl l='Remove the product from this category'}" href="#delete_category_dialog" data-id="{$ID}" data-toggle="modal">
+									<a class="btn btn-secondary btn-sm delete-category" title="{intl l='Remove the product from this category'}" href="#delete_category_dialog" data-id="{$ID}" data-toggle="modal">
 										<span class="fas fa-trash-alt"></span>
 									</a>
 									{/loop}

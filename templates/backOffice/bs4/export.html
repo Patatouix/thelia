@@ -221,7 +221,7 @@
                  */
                 $.ajax(
                     $(this).data("url")
-                ).success(function(data) {
+                ).done(function(data) {
                     export_modal.html(data);
 
                     var compression_switch = $("#export-compression-switch", export_modal);

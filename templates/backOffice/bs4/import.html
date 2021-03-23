@@ -198,7 +198,7 @@
                  */
                 $.ajax(
                     $(this).data("url")
-                ).success(function(data) {
+                ).done(function(data) {
                     import_modal.html(data);
                     $("#real-import-modal").modal();
                 }).fail(function() {

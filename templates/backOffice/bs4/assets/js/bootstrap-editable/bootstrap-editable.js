@@ -2044,7 +2044,7 @@ Makes editable any HTML element on the page. Applied as jQuery method.
                         data: values,
                         type: 'POST'
                     }, config.ajaxOptions))
-                    .success(function(response) {
+                    .done(function(response) {
                         //successful response 200 OK
                         if(typeof config.success === 'function') {
                             config.success.call($elems, response, config);

@@ -73,7 +73,7 @@
     <div class="col-md-12">
         {ifloop rel="serializer"}
             <div class="row vertical-row-space">
-                <div class="col-xs-4">
+                <div class="col-4">
                     {form_field field="serializer"}
                         <div>
                             <label for="{$label_attr.for}">
@@ -91,7 +91,7 @@
                     {/form_field}
                 </div>
 
-                <div class="col-xs-4">
+                <div class="col-4">
                     {form_field field="language"}
                         <div>
                             <label for="{$label_attr.for}">
@@ -110,7 +110,7 @@
                 </div>
 
                 {ifloop rel="archiver"}
-                    <div class="col-xs-4">
+                    <div class="col-4">
                         {form_field field="do_compress"}
                             <div>
                                 <label for="{$label_attr.for}">
@@ -134,7 +134,7 @@
 
             {ifloop rel="archiver"}
                 <div class="row vertical-row-space export-compression-selection-row">
-                    <div class="col-xs-4">
+                    <div class="col-4">
                         {form_field field="archiver"}
                             <div>
                                 <label for="{$label_attr.for}">
@@ -152,7 +152,7 @@
                     </div>
 
                     {if $hasImages}
-                        <div class="col-xs-4">
+                        <div class="col-4">
                             {form_field field="images"}
                                 <div>
                                     <label for="{$label_attr.for}">
@@ -169,7 +169,7 @@
                     {/if}
 
                     {if $hasDocuments}
-                        <div class="col-xs-4">
+                        <div class="col-4">
                             {form_field field="documents"}
                                 <div>
                                     <label for="{$label_attr.for}">
