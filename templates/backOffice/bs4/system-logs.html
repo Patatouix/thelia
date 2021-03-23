@@ -152,7 +152,7 @@
                                         {foreach $destinations as $classname => $destination}
 	                                        {$active = in_array(get_class($destination), $active_destinations)}
 											<div class="card">
-												<div class="card-body well-sm">
+												<div class="card-body card-sm">
 													<input type="hidden" name="destinations[{$classname}][classname]" value="{get_class($destination)}" />
 
 													<p class="title title-without-tabs">{$destination->getTitle()}</p>

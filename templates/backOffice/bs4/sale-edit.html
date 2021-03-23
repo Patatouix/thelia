@@ -92,7 +92,7 @@
                                     {render_form_field field='price_offset_type'}
 
                                     <div class="card">
-                                        <div class="card-body well-sm">
+                                        <div class="card-body card-sm">
                                             {loop type="currency" name="sale.currencies" backend_context="1" lang=$edit_language_id}
                                                 {$aff=($LOOP_COUNT == 1)}
                                                 {custom_render_form_field field='price_offset' value_key=$ID show_label=$aff}

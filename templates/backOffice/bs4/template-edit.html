@@ -72,7 +72,7 @@
                             <div class="form-container">
                                 <div class="col-md-6">
                                     <div class="card">
-                                        <div class="card-body well-sm">
+                                        <div class="card-body card-sm">
                                             <p class="title title-without-tabs">
                                                 <a href="{url path='/admin/configuration/attributes'}">{intl l='Attributes'}</a>
                                             </p>
@@ -87,7 +87,7 @@
 
                                 <div class="col-md-6">
                                     <div class="card">
-                                        <div class="card-body well-sm">
+                                        <div class="card-body card-sm">
                                             <p class="title title-without-tabs">
                                                 <a href="{url path='/admin/configuration/features'}">{intl l='Features'}</a>
                                             </p>
@@ -105,7 +105,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="card">
-                                    <div class="card-body well-sm">
+                                    <div class="card-body card-sm">
                                         {$max_products = {$smarty.get.p|default:50}}
                                         {$total = {count type="product" backend_context=1 visible='*' template_id=$template_id}}
                                         {$not_loaded = $total - $max_products}
@@ -147,7 +147,7 @@
 
                             <div class="col-md-6">
                                 <div class="card">
-                                    <div class="card-body well-sm">
+                                    <div class="card-body card-sm">
                                         {$max_categories = {$smarty.get.c|default:50}}
                                         {$total = {count type="category" name="cat-using" backend_context=1 visible='*' template_id=$template_id}}
                                         {$not_loaded = $total - $max_categories}

@@ -1,0 +1,9 @@
+// Sizes
+.card-lg {
+    padding: map-get($spacers, "4");
+    border-radius: $border-radius-large;
+}
+.card-sm {
+    padding: map-get($spacers, "2");
+    border-radius: $border-radius-small;
+}

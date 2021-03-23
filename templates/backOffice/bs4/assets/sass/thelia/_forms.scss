@@ -21,11 +21,13 @@
 }
 
 label {
-    font-weight: bold;
+    &:not(.form-check-label) {
+      font-weight: bold;
+    }
 
     &.checkbox {
         font-weight: normal;
-        margin-left: 20px;
+        //margin-left: 20px;
     }
 }
 
