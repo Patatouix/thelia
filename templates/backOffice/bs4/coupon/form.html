@@ -82,7 +82,7 @@
                         {form_field field='isEnabled'}
                             <div class="form-group form-check {if $error}has-error{/if}">
                                 <input id="is-enabled" class="form-check-input" type="checkbox" name="{$name}" {if $value}value="1" checked{/if}>
-                                <label for="is-enabled" class="form-check-label">
+                                <label for="is-enabled" class="form-check-label font-weight-normal">
                                     {intl l='Enabled'}
                                 </label>
                                 <div class="invalid-feedback">
@@ -94,7 +94,7 @@
                         {form_field field='isAvailableOnSpecialOffers'}
                             <div class="form-group form-check {if $error}has-error{/if}">
                                 <input id="is-available-on-special-offers" class="form-check-input" type="checkbox" name="{$name}" {if $value}value="1" checked{/if}>
-                                <label for="is-available-on-special-offers" class="form-check-label">
+                                <label for="is-available-on-special-offers" class="form-check-label font-weight-normal">
                                     {intl l='Valid on special offers'}
                                 </label>
                                 <div class="invalid-feedback">
@@ -106,7 +106,7 @@
                         {form_field field='isCumulative'}
                             <div class="form-group form-check {if $error}has-error{/if}">
                                 <input id="is-cumulative" class="form-check-input" type="checkbox" name="{$name}" {if $value}value="1" checked{/if}>
-                                <label for="is-cumulative" class="form-check-label">
+                                <label for="is-cumulative" class="form-check-label font-weight-normal">
                                     {intl l='Combinable with other promotions'}
                                 </label>
                                 <div class="invalid-feedback">
@@ -135,7 +135,7 @@
                         {form_field field='maxUsage'}
                             <div class="form-group form-check {if $error}has-error{/if}">
                                 <input id="is-unlimited" class="form-check-input" type="checkbox" name="is-unlimited" {if $value == '' || $value == -1}checked="checked"{/if}>
-                                <label for="is-unlimited" class="form-check-label">
+                                <label for="is-unlimited" class="form-check-label font-weight-normal">
                                     {intl l='Unlimited number of uses'}
                                 </label>
                                 <div class="invalid-feedback">
@@ -157,10 +157,10 @@
                                 {form_field field='perCustomerUsageCount'}
                                     <div class="form-group {if $error}has-error{/if}" style="margin-bottom: 0;">
                                         {foreach $choices as $choice}
-                                        <label class="radio-inline">
-                                            <input type="radio" name="{$name}" value="{$choice->value}" {if $value == $choice->data}checked="checked"{/if}>
-                                            {$choice->label}
-                                        </label>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="{$name}" value="{$choice->value}" {if $value == $choice->data}checked="checked"{/if}>
+                                            <label class="form-check-label font-weight-normal">{$choice->label}</label>
+                                        </div>
                                         {/foreach}
                                     </div>
                                 {/form_field}
@@ -170,7 +170,7 @@
                         {form_field field='isRemovingPostage'}
                             <div class="form-group form-check {if $error}has-error{/if}">
                                 <input id="is-removing-postage" class="form-check-input" type="checkbox" name="{$name}" {if $value}value="1" checked{/if}>
-                                <label for="is-removing-postage" class="form-check-label">
+                                <label for="is-removing-postage" class="form-check-label font-weight-normal">
                                     {intl l='Provides free shipping'}
                                 </label>
                                 <div class="invalid-feedback">

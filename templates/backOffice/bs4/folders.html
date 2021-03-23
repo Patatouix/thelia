@@ -425,13 +425,9 @@
         {/form_field}
 
         {form_field field='visible'}
-            <div class="form-group {if $error}has-error{/if}">
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" id="{$label_attr.for}" name="{$name}" value="1" checked="checked">
-                        {$label}
-                    </label>
-                </div>
+            <div class="form-group form-check {if $error}has-error{/if}">
+                <input type="checkbox" id="{$label_attr.for}" class="form-check-input" name="{$name}" value="1" checked="checked">
+                <label class="form-check-label">{$label}</label>
             </div>
         {/form_field}
 

@@ -73,32 +73,32 @@
                             {/hookblock}
 
                             <ul class="nav nav-tabs" id="tabbed-menu">
-                                <li><a href="#general" data-toggle="tab" data-trigger="#virtual_field::change">{intl l="General"}</a></li>
-                                <li><a href="#seo" data-toggle="tab">{intl l="SEO"}</a></li>
-                                <li><a href="#prices" data-toggle="tab">{intl l="Price"}</a></li>
-                                <li>
-                                    <a href="#attributes"
+                                <li class="nav-item"><a class="nav-link active" href="#general" data-toggle="tab" data-trigger="#virtual_field::change">{intl l="General"}</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#seo" data-toggle="tab">{intl l="SEO"}</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#prices" data-toggle="tab">{intl l="Price"}</a></li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#attributes"
                                        data-href="{url path='/admin/products/attributes/tab' product_id=$ID}"
                                        data-toggle="tab">{intl l="Attributes &amp; Features"}
                                     </a>
                                 </li>
-                                <li>
-                                    <a href="#related"
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#related"
                                        data-href="{url path='/admin/products/related/tab' folder_id=$folder_id accessory_category_id=$accessory_category_id product_id=$ID}"
                                        data-toggle="tab">{intl l="Associations"}
                                     </a>
                                 </li>
-                                <li>
+                                <li class="nav-item">
                                     {$imageSuccessUrl ={navigate to="current"}}
-                                    <a href="#images"
+                                    <a class="nav-link" href="#images"
                                        data-toggle="tab"
                                        data-href="{url path="/admin/image/type/product/%id/form-ajax" id=$ID successUrl=$imageSuccessUrl}"
                                        data-callback="$.imageUploadManager.initImageDropZone">
                                         {intl l="Images"}
                                     </a>
                                 </li>
-                                <li>
-                                    <a href="#documents"
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#documents"
                                        id="tab-documents"
                                        data-toggle="tab"
                                        data-href="{url path="/admin/document/type/product/%id/form-ajax" id=$ID}"
@@ -107,12 +107,12 @@
                                     </a>
                                 </li>
                                 {$smarty.capture.product_tab_tab nofilter}
-                                <li><a href="#modules" data-toggle="tab">{intl l="Modules"}</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#modules" data-toggle="tab">{intl l="Modules"}</a></li>
                             </ul>
 
                             <div class="tab-content">
 
-                                <div class="tab-pane fade" id="general">
+                                <div class="tab-pane fade show active" id="general">
                                     {include file="includes/product-general-tab.html"}
                                 </div>
 

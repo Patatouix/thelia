@@ -21,9 +21,7 @@
 }
 
 label {
-    &:not(.form-check-label) {
-      font-weight: bold;
-    }
+    font-weight: bold;
 
     &.checkbox {
         font-weight: normal;
