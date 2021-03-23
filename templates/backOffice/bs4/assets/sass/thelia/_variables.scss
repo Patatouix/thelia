@@ -144,6 +144,7 @@ $screen-lg:         map-get($grid-breakpoints, "xl");
 
 $screen-xs-max:     (map-get($grid-breakpoints, "sm") - 1);
 $screen-sm-max:     (map-get($grid-breakpoints, "md") - 1);
+$screen-lg-max:     (map-get($grid-breakpoints, "lg") - 1);
 
 $white:    #fff;
 $gray-100: #f8f9fa;
