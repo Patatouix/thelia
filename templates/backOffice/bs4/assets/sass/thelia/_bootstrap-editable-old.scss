@@ -1,7 +1,7 @@
-/*! X-editable - v1.5.3
+/*! X-editable - v1.4.7
 * In-place editing with Twitter Bootstrap, jQuery UI or pure jQuery
 * http://github.com/vitalets/x-editable
-* Copyright (c) 2018 Vitaliy Potapov; Licensed MIT */
+* Copyright (c) 2013 Vitaliy Potapov; Licensed MIT */
 .editableform {
     margin-bottom: 0; /* overwrites bootstrap margin */
 }
@@ -10,24 +10,6 @@
     margin-bottom: 0; /* overwrites bootstrap margin */
     white-space: nowrap; /* prevent wrapping buttons on new line */
     line-height: 20px; /* overwriting bootstrap line-height. See #133 */
-}
-
-/*
-    BS3 fix: stop css from breaking when the form is inside a popup and inside a form with the class .form-horizontal
-    See: https://github.com/vitalets/x-editable/issues/682
-*/
-.form-horizontal .editable-popup .editableform .form-group {
-    margin-left:0;
-    margin-right:0;
-}
-
-
-/*
-  BS3 width:1005 for inputs breaks editable form in popup
-  See: https://github.com/vitalets/x-editable/issues/393
-*/
-.editableform .form-control {
-    width: auto;
 }
 
 .editable-buttons {
@@ -155,7 +137,6 @@
 .editable-pre-wrapped {
    white-space: pre-wrap;
 }
-
 .editable-container.editable-popup {
     max-width: none !important; /* without this rule poshytip/tooltip does not stretch */
 }
@@ -204,7 +185,7 @@ a.editable-click.editable-disabled:hover {
 }
 
 .editable-unsaved:after {
-/*    content: '*'*/
+  /*    content: '*'*/
 }
 
 .editable-bg-transition {
@@ -234,9 +215,9 @@ a.editable-click.editable-disabled:hover {
  */
 .datepicker {
   padding: 4px;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  border-radius: 4px;
+  -webkit-border-radius: $border-radius-base;
+  -moz-border-radius: $border-radius-base;
+  border-radius: $border-radius-base;
   direction: ltr;
   /*.dow {
 		border-top: 1px solid #ddd !important;
@@ -297,9 +278,9 @@ a.editable-click.editable-disabled:hover {
   text-align: center;
   width: 20px;
   height: 20px;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  border-radius: 4px;
+  -webkit-border-radius: $border-radius-base;
+  -moz-border-radius: $border-radius-base;
+  border-radius: $border-radius-base;
   border: none;
 }
 .table-striped .datepicker table tr td,
@@ -318,7 +299,7 @@ a.editable-click.editable-disabled:hover {
 .datepicker table tr td.disabled:hover {
   background: none;
   color: #999999;
-  cursor: default;
+  cursor: not-allowed;
 }
 .datepicker table tr td.today,
 .datepicker table tr td.today:hover,
@@ -381,9 +362,9 @@ a.editable-click.editable-disabled:hover {
 .datepicker table tr td.range.disabled,
 .datepicker table tr td.range.disabled:hover {
   background: #eeeeee;
-  -webkit-border-radius: 0;
-  -moz-border-radius: 0;
-  border-radius: 0;
+  -webkit-border-radius: $border-radius-base;
+  -moz-border-radius: $border-radius-base;
+  border-radius: $border-radius-base;
 }
 .datepicker table tr td.range.today,
 .datepicker table tr td.range.today:hover,
@@ -401,9 +382,9 @@ a.editable-click.editable-disabled:hover {
   border-color: #f3e97a #f3e97a #edde34;
   border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
   filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
-  -webkit-border-radius: 0;
-  -moz-border-radius: 0;
-  border-radius: 0;
+  -webkit-border-radius: $border-radius-base;
+  -moz-border-radius: $border-radius-base;
+  border-radius: $border-radius-base;
 }
 .datepicker table tr td.range.today:hover,
 .datepicker table tr td.range.today:hover:hover,
@@ -547,9 +528,9 @@ a.editable-click.editable-disabled:hover {
   float: left;
   margin: 1%;
   cursor: pointer;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  border-radius: 4px;
+  -webkit-border-radius: $border-radius-base;
+  -moz-border-radius: $border-radius-base;
+  border-radius: $border-radius-base;
 }
 .datepicker table tr td span:hover {
   background: #eeeeee;
@@ -647,14 +628,14 @@ a.editable-click.editable-disabled:hover {
   text-align: center;
 }
 .input-daterange input:first-child {
-  -webkit-border-radius: 3px 0 0 3px;
-  -moz-border-radius: 3px 0 0 3px;
-  border-radius: 3px 0 0 3px;
+  -webkit-border-radius: $border-radius-base;
+  -moz-border-radius: $border-radius-base;
+  border-radius: $border-radius-base;
 }
 .input-daterange input:last-child {
-  -webkit-border-radius: 0 3px 3px 0;
-  -moz-border-radius: 0 3px 3px 0;
-  border-radius: 0 3px 3px 0;
+  -webkit-border-radius: $border-radius-base;
+  -moz-border-radius: $border-radius-base;
+  border-radius: $border-radius-base;
 }
 .input-daterange .add-on {
   display: inline-block;

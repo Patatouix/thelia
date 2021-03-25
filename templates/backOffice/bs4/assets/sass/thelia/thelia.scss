@@ -123,7 +123,7 @@
 	.version-info {
         line-height: $topBarHeight;
         height: $topBarHeight;
-		background: url("@{imgDir}/logo.png") left no-repeat;
+		background: url(#{$imgDir}/logo.png) left no-repeat;
 		padding-left: 120px;
         text-shadow: 0px 1px 1px black;
         color: #6d737b;
@@ -192,7 +192,7 @@ ul.navbar-top-menu li.dropdown:hover > ul.dropdown-menu {
 
 .brandbar {
 
-    background: url("@{imgDir}/header.jpg") repeat-x;
+    background: url(#{$imgDir}/header.jpg) repeat-x;
     height: 90px;
 
     a.brand {
@@ -200,7 +200,7 @@ ul.navbar-top-menu li.dropdown:hover > ul.dropdown-menu {
         display: block;
         float: left;
         margin-right: 20px;
-        background: url("@{imgDir}/logo.png") 0px 12px no-repeat;
+        background: url(#{$imgDir}/logo.png) 0px 12px no-repeat;
         width: 124px;
         height: 63px;
     }
@@ -208,7 +208,7 @@ ul.navbar-top-menu li.dropdown:hover > ul.dropdown-menu {
     .breadcrumb {
         border-radius: $border-radius-base;
         padding: 25px 0px 25px 30px;
-        background: url("@{imgDir}/logo-light.png") left center no-repeat;
+        background: url(#{$imgDir}/logo-light.png) left center no-repeat;
         float: left;
         margin: 12px 0px 0px 0px;
 
@@ -236,7 +236,7 @@ ul.navbar-top-menu li.dropdown:hover > ul.dropdown-menu {
         a {
             text-indent: -13337px;
             display: block;
-            background: url("@{imgDir}/deconnexion.png") no-repeat;
+            background: url(#{$imgDir}/deconnexion.png) no-repeat;
             width: 23px;
             height: 24px;
         }
@@ -369,7 +369,7 @@ ul.navbar-top-menu li.dropdown:hover > ul.dropdown-menu {
 }
 
 .loading{
-  background: url("@{imgDir}/ajax-loader.gif") no-repeat;
+  background: url(#{$imgDir}/ajax-loader.gif) no-repeat;
   height: 30px;
   display: inline-block;
   line-height: 30px;
@@ -378,7 +378,7 @@ ul.navbar-top-menu li.dropdown:hover > ul.dropdown-menu {
 }
 
 .loading-block{
-  background: url("@{imgDir}/ajax-loader.gif") no-repeat;
+  background: url(#{$imgDir}/ajax-loader.gif) no-repeat;
   margin: auto;
   height: 30px;
   width: 30px;
@@ -567,7 +567,7 @@ ul.document-list {
 // Loader (Overlay)
 .loader {
   position: fixed;
-  background: #fff url(../img/ajax-loader.gif) no-repeat center center;
+  background: #fff url(#{$imgDir}/ajax-loader.gif) no-repeat center center;
   background-color: rgba(255,255,255,.5);
   display: none;
   left: 0; top: 0;

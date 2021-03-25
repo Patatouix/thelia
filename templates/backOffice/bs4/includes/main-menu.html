@@ -23,9 +23,9 @@
             {hookblock name="main.top-menu-customer" fields="id,class,url,title"}
                 <li class="nav-item {if $admin_current_location == 'customer'}active{/if}" id="customers_menu">
 
-                    <a title="{intl l="Customers"}" href="#collapse-customer" {if $admin_current_location == 'customer'}class="collapsed"{/if}>
+                    <a title="{intl l="Customers"}" data-target="#collapse-customer" data-toggle="collapse" {if $admin_current_location == 'customer'}class="collapsed"{/if}>
                         <span class="icon-customers"></span>
-                        <span class="item-text">{intl l="Customers"} <span class="caret"></span></span>
+                        <span class="item-text">{intl l="Customers"} <i class="fas fa-angle-up rotate-icon"></i></span>
                     </a>
 
                     <ul id="collapse-customer" class="collapse {if $admin_current_location == 'customer'}show{/if}" role="menu">
@@ -101,7 +101,7 @@
             {hookblock name="main.top-menu-catalog" fields="id,class,url,title"}
             <li class="{if $admin_current_location == 'catalog'}active{/if}" id="catalog_menu">
 
-                <a title="{intl l="Catalog"}" href="#collapse-catalog" {if $admin_current_location == 'catalog'}class="collapsed"{/if}>
+                <a title="{intl l="Catalog"}" data-target="#collapse-catalog" data-toggle="collapse" {if $admin_current_location == 'catalog'}class="collapsed"{/if}>
                     <span class="icon-catalog"></span>
                     <span class="item-text">{intl l="Catalog"} <i class="fas fa-angle-up rotate-icon"></i></span>
                 </a>
@@ -138,7 +138,7 @@
             {hookblock name="main.top-menu-content" fields="id,class,url,title"}
                 <li class="{if $admin_current_location == 'content'}active{/if}" id="contents_menu">
 
-                    <a title="{intl l="Folders"}" href="#collapse-content" {if $admin_current_location == 'content'}class="collapsed"{/if}>
+                    <a title="{intl l="Folders"}" data-target="#collapse-content" data-toggle="collapse" {if $admin_current_location == 'content'}class="collapsed"{/if}>
                         <span class="icon-records"></span>
                         <span class="item-text">{intl l="Folders"} <i class="fas fa-angle-up rotate-icon"></i></span>
                     </a>
@@ -215,9 +215,9 @@
         {ifhook rel="main.top-menu-modules"}
             {hookblock name="main.top-menu-modules" fields="id,class,url,title"}
             <li class="{if $admin_current_location == 'modules'}active{/if}" id="modules_menu">
-                <a title="{intl l="Modules"}" data-target="#collapse-modules" data-toggle="collapse" {if $admin_current_location != 'modules'}class="collapse"{/if}>
+                <a title="{intl l="Modules"}" data-target="#collapse-modules" data-toggle="collapse" {if $admin_current_location != 'modules'}class="collapsed"{/if}>
                     <span class="icon-modules"></span>
-                    <span class="item-text">{intl l="Modules"}<i class="fas fa-angle-up rotate-icon"></i></span>
+                    <span class="item-text">{intl l="Modules"} <i class="fas fa-angle-up rotate-icon"></i></span>
                 </a>
 
                 <ul id="collapse-modules" class="collapse {if $admin_current_location == 'modules'}show{/if}" role="menu">
@@ -253,7 +253,7 @@
                 <li class="{if $admin_current_location == 'configuration'}active{/if}" id="config_menu">
                     <a title="{intl l="Configuration"}" data-target="#collapse-configuration" data-toggle="collapse" {if $admin_current_location != 'configuration'}class="collapsed"{/if}>
                         <span class="icon-configuration"></span>
-                        <span class="item-text">{intl l="Configuration"}<i class="fas fa-angle-up rotate-icon"></i></span>
+                        <span class="item-text">{intl l="Configuration"} <i class="fas fa-angle-up rotate-icon"></i></span>
                     </a>
 
                     <ul id="collapse-configuration" class="collapse {if $admin_current_location == 'configuration'}show{/if}" role="menu">

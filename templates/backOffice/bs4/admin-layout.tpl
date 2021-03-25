@@ -210,13 +210,14 @@
 
 	{block name="after-javascript-include"}{/block}
 
-    {javascripts file='assets/js/bootstrap/bootstrap.js'}
+    {javascripts file='assets/js/bootstrap/bootstrap.bundle.js'}
         <script src="{$asset_url}"></script>
     {/javascripts}
 
-    {javascripts file='assets/js/libs/jquery.toolbar.min.js'}
+    <!-- plus utilisé dans le code -->
+    <!-- {javascripts file='assets/js/libs/jquery.toolbar.min.js'}
         <script src="{$asset_url}"></script>
-    {/javascripts}
+    {/javascripts} -->
 
     <!--{javascripts file='assets/js/libs/metisMenu.min.js'}
         <script src="{$asset_url}"></script>

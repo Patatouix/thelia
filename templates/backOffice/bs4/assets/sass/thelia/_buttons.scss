@@ -35,4 +35,8 @@
     &:active {
         border-color: darken(#cccccc, 12%);
     }
+
+    &.disabled {
+        border-color: #cccccc;
+    }
 }

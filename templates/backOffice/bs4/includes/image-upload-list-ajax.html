@@ -20,9 +20,9 @@ Parameters:
                 <div class="card thumbnail-container mb-3">
                     <a href="{url path="/admin/image/type/%image/%id/update" image=$imageType id=$ID}" title="{intl l='Update this image'}" class="thumbnail">
                         {if $PROCESSING_ERROR}
-                            <img src="//placehold.it/200x100&text={intl l='Image+file+not+found'}" alt="{$TITLE}">
+                            <img class="card-img" src="//placehold.it/200x100&text={intl l='Image+file+not+found'}" alt="{$TITLE}">
                         {else}
-                            <img src="{$IMAGE_URL nofilter}" alt="{$TITLE}">
+                            <img class="card-img" src="{$IMAGE_URL nofilter}" alt="{$TITLE}">
                         {/if}
                     </a>
 

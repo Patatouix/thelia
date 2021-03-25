@@ -831,7 +831,7 @@
 
             {* Inline editing of object position using bootstrap-editable *}
 
-            $('.categoryPositionChange').editable({
+            /*$('.categoryPositionChange').editable({
                 type        : 'text',
                 title       : '{intl l="Enter new category position"}',
                 mode        : 'popup',
@@ -848,9 +848,15 @@
                     // Reload the page
                     location.href = url;
                 }
+            });*/
+
+            console.log(popper);
+
+            Popper.createPopper($('.categoryPositionChange'), '<p>Hello world</p>', {
+                placement: 'left'
             });
 
-            $('.productPositionChange').editable({
+            /*$('.productPositionChange').editable({
                 type        : 'text',
                 title       : '{intl l="Enter new product position"}',
                 mode        : 'popup',
@@ -867,7 +873,7 @@
                     // Reload the page
                     location.href = url;
                 }
-            });
+            });*/
 
             {* Change default status *}
 
