@@ -52,9 +52,10 @@
     }
 }
 
-.navbar-default {
-    .navbar-toggle {
+.navbar {
+    .navbar-toggler {
         margin-top: 25px;
+        position: relative;
 
         &,
         &:hover,
@@ -92,6 +93,7 @@
             &:before {
                 @include transition(opacity 0s);
                 //@include opacity(0);      Vendor prefixes no longer required in BS4
+                opacity: 0;
             }
 
         }
@@ -104,6 +106,7 @@
                     top: -6px;
                     width: 10px;
                     //@include opacity(1);      Vendor prefixes no longer required in BS4
+                    opacity: 1;
                 }
 
                 &:after {

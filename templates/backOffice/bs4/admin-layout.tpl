@@ -79,8 +79,9 @@
                                     <span>{intl l='Version %ver' ver="{$THELIA_VERSION}"}</span>
                                 {/images}
                             </a>
-                            <button type="button" class="navbar-toggler float-right mt-3 mr-3" data-toggle="collapse" data-target=".navbar-collapse">
-                                <span class="navbar-toggler-icon"></span>
+                            <button type="button" class="navbar-toggler collapsed float-right mt-4 mr-3 mb-2 p-2" data-toggle="collapse" data-target=".navbar-collapse">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span></span>
                             </button>
                         </div>
                         <div class="col-12 col-xl-auto">
