@@ -47,13 +47,6 @@
 
     {hook name="main.head-css" location="head_css" }
 
-    {* HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries *}
-    <!--[if lt IE 9]>
-    <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    {javascripts file='assets/js/libs/respond.min.js'}
-    <script src="{$asset_url}"></script>
-    {/javascripts}
-    <![endif]-->
 </head>
 
 <body class="login-page">
