@@ -207,15 +207,6 @@
         <script src="{$asset_url}"></script>
     {/javascripts}
 
-    <!-- plus utilisé dans le code -->
-    <!-- {javascripts file='assets/js/libs/jquery.toolbar.min.js'}
-        <script src="{$asset_url}"></script>
-    {/javascripts} -->
-
-    <!--{javascripts file='assets/js/libs/metisMenu.min.js'}
-        <script src="{$asset_url}"></script>
-    {/javascripts}-->
-
     {block name="javascript-initialization"}{/block}
 
     {javascripts file='assets/js/main.js'}
