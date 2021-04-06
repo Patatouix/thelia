@@ -1,67 +1,48 @@
 // Manage Countries and States form
-(function($) {
-    $(document).ready(function(){
+class AdressState {
 
-        var addressState = (function () {
+    constructor(element) {
+        this.stateSelect = element;
+        this.stateId = this.stateSelect.value;
+        this.countrySelect = document.querySelector(this.stateSelect.dataset.theliaCountry);
+        this.stateBlock = document.querySelector(this.stateSelect.dataset.theliaToggle);
+        this.stateOptions = Object.assign({}, this.stateSelect.children);
+    }
 
-            // A private function which logs any arguments
-            var initialize = function( element ) {
-                var elm = {};
+    initialize() {
+        this.countrySelect.addEventListener('change', () => this.updateState());
+        this.updateState();
+    }
 
-                elm.state = $(element);
-                elm.stateId = elm.state.val();
-                elm.country = $(elm.state.data('thelia-country'));
-                elm.countryId = elm.country.val();
-                elm.block = $(elm.state.data('thelia-toggle'));
+    updateState() {
+        const countryId = this.countrySelect.value;
+        const stateId = this.stateSelect.value;
+        let hasStates = false;
 
-                elm.states = elm.state.children().clone();
-                elm.state.children().remove();
+        if (stateId !== null && stateId !== '') {
+            this.stateId = stateId;
+        }
 
-                var updateState = function updateState() {
-                    var countryId = elm.country.val(),
-                        stateId = elm.state.val(),
-                        hasStates = false;
+        Array.from(this.stateSelect.children).forEach((e) => e.remove());
 
-                    if (stateId !== null && stateId !== '') {
-                        elm.stateId = stateId;
-                    }
+        for (let key in this.stateOptions) {
+            if (this.stateOptions[key].dataset.country == countryId) {
+                this.stateSelect.append(this.stateOptions[key]);
+                hasStates = true;
+            }
+        };
 
-                    elm.state.children().remove();
+        if (hasStates) {
+            // try to select the last state
+            this.stateSelect.value = this.stateId;
+            this.stateBlock.classList.remove('hidden');
+        } else {
+            this.stateBlock.classList.add('hidden');
+        }
+    }
+}
 
-                    elm.states.each(function(){
-                        var $state = $(this);
-
-                        if ($state.data("country") == countryId) {
-                            $state.appendTo(elm.state);
-                            hasStates = true;
-                        }
-                    });
-
-                    if (hasStates) {
-                        // try to select the last state
-                        elm.state.val(elm.stateId);
-                        elm.block.removeClass("hidden");
-                    } else {
-                        elm.block.addClass("hidden");
-                    }
-                };
-
-                elm.country.on('change', updateState);
-                updateState();
-            };
-
-            return {
-                init: function() {
-
-                    $("[data-thelia-state]").each(function(){
-                        initialize(this);
-                    });
-
-                }
-            };
-
-        })();
-
-        addressState.init();
-    });
-})(jQuery);
+document.querySelectorAll("[data-thelia-state]").forEach((e) => {
+    const adressState = new AdressState(e);
+    adressState.initialize();
+})
