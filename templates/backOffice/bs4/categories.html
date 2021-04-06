@@ -831,7 +831,7 @@
 
             {* Inline editing of object position using bootstrap-editable *}
 
-            /*$('.categoryPositionChange').editable({
+            $('.categoryPositionChange').editable({
                 type        : 'text',
                 title       : '{intl l="Enter new category position"}',
                 mode        : 'popup',
@@ -848,15 +848,9 @@
                     // Reload the page
                     location.href = url;
                 }
-            });*/
-
-            console.log(popper);
-
-            Popper.createPopper($('.categoryPositionChange'), '<p>Hello world</p>', {
-                placement: 'left'
             });
 
-            /*$('.productPositionChange').editable({
+            $('.productPositionChange').editable({
                 type        : 'text',
                 title       : '{intl l="Enter new product position"}',
                 mode        : 'popup',
@@ -871,28 +865,16 @@
                     .replace('__POS__', newValue);
 
                     // Reload the page
-                    location.href = url;
+                    location.href = url; //
                 }
-            });*/
-
-            {* Change default status *}
-
-            $('.change-default').change(function(ev) {
-                var url = "{url path='/admin/categories/set-default' category_id='__ID__'}";
-
-                // Perform ID subtitutions
-                url = url.replace('__ID__', $(this).val());
-
-                // Reload the page
-                location.href = url;
             });
 
             function update_price(price, price_type, dest_field_id) {
-                var tax_rule_id = $('#tax_rule_field').val();
+                const tax_rule_id = document.querySelector('#tax_rule_field').value;
 
                 if (tax_rule_id != "") {
 
-                    var operation;
+                    let operation;
 
                     if (price_type.indexOf('with-tax') != -1)
                         operation = 'from_tax';
@@ -911,7 +893,9 @@
                         type     : 'get',
                         dataType : 'json',
                         success  : function(json) {
-                            $('#' + dest_field_id).val(json.result);
+                            document.querySelectorAll('#' + dest_field_id).forEach((e) => {
+                                e.value = json.result;
+                            });
                         },
                         error : function(jqXHR, textStatus, errorThrown) {
                             alert("{intl l='Failed to get prices. Please try again.'} (" +errorThrown+ ")");
@@ -922,15 +906,17 @@
 
             // Automatic update of price fields: any change in the taxed (resp. untaxed) price
             // will update the untaxed (resp. taxed) one
-            $('.automatic_price_field').typeWatch({
+            let typeWatch = new TypeWatch({
                 captureLength: 1,
                 wait         : 300,
                 callback     : function () {
-                    var price = $(this).val();
-                    $(this).val(sanitizeFloat(price));
-                    update_price($(this).val(), $(this).data('price-type'), $(this).data('rel-price'));
+                    const price = this.value;
+                    this.value = sanitizeFloat(price);
+                    update_price(this.value, this.dataset.priceType, this.dataset.relPrice);
                 }
             });
+            let elements = document.querySelectorAll('.automatic_price_field');
+            typeWatch.watchElements(elements);
 
             function sanitizeFloat(numVal) {
                 return numVal.replace(",", ".");

@@ -1492,7 +1492,7 @@ Makes editable any HTML element on the page. Applied as jQuery method.
 
     Editable.prototype = {
         constructor: Editable,
-        init: function () { console.log('init')
+        init: function () {
             var isValueByText = false,
                 doAutotext, finalize;
 
@@ -1972,9 +1972,9 @@ Makes editable any HTML element on the page. Applied as jQuery method.
         pk: 1
     });
     **/
-    $.fn.editable = function (option) { //console.log(option);
+    $.fn.editable = function (option) {
         //special API methods returning non-jquery object
-        var result = {}, args = arguments, datakey = 'editable';console.log(option);
+        var result = {}, args = arguments, datakey = 'editable';
         switch (option) {
             /**
             Runs client-side validation for all matched editables

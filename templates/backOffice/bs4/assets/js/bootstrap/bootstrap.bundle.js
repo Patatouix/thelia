@@ -4117,7 +4117,7 @@
 
     }]);
     return Popper;
-  }(); console.log(Popper);
+  }();
 
   /**
    * The `referenceObject` is an object that provides an interface compatible with Popper.js
