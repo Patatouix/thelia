@@ -12,7 +12,7 @@
  * http://www.apache.org/licenses/LICENSE-2.0
  * ============================================================ */
 
-!function ($) {
+/*!function ($) {
   "use strict";
 
   $.fn['bootstrapSwitch'] = function (method) {
@@ -379,4 +379,159 @@
   $(function () {
     $('.make-switch')['bootstrapSwitch']();
   });
-})(jQuery);
+})(jQuery);*/
+
+class BootstrapSwitch {
+    constructor(element) {
+        this.element = element;
+        this.inputSelector = 'input:not([type="hidden"])';
+        this.input = this.element.querySelector(this.inputSelector);
+    }
+    init() {
+        this.div;
+        this.switchLeft;
+        this.$switchRight;
+        this.$label;
+        this.form = this.element.closest('form');
+        this.myClasses = "";
+        this.classes = this.element.getAttribute('class');
+        this.color;
+        this.moving;
+        this.onLabel = "ON";
+        this.offLabel = "OFF";
+        this.icon = false;
+        this.textLabel = false;
+
+        ['switch-mini', 'switch-small', 'switch-large'].forEach((e) => {
+            if (this.classes.indexOf(e) >= 0)
+                this.myClasses = e;
+        });
+
+        this.element.classList.add('has-switch');
+
+        if (this.element.dataset.on !== undefined)
+            this.color = "switch-" + this.element.dataset.on;
+
+        if (this.element.dataset.onLabel !== undefined)
+            this.onLabel = this.element.dataset.onLabel;
+
+        if (this.element.dataset.offLabel !== undefined)
+            this.offLabel = this.element.dataset.offLabel;
+
+        if (this.element.dataset.labelIcon !== undefined)
+            this.icon = this.element.dataset.labelIcon;
+
+        if (this.element.dataset.textLabel !== undefined)
+            this.textLabel = this.element.dataset.textLabel;
+
+        this.switchLeft = document.createElement('span');
+        this.switchLeft.classList.add('switch-left', this.myClasses, this.color);
+        this.switchLeft.innerHTML = this.onLabel;
+
+        this.color = '';
+        if (this.element.dataset.off !== undefined)
+            this.color = "switch-" + this.element.dataset.off;
+
+        this.switchRight = document.createElement('span');
+        this.switchRight.classList.add('switch-right', this.myClasses, this.color);
+        this.switchRight.innerHTML = this.offLabel;
+
+        this.label = document.createElement('label');
+        this.label.innerHTML = "&nbsp;";
+        this.label.classList.add(this.myClasses);
+        this.label.setAttribute('for', this.element.querySelector(this.inputSelector).getAttribute('id'));
+
+        if (this.icon)
+            this.label.innerHTML = '<i class="' + this.icon + '"></i>';
+
+        if (this.textLabel) {
+            this.label.innerHTML = '' + textLabel + '';
+        }
+
+        this.div = document.createElement('div');
+        this.div.dataset.animated = false;
+        this.input.parentNode.appendChild(this.div);
+        this.div.appendChild(this.input);
+
+        if (this.element.dataset.animated !== false) {
+            this.div.classList.add('switch-animate');
+            this.div.dataset.animated = true;
+        }
+
+        this.div.append(this.switchLeft, this.label, this.switchRight);
+
+        this.element.querySelector(':scope > div').classList.add(
+            this.input.checked ? 'switch-on' : 'switch-off'
+        );
+
+        if (this.input.disabled)
+            this.element.classList.add('deactivate');
+
+        const triggerEvent = (node, eventType) => {
+            const event = document.createEvent('Events');
+            event.initEvent(eventType, true, true);
+            node.dispatchEvent(event);
+        }
+
+        const triggerCustomEvent = (node, eventType, params) => {
+            const event = new CustomEvent(eventType, {
+                detail: params
+            })
+            node.dispatchEvent(event);
+        }
+
+        const changeStatus = (el) => {
+            const label = el.closest('div').querySelector('label');
+
+            label.click();
+            triggerEvent(label, 'mouseup');
+            triggerEvent(label, 'mousedown');
+        }
+
+        this.element.addEventListener('keydown', (e) => {
+            if (e.keyCode === 32) {
+                e.stopImmediatePropagation();
+                e.preventDefault();
+                changeStatus(e.target.querySelector('span:first'));
+            }
+        });
+
+        this.switchLeft.addEventListener('click', (e) => {
+            changeStatus(e.target);
+        });
+
+        this.switchRight.addEventListener('click', (e) => {
+            changeStatus(e.target);
+        });
+
+        this.input.addEventListener('change', (e, skipOnChange) => {
+            let target = e.target
+              , element = target.closest()
+              , targetState = target.checked
+              , state = element.classList.contains('.switch-off');
+
+            e.preventDefault();
+
+            element.css('left', '');
+
+            if (state === targetState) {
+
+                if (targetState)
+                    element.classList.remove('switch-off').add('switch-on');
+                else element.classList.remove('switch-on').add('switch-off');
+
+                if (element.dataset.animated !== false)
+                    element.classList.add("switch-animate");
+
+                if (typeof skipOnChange === 'boolean' && skipOnChange)
+                    return;
+
+                triggerCustomEvent(element.closest(), 'switch-change', {'el': target, 'value': targetState});
+            }
+        });
+    }
+}
+document.querySelectorAll('.make-switch').forEach((e) => {
+    const bootstrapSwitch = new BootstrapSwitch(e);
+    bootstrapSwitch.init();
+});
