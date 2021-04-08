@@ -73,18 +73,21 @@
                                     <td>{$CODE}</td>
                                     <td>{$LOCALE}</td>
                                     <td>
-                                        <div class="make-switch switch-small switch-radio lang-visible-change" data-id="{$ID}" data-on="success" data-off="danger" data-on-label="<i class='fas fa-check'></i>" data-off-label="<i class='fas fa-times'></i>">
-                                            <input type="checkbox" name="visible" {if $VISIBLE}checked{/if}>
+                                        <div class="custom-control custom-switch">
+                                            <input type="checkbox" id="customSwitchVisible{$ID}" class="custom-control-input lang-visible-change" data-id="{$ID}" {if $VISIBLE}checked{/if}>
+                                            <label for="customSwitchVisible{$ID}" class="custom-control-label"></label>
                                         </div>
                                     </td>
                                     <td>
-                                        <div class="make-switch switch-small switch-radio lang-active-change" data-id="{$ID}" data-on="success" data-off="danger" data-on-label="<i class='fas fa-check'></i>" data-off-label="<i class='fas fa-times'></i>">
-                                            <input type="checkbox" name="active" {if $ACTIVE}checked{/if}>
+                                        <div class="custom-control custom-switch">
+                                            <input type="checkbox" id="customSwitchActive{$ID}" class="custom-control-input lang-active-change" data-id="{$ID}" {if $ACTIVE}checked{/if}>
+                                            <label for="customSwitchActive{$ID}" class="custom-control-label"></label>
                                         </div>
                                     </td>
                                     <td>
-                                        <div class="make-switch switch-small switch-radio lang-default-change" data-id="{$ID}" data-on="success" data-off="danger" data-on-label="<i class='fas fa-check'></i>" data-off-label="<i class='fas fa-times'></i>">
-                                            <input type="radio" name="is_default" {if $IS_DEFAULT}checked{/if}>
+                                        <div class="custom-control custom-switch">
+                                            <input type="checkbox" id="customSwitchDefault{$ID}" class="custom-control-input lang-default-change" data-id="{$ID}" {if $IS_DEFAULT}checked{/if}>
+                                            <label for="customSwitchDefault{$ID}" class="custom-control-label"></label>
                                         </div>
                                     </td>
                                     <td class="actions">
@@ -360,19 +363,19 @@
                 });
             });
 
-            $(".lang-default-change").on("switch-change", function(e, data){
+            $(".lang-default-change").on("change", function(e, data){
                 var url = "{token_url path='/admin/configuration/languages/toggleDefault/_ID_'}";
                 // Reload the page
                 location.href = url.replace('_ID_', $(this).data('id'));
             });
 
-            $(".lang-active-change").on("switch-change", function(e, data){
+            $(".lang-active-change").on("change", function(e, data){
                 var url = "{token_url path='/admin/configuration/languages/toggleActive/_ID_'}";
                 // Reload the page
                 location.href = url.replace('_ID_', $(this).data('id'));
             });
 
-            $(".lang-visible-change").on("switch-change", function(e, data){
+            $(".lang-visible-change").on("change", function(e, data){
                 var url = "{token_url path='/admin/configuration/languages/toggleVisible/_ID_'}";
                 // Reload the page
                 location.href = url.replace('_ID_', $(this).data('id'));

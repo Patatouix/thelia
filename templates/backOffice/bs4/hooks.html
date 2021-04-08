@@ -140,8 +140,9 @@
                                         {/if}
                                     </td>
                                     <td>
-                                        <div class="make-switch switch-small hook-activation u-toggle-state" data-id="{$ID}" data-on="success" data-off="danger" data-on-label="<i class='far fa-check-circle'></i>" data-off-label="<i class='far fa-times-circle'></i>">
-                                            <input type="checkbox" {if $ACTIVE}checked="checked"{/if} />
+                                        <div class="custom-control custom-switch">
+                                            <input type="checkbox" id="customSwitchHook{$ID}" class="custom-control-input hook-activation" data-id="{$ID}" {if $ACTIVE}checked="checked"{/if}>
+                                            <label for="customSwitchHook{$ID}" class="custom-control-label"></label>
                                         </div>
                                     </td>
 
@@ -354,7 +355,7 @@ form_content        = {$smarty.capture.delete_dialog nofilter}
             ,templateType
             ;
 
-        $('.hook-activation').on('switch-change', function(e, data){
+        $('.hook-activation').on('change', function(e, data){
             $.ajax({
                 url : urls['activation'],
                 data : {

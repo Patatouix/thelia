@@ -73,14 +73,16 @@
                                                 </td>
                                                 <td class="text-center">
                                                     {loop type="auth" name="can_change" role="ADMIN" resource="admin.state" access="UPDATE"}
-                                                        <div class="make-switch switch-small visibleToggle" data-id="{$ID}"  data-on="success" data-off="danger" data-on-label="<i class='fas fa-check'></i>" data-off-label="<i class='fas fa-times'></i>">
-                                                            <input type="checkbox" class="visibleToggle" {if $VISIBLE == 1}checked="checked"{/if}>
+                                                        <div class="custom-control custom-switch">
+                                                            <input type="checkbox" id="customSwitchVisible{$ID}" class="custom-control-input visibleToggle" data-id="{$ID}" {if $VISIBLE == 1}checked="checked"{/if}>
+                                                            <label for="customSwitchVisible{$ID}" class="custom-control-label"></label>
                                                         </div>
                                                     {/loop}
 
                                                     {elseloop rel="can_change"}
-                                                        <div class="make-switch switch-small" data-on="success" data-off="danger" data-on-label="<i class='fas fa-check'></i>" data-off-label="<i class='fas fa-times'></i>">
-                                                            <input type="checkbox" class="disabled" disabled="disabled" {if $VISIBLE == 1}checked="checked"{/if}>
+                                                        <div class="custom-control custom-switch">
+                                                            <input type="checkbox" id="customSwitchVisible{$ID}" class="custom-control-input disabled" disabled="disabled" {if $VISIBLE == 1}checked="checked"{/if}>
+                                                            <label for="customSwitchVisible{$ID}" class="custom-control-label"></label>
                                                         </div>
                                                     {/elseloop}
                                                 </td>
@@ -258,7 +260,7 @@
 
                 {* Visibility toggle *}
 
-                $(".visibleToggle").on('switch-change', function(event, data) {
+                $(".visibleToggle").on('change', function(event, data) {
                     $.ajax({
                         url : "{url path='admin/configuration/state/toggle-online'}",
                         data : {

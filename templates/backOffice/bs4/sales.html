@@ -117,14 +117,16 @@
 
                                             <td class="text-center">
                                                 {loop type="auth" name="can_change" role="ADMIN" resource="admin.sales" access="UPDATE"}
-                                                    <div class="make-switch switch-small visibleToggle" data-id="{$ID}"  data-on="success" data-off="danger" data-on-label="<i class='fas fa-check'></i>" data-off-label="<i class='fas fa-times'></i>">
-                                                        <input type="checkbox" class="visibleToggle" {if $ACTIVE == 1}checked="checked"{/if}>
+                                                    <div class="custom-control custom-switch">
+                                                        <input type="checkbox" id="customSwitchVisible{$ID}" class="custom-control-input visibleToggle" data-id="{$ID}" {if $ACTIVE == 1}checked="checked"{/if}>
+                                                        <label for="customSwitchVisible{$ID}" class="custom-control-label"></label>
                                                     </div>
                                                 {/loop}
 
                                                 {elseloop rel="can_change"}
-                                                    <div class="make-switch switch-small" data-on="success" data-off="danger" data-on-label="<i class='fas fa-check'></i>" data-off-label="<i class='fas fa-times'></i>">
-                                                        <input type="checkbox" class="disabled" disabled="disabled" {if $ACTIVE == 1}checked="checked"{/if}>
+                                                    <div class="custom-control custom-switch">
+                                                        <input type="checkbox" id="customSwitchVisible{$ID}" class="custom-control-input disabled" disabled="disabled" {if $ACTIVE == 1}checked="checked"{/if}>
+                                                        <label for="customSwitchVisible{$ID}" class="custom-control-label"></label>
                                                     </div>
                                                 {/elseloop}
                                             </td>
@@ -320,7 +322,7 @@
 
             {* Activity toggle *}
 
-            $(".visibleToggle").on('switch-change', function(event, data) {
+            $(".visibleToggle").on('change', function(event, data) {
                 var url =
                 $.ajax({
                     url : "{url path='/admin/sale/toggle-activity/'}" + $(this).data('id')

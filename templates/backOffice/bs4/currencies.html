@@ -176,8 +176,9 @@
                                             <td class="text-center">{format_number number="$RATE" decimals="4"}</td>
 
                                             <td class="text-center">
-                                                <div class="make-switch switch-small change-visible" data-on="success" data-off="danger" data-on-label="<i class='fas fa-check'></i>" data-off-label="<i class='fas fa-times'></i>">
-                                                    <input type="checkbox" name="visible" value="{$ID}" {if $VISIBLE}checked="checked"{/if}/>
+                                                <div class="custom-control custom-switch">
+                                                    <input type="checkbox" name="visible" id="customSwitchVisible{$ID}" class="custom-control-input change-visible" value="{$ID}" {if $VISIBLE}checked="checked"{/if}>
+                                                    <label for="customSwitchVisible{$ID}" class="custom-control-label"></label>
                                                 </div>
                                             </td>
 
@@ -194,8 +195,9 @@
                                             </td>
 
                                             <td class="text-center">
-                                                <div class="make-switch switch-small change-default" data-on="success" data-off="danger" data-on-label="<i class='fas fa-check'></i>" data-off-label="<i class='fas fa-times'></i>">
-                                                    <input type="radio" name="is_default" value="{$ID}" {if $IS_DEFAULT}checked="checked" disabled="disabled"{/if}/>
+                                                <div class="custom-control custom-switch">
+                                                    <input type="checkbox" name="is_default" id="customSwitchDefault{$ID}" class="custom-control-input change-default" value="{$ID}" {if $IS_DEFAULT}checked="checked" disabled="disabled"{/if}>
+                                                    <label for="customSwitchDefault{$ID}" class="custom-control-label"></label>
                                                 </div>
                                             </td>
 
@@ -415,22 +417,22 @@ form_content        = {$smarty.capture.delete_dialog nofilter}
 
             {* Change default status *}
 
-            $('.change-default').on("switch-change", function(event, data) {
+            $('.change-default').on("change", function(event, data) {
                 var url = "{url noamp='1' path='/admin/configuration/currencies/set-default' currency_id='__ID__'}";
 
                 // Perform ID subtitutions
-                url = url.replace('__ID__', $("input", this).val());
+                url = url.replace('__ID__', $(this).val());
 
                 // Reload the page
                 location.href = url;
             });
 
-            $('.change-visible').on("switch-change", function(event, data) {
+            $('.change-visible').on("change", function(event, data) {
                 var url = "{url noamp='1' path='/admin/configuration/currencies/set-visible' currency_id='__ID__' visible='__VISIBLE__'}";
 
-                url = url.replace('__ID__', $("input", this).val());
+                url = url.replace('__ID__', $(this).val());
 
-                url = url.replace('__VISIBLE__', $("input", this).is(':checked') ? 1 : 0);
+                url = url.replace('__VISIBLE__', $(this).is(':checked') ? 1 : 0);
 
                 // Reload the page
                 location.href = url;

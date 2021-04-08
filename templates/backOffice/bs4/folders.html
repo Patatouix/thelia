@@ -125,14 +125,16 @@
 
                                     <td>
                                         {loop type="auth" name="can_change" role="ADMIN" resource="admin.folder" access="UPDATE"}
-                                            <div class="make-switch switch-small folderVisibleToggle" data-id="{$ID}"  data-on="success" data-off="danger" data-on-label="<i class='fas fa-check'></i>" data-off-label="<i class='fas fa-times'></i>">
-                                                <input type="checkbox" class="folderVisibleToggle" {if $VISIBLE == 1}checked="checked"{/if}>
+                                            <div class="custom-control custom-switch">
+                                                <input type="checkbox" id="customSwitchFolder{$ID}" class="custom-control-input folderVisibleToggle" data-id="{$ID}" {if $VISIBLE == 1}checked="checked"{/if}>
+                                                <label for="customSwitchFolder{$ID}" class="custom-control-label"></label>
                                             </div>
                                         {/loop}
 
                                         {elseloop rel="can_change"}
-                                            <div class="make-switch switch-small" data-on="success" data-off="danger" data-on-label="<i class='fas fa-check'></i>" data-off-label="<i class='fas fa-times'></i>">
-                                                <input type="checkbox" class="disabled" disabled="disabled" {if $VISIBLE == 1}checked="checked"{/if}>
+                                            <div class="custom-control custom-switch">
+                                                <input type="checkbox" id="customSwitchFolder{$ID}" class="custom-control-input disabled" disabled="disabled" {if $VISIBLE == 1}checked="checked"{/if}>
+                                                <label for="customSwitchFolder{$ID}" class="custom-control-label"></label>
                                             </div>
                                         {/elseloop}
                                     </td>
@@ -309,14 +311,16 @@
 
                                     <td>
                                         {loop type="auth" name="can_change" role="ADMIN" resource="admin.content" access="UPDATE"}
-                                            <div class="make-switch switch-small contentVisibleToggle" data-id="{$ID}"  data-on="success" data-off="danger" data-on-label="<i class='fas fa-check'></i>" data-off-label="<i class='fas fa-times'></i>">
-                                                <input type="checkbox" class="contentVisibleToggle" {if $VISIBLE == 1}checked="checked"{/if}>
+                                            <div class="custom-control custom-switch">
+                                                <input type="checkbox" id="customSwitchContent{$ID}" class="custom-control-input contentVisibleToggle" data-id="{$ID}" {if $VISIBLE == 1}checked="checked"{/if}>
+                                                <label for="customSwitchContent{$ID}" class="custom-control-label"></label>
                                             </div>
                                         {/loop}
 
                                         {elseloop rel="can_change"}
-                                            <div class="make-switch switch-small" data-on="success" data-off="danger" data-on-label="<i class='fas fa-check'></i>" data-off-label="<i class='fas fa-times'></i>">
-                                                <input type="checkbox" class="disabled" disabled="disabled" {if $VISIBLE == 1}checked="checked"{/if}>
+                                            <div class="custom-control custom-switch">
+                                                <input type="checkbox" id="customSwitchContent{$ID}" class="custom-control-input disabled" disabled="disabled" {if $VISIBLE == 1}checked="checked"{/if}>
+                                                <label for="customSwitchContent{$ID}" class="custom-control-label"></label>
                                             </div>
                                         {/elseloop}
                                     </td>
@@ -604,7 +608,7 @@
 
             {* Toggle object visibility *}
 
-            $(".folderVisibleToggle").on('switch-change', function(event, data) {
+            $(".folderVisibleToggle").on('change', function(event, data) {
                 $.ajax({
                    url : "{url path='admin/folders/toggle-online'}",
                             data : {
@@ -615,7 +619,7 @@
             });
 
 
-            $(".contentVisibleToggle").on('switch-change', function(event, data) {
+            $(".contentVisibleToggle").on('change', function(event, data) {
                 $.ajax({
                    url : "{url path='admin/content/toggle-online'}",
                    data : {
