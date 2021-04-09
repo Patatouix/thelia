@@ -172,42 +172,23 @@
     <script>
         $(document).ready(function() {
 
-            $('.exportPositionChange').editable({
-                type        : 'text',
-                title       : "{intl l="Enter new export position"}",
-                mode        : 'popup',
-                inputclass  : 'input-mini',
-                placement   : 'left',
-                success     : function(response, newValue) {
-                    // The URL template
-                    var url = "{url noamp='1' path='/admin/export/position' id='__ID__' value='__POS__'}";
-
-                    // Perform subtitutions
-                    url = url.replace('__ID__', $(this).data('id'))
-                            .replace('__POS__', newValue);
-
-                    // Reload the page
-                    location.href = url;
-                }
+            document.querySelectorAll('.exportPositionChange').forEach(element => {
+                new BootstrapEditable(element, {
+                    url: "{url noamp='1' path='/admin/export/position'}",
+                    positionInputName: 'value',
+                    idInputName: 'id',
+                    idInputValue: element.dataset.id,
+                    title: '{intl l="Enter new export position"}'
+                }).initPopover();
             });
 
-            $('.exportCategoryPositionChange').editable({
-                type        : 'text',
-                title       : "{intl l="Enter new export category position"}",
-                mode        : 'popup',
-                inputclass  : 'input-mini',
-                placement   : 'left',
-                success     : function(response, newValue) {
-                    // The URL template
-                    var url = "{url noamp='1' path='/admin/export/position/category' id='__ID__' value='__POS__'}";
-
-                    // Perform subtitutions
-                    url = url.replace('__ID__', $(this).data('id'))
-                            .replace('__POS__', newValue);
-
-                    // Reload the page
-                    location.href = url;
-                }
+            document.querySelectorAll('.exportCategoryPositionChange').forEach(element => {
+                new BootstrapEditable(element, {
+                    url: "{url noamp='1' path='/admin/export/position/category'}",
+                    positionInputName: 'value',
+                    idInputName: 'id',
+                    idInputValue: element.dataset.id
+                }).initPopover();
             });
 
             var export_modal = $("#export-modal");

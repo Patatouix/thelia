@@ -289,24 +289,15 @@
 
            {* Inline editing of object position using bootstrap-editable *}
 
-           $('.moduleHookPositionChange').editable({
-               type        : 'text',
-               title       : "{intl l="Enter new module hook position"}",
-               mode        : 'popup',
-               inputclass  : 'input-mini',
-               placement   : 'left',
-               success     : function(response, newValue) {
-                   // The URL template
-                   var url = "{url noamp='1' path='/admin/module-hooks/update-position' module_hook_id='__ID__' position='__POS__'}";
-
-                   // Perform subtitutions
-                   url = url.replace('__ID__', $(this).data('id'))
-                   .replace('__POS__', newValue);
-
-                   // Reload the page
-                   location.href = url;
-               }
-           });
+           document.querySelectorAll('.moduleHookPositionChange').forEach(element => {
+                new BootstrapEditable(element, {
+                    url: "{url noamp='1' path='/admin/module-hooks/update-position'}",
+                    positionInputName: 'position',
+                    idInputName: 'module_hook_id',
+                    idInputValue: element.dataset.id,
+                    title: '{intl l="Enter new module hook position"}'
+                }).initPopover();
+            });
 
             var isFilterProcessing = false,
                 $fStatus = $('#hooks-filter-status'),

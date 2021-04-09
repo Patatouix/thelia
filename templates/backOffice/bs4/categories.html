@@ -835,42 +835,23 @@
 
             {* Inline editing of object position using bootstrap-editable *}
 
-            $('.categoryPositionChange').editable({
-                type        : 'text',
-                title       : '{intl l="Enter new category position"}',
-                mode        : 'popup',
-                inputclass  : 'input-mini',
-                placement   : 'left',
-                success     : function(response, newValue) {
-                    // The URL template
-                    var url = "{url noamp='1' path='/admin/categories/update-position' category_id='__ID__' position='__POS__'}";
-
-                    // Perform subtitutions
-                    url = url.replace('__ID__', $(this).data('id'))
-                    .replace('__POS__', newValue);
-
-                    // Reload the page
-                    location.href = url;
-                }
+            document.querySelectorAll('.categoryPositionChange').forEach(element => {
+                new BootstrapEditable(element, {
+                    url: "{url noamp='1' path='/admin/categories/update-position'}",
+                    positionInputName: 'position',
+                    idInputName: 'category_id',
+                    idInputValue: element.dataset.id,
+                    title: '{intl l="Enter new category position"}'
+                }).initPopover();
             });
 
-            $('.productPositionChange').editable({
-                type        : 'text',
-                title       : '{intl l="Enter new product position"}',
-                mode        : 'popup',
-                inputclass  : 'input-mini',
-                placement   : 'left',
-                success     : function(response, newValue) {
-                    // The URL template
-                    var url = "{url noamp='1' path='/admin/products/update-position' product_id='__ID__' position='__POS__' category_id=$category_id}";
-
-                    // Perform subtitutions
-                    url = url.replace('__ID__', $(this).data('id'))
-                    .replace('__POS__', newValue);
-
-                    // Reload the page
-                    location.href = url; //
-                }
+            document.querySelectorAll('.productPositionChange').forEach(element => {
+                new BootstrapEditable(element, {
+                    url: "{url noamp='1' path='/admin/products/update-position'}",
+                    positionInputName: 'position',
+                    idInputName: 'product_id',
+                    idInputValue: element.dataset.id
+                }).initPopover();
             });
 
             function update_price(price, price_type, dest_field_id) {
