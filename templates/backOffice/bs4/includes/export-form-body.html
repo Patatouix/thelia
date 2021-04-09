@@ -113,13 +113,14 @@
                     <div class="col-4">
                         {form_field field="do_compress"}
                             <div>
-                                <label for="{$label_attr.for}">
+                                <label for="export-compression-switch">
                                     {$label}
                                 </label>
                             </div>
                             <div>
-                                <div id="export-compression-switch" class="make-switch switch-small" data-on-label="<i class=&quot;far fa-check-circle&quot;></i>" data-on="success" data-off-label="<i class=&quot;far fa-times-circle&quot;></i>" data-off="danger">
-                                    <input id="{$label_attr.for}" type="checkbox" name="{$name}" />
+                                <div class="custom-control custom-switch">
+                                    <input type="checkbox" name="{$name}" id="export-compression-switch" class="custom-control-input">
+                                    <label for="export-compression-switch" class="custom-control-label"></label>
                                 </div>
                             </div>
                         {/form_field}
@@ -160,8 +161,9 @@
                                     </label>
                                 </div>
                                 <div>
-                                    <div class="make-switch switch-small" data-on-label="<i class=&quot;far fa-check-circle&quot;></i>" data-on="success" data-off-label="<i class=&quot;far fa-times-circle&quot;></i>" data-off="danger">
-                                        <input id="{$label_attr.for}" type="checkbox" name="{$name}" />
+                                    <div class="custom-control custom-switch">
+                                        <input type="checkbox" name="{$name}" id="{$label_attr.for}" class="custom-control-input">
+                                        <label for="{$label_attr.for}" class="custom-control-label"></label>
                                     </div>
                                 </div>
                             {/form_field}
@@ -177,8 +179,9 @@
                                     </label>
                                 </div>
                                 <div>
-                                    <div class="make-switch switch-small" data-on-label="<i class=&quot;far fa-check-circle&quot;></i>" data-on="success" data-off-label="<i class=&quot;far fa-times-circle&quot;></i>" data-off="danger">
-                                        <input id="{$label_attr.for}" type="checkbox" name="{$name}" />
+                                    <div class="custom-control custom-switch">
+                                        <input type="checkbox" name="{$name}" id="{$label_attr.for}" class="custom-control-input">
+                                        <label for="{$label_attr.for}" class="custom-control-label"></label>
                                     </div>
                                 </div>
                             {/form_field}

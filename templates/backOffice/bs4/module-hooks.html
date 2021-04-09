@@ -71,15 +71,11 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="col-sm-2 col-form-label" for="hooks-filter-status">{intl l="Hide empty hook"}</label>
+                        <label class="col-form-label col-sm-2">{intl l="Hide empty hook"}</label>
                         <div class="col-sm-2">
-                            <div class="make-switch switch-small hooks-filter-status"
-                                data-id="{$ID}"
-                                data-on="success"
-                                data-off="danger"
-                                data-on-label="<i class='far fa-check-circle'></i>"
-                                data-off-label="<i class='far fa-times-circle'></i>">
-                                <input type="checkbox" id="hooks-filter-empty" value="1" checked="checked" />
+                            <div class="custom-control custom-switch">
+                                <input type="checkbox" id="hooks-filter-empty" value="1" checked="checked" class="custom-control-input hooks-filter-status">
+                                <label for="hooks-filter-empty" class="custom-control-label"></label>
                             </div>
                         </div>
 
@@ -265,11 +261,7 @@
     <script>
         $(document).ready(function() {
            var url_management = "{url path="/admin/module-hooks/toggle-activation/"}";
-           $(".module-hook-activation").on("switch-change", function(e, data){
-
-               var checkbox = $(this);
-        	   var module_hook_id = checkbox.data('id');
-        	   var is_checked = data.value;
+           $(".module-hook-activation").on("change", function(e, data){
 
                $('body').append('<div class="modal-backdrop fade in" id="loading-event"><div class="loading"></div></div>');
                $.ajax({
@@ -277,11 +269,8 @@
                }).done(function(){
                    $("#loading-event").remove();
                })
-               .success(function() {
-
-               })
                .fail(function(jqXHR, textStatus, errorThrown){
-                    checkbox.bootstrapSwitch('toggleState', true);
+                    $(this).prop('checked', !$(this).is(':checked'));
                     $("#loading-event").remove();
                     $('#hook-failed-body').html(jqXHR.responseJSON.error);
                     $("#hook-failed").modal("show");

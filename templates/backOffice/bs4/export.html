@@ -227,8 +227,8 @@
                     var compression_switch = $("#export-compression-switch", export_modal);
                     var compression_row = $(".export-compression-selection-row", export_modal);
 
-                    compression_switch.on("switch-change", function(e, data) {
-                        var is_checked = data.value;
+                    compression_switch.on("change", function(e, data) {
+                        var is_checked = this.checked;
 
                         if (is_checked) {
                             compression_row.show("slow");

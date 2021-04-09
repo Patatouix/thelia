@@ -102,8 +102,9 @@
                         <td class="text-center">
 
                             {if $MANDATORY ne 1 || $ACTIVE eq 0}
-                            <div class="make-switch switch-small module-activation" data-mandatory="{$MANDATORY}" data-id="{$ID}" data-on="success" data-off="danger" data-on-label="<i class='far fa-check-circle'></i>" data-off-label="<i class='far fa-times-circle'></i>">
-                                <input type="checkbox" {if $ACTIVE}checked{/if}>
+                            <div class="custom-control custom-switch">
+                                <input type="checkbox" id="customSwitchModuleActivation{$ID}" class="custom-control-input module-activation" data-mandatory="{$MANDATORY}" data-id="{$ID}" {if $ACTIVE}checked{/if}>
+                                <label for="customSwitchModuleActivation{$ID}" class="custom-control-label"></label>
                             </div>
                             <noscript>
                                 {if $ACTIVE}

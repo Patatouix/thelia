@@ -145,11 +145,7 @@
             });
 
            var url_management = "{url path="/admin/module/toggle-activation/"}";
-           $(".module-activation").on("switch-change", function(e, data){
-
-               var checkbox = $(this);
-        	   var module_id = checkbox.data('id');
-        	   var is_checked = data.value;
+           $(".module-activation").on("change", function(e, data){
 
                $('body').append('<div class="modal-backdrop fade in" id="loading-event"><div class="loading"></div></div>');
                $.ajax({
@@ -159,7 +155,7 @@
                }).done(function() {
                    location.reload();
                }).fail(function(jqXHR, textStatus, errorThrown){
-                    checkbox.bootstrapSwitch('toggleState', true);
+                    $(this).bootstrapSwitch('toggleState', true);
                     $('#module-failed-body').html(jqXHR.responseJSON.error);
                     $("#module-failed").modal("show");
                });

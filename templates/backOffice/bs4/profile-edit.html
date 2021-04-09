@@ -13,7 +13,7 @@
 
     {assign oder_tab {$smarty.get.tab|default:$smarty.post.tab|default:'data'}}
 
-<div class="profiles edit-profiles">
+<!-- <div class="profiles edit-profiles">-->
 
     <div class="container-fluid">
 
@@ -167,23 +167,27 @@
                                             <td>{$CODE}</td>
                                             <td>{$TITLE}</td>
                                             <td>
-                                                <div class="make-switch switch-mini switch_set_resource switch_line_r{$ID}" data-on="success" data-off="danger" data-on-label="<i class='fas fa-check'></i>" data-off-label="<i class='fas fa-times'></i>">
-                                                    <input name="{$name}" value="VIEW" type="checkbox" {if $VIEWABLE == 1}checked="checked"{/if}>
+                                                <div class="custom-control custom-switch">
+                                                    <input name="{$name}" type="checkbox" id="customSwitchRessourcesView{$ID}" value="VIEW" class="custom-control-input switch_set_resource switch_line_r{$ID}" {if $VIEWABLE == 1}checked="checked"{/if}>
+                                                    <label for="customSwitchRessourcesView{$ID}" class="custom-control-label"></label>
                                                 </div>
                                             </td>
                                             <td>
-                                                <div class="make-switch switch-mini switch_set_resource switch_line_r{$ID}" data-on="success" data-off="danger" data-on-label="<i class='fas fa-check'></i>" data-off-label="<i class='fas fa-times'></i>">
-                                                    <input name="{$name}" value="CREATE" type="checkbox" {if $CREATABLE == 1}checked="checked"{/if}>
+                                                <div class="custom-control custom-switch">
+                                                    <input name="{$name}" type="checkbox" id="customSwitchRessourcesCreate{$ID}" value="CREATE" class="custom-control-input switch_set_resource switch_line_r{$ID}" {if $CREATABLE == 1}checked="checked"{/if}>
+                                                    <label for="customSwitchRessourcesCreate{$ID}" class="custom-control-label"></label>
                                                 </div>
                                             </td>
                                             <td>
-                                                <div class="make-switch switch-mini switch_set_resource switch_line_r{$ID}" data-on="success" data-off="danger" data-on-label="<i class='fas fa-check'></i>" data-off-label="<i class='fas fa-times'></i>">
-                                                    <input name="{$name}" value="UPDATE" type="checkbox" {if $UPDATABLE == 1}checked="checked"{/if}>
+                                                <div class="custom-control custom-switch">
+                                                    <input name="{$name}" type="checkbox" id="customSwitchRessourcesUpdate{$ID}" value="UPDATE" class="custom-control-input switch_set_resource switch_line_r{$ID}" {if $UPDATABLE == 1}checked="checked"{/if}>
+                                                    <label for="customSwitchRessourcesUpdate{$ID}" class="custom-control-label"></label>
                                                 </div>
                                             </td>
                                             <td>
-                                                <div class="make-switch switch-mini switch_set_resource switch_line_r{$ID}" data-on="success" data-off="danger" data-on-label="<i class='fas fa-check'></i>" data-off-label="<i class='fas fa-times'></i>">
-                                                    <input name="{$name}" value="DELETE" type="checkbox" {if $DELETABLE == 1}checked="checked"{/if}>
+                                                <div class="custom-control custom-switch">
+                                                    <input name="{$name}" type="checkbox" id="customSwitchRessourcesDelete{$ID}" value="DELETE" class="custom-control-input switch_set_resource switch_line_r{$ID}" {if $DELETABLE == 1}checked="checked"{/if}>
+                                                    <label for="customSwitchRessourcesDelete{$ID}" class="custom-control-label"></label>
                                                 </div>
                                             </td>
 
@@ -260,23 +264,27 @@
                                             <td>{$CODE}</td>
                                             <td>{$TITLE}</td>
                                             <td>
-                                                <div class="make-switch switch-mini switch_set_module switch_line_m{$ID}" data-on="success" data-off="danger" data-on-label="<i class='fas fa-check'></i>" data-off-label="<i class='fas fa-times'></i>">
-                                                    <input name="{$name}" value="VIEW" type="checkbox" {if $VIEWABLE == 1}checked="checked"{/if}>
+                                                <div class="custom-control custom-switch">
+                                                    <input name="{$name}" value="VIEW" type="checkbox" id="customSwitchModulesView{$ID}" class="custom-control-input switch_set_module switch_line_m{$ID}" {if $VIEWABLE == 1}checked="checked"{/if}>
+                                                    <label for="customSwitchModulesView{$ID}" class="custom-control-label"></label>
                                                 </div>
                                             </td>
                                             <td>
-                                                <div class="make-switch switch-mini switch_set_module switch_line_m{$ID}" data-on="success" data-off="danger" data-on-label="<i class='fas fa-check'></i>" data-off-label="<i class='fas fa-times'></i>">
-                                                    <input name="{$name}" value="CREATE" type="checkbox" {if $CREATABLE == 1}checked="checked"{/if}>
+                                                <div class="custom-control custom-switch">
+                                                    <input name="{$name}" value="CREATE" type="checkbox" id="customSwitchModulesCreate{$ID}" class="custom-control-input switch_set_module switch_line_m{$ID}" {if $CREATABLE == 1}checked="checked"{/if}>
+                                                    <label for="customSwitchModulesCreate{$ID}" class="custom-control-label"></label>
                                                 </div>
                                             </td>
                                             <td>
-                                                <div class="make-switch switch-mini switch_set_module switch_line_m{$ID}" data-on="success" data-off="danger" data-on-label="<i class='fas fa-check'></i>" data-off-label="<i class='fas fa-times'></i>">
-                                                    <input name="{$name}" value="UPDATE" type="checkbox" {if $UPDATABLE == 1}checked="checked"{/if}>
+                                                <div class="custom-control custom-switch">
+                                                    <input name="{$name}" value="UPDATE" type="checkbox" id="customSwitchModulesUpdate{$ID}" class="custom-control-input switch_set_module switch_line_m{$ID}" {if $UPDATABLE == 1}checked="checked"{/if}>
+                                                    <label for="customSwitchModulesUpdate{$ID}" class="custom-control-label"></label>
                                                 </div>
                                             </td>
                                             <td>
-                                                <div class="make-switch switch-mini switch_set_module switch_line_m{$ID}" data-on="success" data-off="danger" data-on-label="<i class='fas fa-check'></i>" data-off-label="<i class='fas fa-times'></i>">
-                                                    <input name="{$name}" value="DELETE" type="checkbox" {if $DELETABLE == 1}checked="checked"{/if}>
+                                                <div class="custom-control custom-switch">
+                                                    <input name="{$name}" value="DELETE" type="checkbox" id="customSwitchModulesDelete{$ID}" class="custom-control-input switch_set_module switch_line_m{$ID}" {if $DELETABLE == 1}checked="checked"{/if}>
+                                                    <label for="customSwitchModulesDelete{$ID}" class="custom-control-label"></label>
                                                 </div>
                                             </td>
                                             <td>
@@ -317,7 +325,7 @@
 
     </div>
 
-</div>
+<!-- </div> -->
 
 {/block}
 
@@ -328,17 +336,19 @@
     {/javascripts}
 
     <script>
-        $(function() {
-            $('.toggle-all').click(function() {
-                var selector = ".switch_set_"  + $(this).data('set');
-                $(selector).bootstrapSwitch('toggleState');
+            document.querySelectorAll('.toggle-all').forEach((e) => {
+                e.addEventListener('click', () => {
+                    const selector = ".switch_set_"  + e.dataset.set;
+                    document.querySelectorAll(selector).forEach((e) => e.checked = !e.checked);
+                });
             });
 
-            $('.toggle-line').click(function() {
-                var selector = ".switch_line_"  + $(this).data('id');
-                $(selector).bootstrapSwitch('toggleState');
+            document.querySelectorAll('.toggle-line').forEach((e) => {
+                e.addEventListener('click', () => {
+                    const selector = ".switch_line_"  + e.dataset.id; console.log(selector);
+                    document.querySelectorAll(selector).forEach((e) => e.checked = !e.checked);
+                });
             });
-        });
     </script>
 
 {/block}
