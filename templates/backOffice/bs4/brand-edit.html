@@ -257,7 +257,7 @@
             $('.nav-tabs a[href="#{$current_tab}"]').trigger("click");
             {/if}
 
-            $('.brand-image-selector').imagepicker();
+            new ImagePicker(document.querySelector('.brand-image-selector')).init();
         });
     </script>
 {/block}
