@@ -16,9 +16,10 @@ class BootstrapEditable {
                             + this.additionalInputsHtml(options.additionalInputs)
                             + '<span class="editable-clear-x"></span>'
                         + '</div>'
-                    + '</div>'
-                    + '<button type="submit" class="btn btn-primary btn-sm editable-submit"><i class="fas fa-check"></i></button>'
+                        + '<button type="submit" class="btn btn-primary btn-sm editable-submit"><i class="fas fa-check"></i></button>'
                     + '<button type="button" class="btn btn-secondary btn-sm editable-cancel"><i class="fas fa-times"></i></button>'
+                    + '</div>'
+
                     + '<div class="editable-error-block help-block" style="display: none;"></div>'
                 + '</form>'
         }
@@ -34,6 +35,22 @@ class BootstrapEditable {
     }
 
     initPopover() {
-        $(this.element).popover(this.options);
+        //instanciate popover
+        const popover = $(this.element).popover(this.options);
+
+        popover.on('shown.bs.popover', () => {
+            const popoverHtml = popover.data('bs.popover').tip;
+            $('html').on('click', (event) => {
+                //check if click must dismiss the popover
+                if (event.target !== this.element && (
+                    event.target === popoverHtml.querySelector('button.editable-cancel')
+                    || event.target === popoverHtml.querySelector('button.editable-cancel i')
+                    || !$.contains(popoverHtml, event.target)
+                )) {
+                    popover.popover('hide');
+                    $('html').off(event);
+                }
+            });
+        })
     }
 }
