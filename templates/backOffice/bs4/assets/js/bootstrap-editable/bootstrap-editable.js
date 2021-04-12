@@ -13,6 +13,7 @@ class BootstrapEditable {
                         + '<div class="editable-input" style="position: relative;">'
                             + '<input type="text" name="' + options.positionInputName + '" class="form-control input-mini" style="padding-right: 24px;">'
                             + '<input type="hidden" name="' + options.idInputName + '" value="' + options.idInputValue + '">'
+                            + this.additionalInputsHtml(options.additionalInputs)
                             + '<span class="editable-clear-x"></span>'
                         + '</div>'
                     + '</div>'
@@ -22,6 +23,14 @@ class BootstrapEditable {
                 + '</form>'
         }
         this.options = Object.assign(this.defaultOptions, options);
+    }
+
+    additionalInputsHtml(additionalInputs) {
+        let html = '';
+        for (let key in additionalInputs) {
+            html += '<input type="hidden" name="' + key + '" value="' + additionalInputs[key] + '">';
+        }
+        return html;
     }
 
     initPopover() {

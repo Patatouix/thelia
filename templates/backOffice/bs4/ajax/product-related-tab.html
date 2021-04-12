@@ -533,41 +533,33 @@ form_content    = {$smarty.capture.delete_category_dialog nofilter}
 
 		{* Inline editing of accessory position using bootstrap-editable *}
 
-		$('.accessoryPositionChange').editable({
-			type        : 'text',
-			title       : "{intl l="Enter new accessory position"}",
-			mode        : 'popup',
-			inputclass  : 'input-mini',
-			placement   : 'left',
-			success     : function(response, newValue) {
-				// The URL template
-				var url = "{url noamp='1' path='/admin/product/update-accessory-position' accessory_id='__ID__' position='__POS__' product_id=$product_id current_tab='related' }";
+        document.querySelectorAll('.accessoryPositionChange').forEach(element => {
+            new BootstrapEditable(element, {
+                url: "{url noamp='1' path='/admin/product/update-accessory-position'}",
+                title: '{intl l="Enter new accessory position"}',
+                positionInputName: 'position',
+                idInputName: 'accessory_id',
+                idInputValue: element.dataset.id,
+                additionalInputs: {
+                    product_id: {$product_id},
+                    current_tab: 'related'
+                }
+            }).initPopover();
+        });
 
-				// Perform subtitutions
-				url = url.replace('__ID__', $(this).data('id')).replace('__POS__', newValue);
-
-				// Reload the page
-				location.href = url;
-			}
-		});
-
-		$('.contentPositionChange').editable({
-			type        : 'text',
-			title       : "{intl l="Enter new content position"}",
-			mode        : 'popup',
-			inputclass  : 'input-mini',
-			placement   : 'left',
-			success     : function(response, newValue) {
-				// The URL template
-				var url = "{url noamp='1' path='/admin/product/update-content-position' content_id='__ID__' position='__POS__' product_id=$product_id current_tab='related' }";
-
-				// Perform subtitutions
-				url = url.replace('__ID__', $(this).data('id')).replace('__POS__', newValue);
-
-				// Reload the page
-				location.href = url;
-			}
-		});
+        document.querySelectorAll('.contentPositionChange').forEach(element => {
+            new BootstrapEditable(element, {
+                url: "{url noamp='1' path='/admin/product/update-content-position'}",
+                title: '{intl l="Enter new content position"}',
+                positionInputName: 'position',
+                idInputName: 'content_id',
+                idInputValue: element.dataset.id,
+                additionalInputs: {
+                    product_id: {$product_id},
+                    current_tab: 'related'
+                }
+            }).initPopover();
+        });
 
 		// Initialize folder select value
 		{if $folder_id != 0}

@@ -7,7 +7,7 @@
 	{ifloop rel="folder_path"}
 		{loop name="folder_path" type="folder-path" visible="*" folder=$folder_id}
 			{if $ID == $parent}
-				<li class="active">
+				<li class="breadcrumb-item active">
 				   {if $editing_folder == true}
                        {intl l='Editing %fold' fold="{$TITLE}"}
 				   {else}
@@ -15,7 +15,7 @@
 			        {/if}
 				</li>
 			{else}
-			   <li><a href="{url path='/admin/folders' parent="$ID" }">{$TITLE}</a></li>
+			   <li class="breadcrumb-item"><a href="{url path='/admin/folders' parent="$ID" }">{$TITLE}</a></li>
 			{/if}
 	   {/loop}
 	{/ifloop}

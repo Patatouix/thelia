@@ -10,7 +10,7 @@
 {block name="page-title"}{intl l='Edit content'}{/block}
 
 {block name="main-content"}
-    <div class="content edit-content">
+    <!-- <div class="content edit-content"> -->
         <div class="container-fluid">
 
             {include file="includes/folder-breadcrumb.html" editing_content="true"}
@@ -222,7 +222,7 @@
             {hook name="content-edit.bottom" content_id=$content_id}
 
         </div>
-    </div>
+    <!-- </div> -->
     {* Delete category confirmation dialog *}
 
     {capture "delete_folder_dialog"}

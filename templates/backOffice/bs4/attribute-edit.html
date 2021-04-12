@@ -316,22 +316,17 @@
 
             {* Inline editing of object position using bootstrap-editable *}
 
-            $('.positionChange').editable({
-                type        : 'text',
-                title       : '{intl l="Enter new value position"}',
-                mode        : 'popup',
-                inputclass  : 'input-mini',
-                placement   : 'left',
-                success     : function(response, newValue) {
-                    // The URL template
-                    var url = "{url noamp='1' path='/admin/configuration/attributes-av/update-position' attributeav_id='__ID__' position='__POS__' attribute_id=$attribute_id}";
-
-                    // Perform subtitutions
-                    url = url.replace('__ID__', $(this).data('id')).replace('__POS__', newValue);
-
-                    // Reload the page
-                    location.href = url;
-                }
+            document.querySelectorAll('.positionChange').forEach(element => {
+                new BootstrapEditable(element, {
+                    url: "{url noamp='1' path='/admin/configuration/attributes-av/update-position'}",
+                    title: '{intl l="Enter new value position"}',
+                    positionInputName: 'position',
+                    idInputName: 'attributeav_id',
+                    idInputValue: element.dataset.id,
+                    additionalInputs: {
+                        attribute_id: {$attribute_id}
+                    }
+                }).initPopover();
             });
 
         });
