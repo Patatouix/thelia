@@ -639,7 +639,8 @@
                         throw new Error("Invalid dropzone element.");
                     }
                     if (this.element.dropzone) {
-                        throw new Error("Dropzone already attached.");
+                        //throw new Error("Dropzone already attached.");
+                        return this.element.dropzone;
                     }
                     Dropzone.instances.push(this);
                     element.dropzone = this;
@@ -1477,7 +1478,7 @@
             Dropzone.discover = function() {
                 var checkElements, dropzone, dropzones, _i, _len, _results;
                 if (document.querySelectorAll) {
-                    dropzones = document.querySelectorAll(".dropzone");
+                    dropzones = [];
                 } else {
                     dropzones = [];
                     checkElements = function(elements) {

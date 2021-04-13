@@ -15,13 +15,108 @@ $(function($){
         $.imageUploadManager.onClickBtnDeleteSelectedImages();
         $.imageUploadManager.onClickBtnSelectDeselectImages();
 
-        var imageDropzone = new Dropzone("#images-dropzone", {
+        //////////////////////////////////////////
+
+        let imageDropzone = document.getElementById('images-dropzone');
+        let fileInput = imageDropzone.querySelector('input[type=file]');
+
+        //for browsers that enable JS, hide fallback and show upload button
+        imageDropzone.querySelector('.fallback').classList.add('d-none');
+        imageDropzone.querySelector('.btn-browse').classList.remove('d-none');
+
+        imageDropzone.addEventListener('click', () => fileInput.click());
+
+        //enable droppable zone
+        const preventDefaults = (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+        };
+
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            imageDropzone.addEventListener(eventName, preventDefaults, false)
+        });
+
+        //highlight dropzone on hover
+        const highlight = (e) => {
+            imageDropzone.classList.add('dz-drag-hover');
+        };
+
+        const unhighlight = (e) => {
+            imageDropzone.classList.remove('dz-drag-hover');
+        };
+
+        ['dragenter', 'dragover'].forEach(eventName => {
+            imageDropzone.addEventListener(eventName, highlight, false)
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            imageDropzone.addEventListener(eventName, unhighlight, false)
+        });
+
+        //file drop event
+        const handleDrop = (e) => {
+            let files = e.dataTransfer.files;
+            Array.from(files).forEach((file) => {
+                uploadFile(file);
+            });
+        };
+
+        imageDropzone.addEventListener('drop', handleDrop, false);
+
+        //do the same when uploading files
+        fileInput.addEventListener('change', (e) => {
+            let files = fileInput.files;
+            Array.from(files).forEach((file) => {
+                uploadFile(file);
+            });
+        });
+
+        //send dropped files to the server
+        const uploadFile = (file) => {
+            var url = imageDropzone.getAttribute('action');
+            var xhr = new XMLHttpRequest();
+            var formData = new FormData();
+            xhr.open('POST', url, true);
+
+            xhr.addEventListener('readystatechange', (e) => {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    //imageDropzone.removeFile(file);
+                    $.imageUploadManager.updateImageListAjax();
+                    $.imageUploadManager.onClickDeleteImage();
+                    $.imageUploadManager.onClickToggleVisibilityImage();
+                }
+                else if (xhr.readyState == 4 && xhr.status != 200) {
+                    previewFile(file, xhr.responseText);
+                }
+            });
+
+            formData.append('file', file);
+            xhr.send(formData);
+        }
+
+        //thumbnail of dropped files
+        const previewFile = (file, error) => {
+            let reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onloadend = () => {
+                let img = document.createElement('img');
+                img.src = reader.result;
+                imageDropzone.querySelector('#gallery').appendChild(img);
+                let span = document.createElement('span');
+                span.innerText = error;
+                imageDropzone.querySelector('#gallery').appendChild(span);
+            }
+        }
+
+        //////////////////////////////////////////
+
+        /*var imageDropzone = new Dropzone("#images-dropzone", {
             dictDefaultMessage : $('.btn-browse').html(),
             uploadMultiple: false,
             acceptedFiles: 'image/png, image/gif, image/jpeg'
-        });
+        });*/
 
-        var totalFiles      = 0,
+        /*var totalFiles      = 0,
             completedFiles  = 0;
 
         imageDropzone.on("addedfile", function(file){
@@ -38,17 +133,14 @@ $(function($){
             if (completedFiles === totalFiles){
                 $('.dz-message').slideDown();
             }
-        });
+        });*/
 
-        imageDropzone.on("success", function(file) {
+        /*imageDropzone.on("success", function(file) {
             imageDropzone.removeFile(file);
             $.imageUploadManager.updateImageListAjax();
             $.imageUploadManager.onClickDeleteImage();
             $.imageUploadManager.onClickToggleVisibilityImage();
-        });
-
-
-
+        });*/
     };
 
     // Update picture list via AJAX call
