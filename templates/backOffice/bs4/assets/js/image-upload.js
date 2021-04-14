@@ -10,7 +10,8 @@ $(function($){
         $.imageUploadManager.onClickDeleteImage();
         $.imageUploadManager.onClickModal();
         $.imageUploadManager.onModalHidden();
-        $.imageUploadManager.sortImage();
+        //$.imageUploadManager.sortImage();
+        $.imageUploadManager.testSortable();
         $.imageUploadManager.onClickToggleVisibilityImage();
         $.imageUploadManager.onClickBtnDeleteSelectedImages();
         $.imageUploadManager.onClickBtnSelectDeselectImages();
@@ -360,4 +361,93 @@ $(function($){
         });
         $( "#js-sort-image" ).disableSelection();
     };
+
+
+    $.imageUploadManager.testSortable = function() {
+
+        function enableDragSort(draggableLists) {
+            draggableLists.forEach((list) => {
+                enableDragList(list);
+            })
+        }
+
+        function enableDragList(list) {
+            list.addEventListener('drop', (e) => e.preventDefault());
+            list.addEventListener('dragover', (e) => e.preventDefault());
+            Array.from(list.children).forEach((item) => {
+                enableDragItem(item);
+            })
+        }
+
+        function enableDragItem(item) {
+
+            item.setAttribute('draggable', true);
+
+            //prevents from dragging wrong elements
+            item.querySelector('a.thumbnail').setAttribute('draggable', false);
+            item.querySelector('img.card-img').setAttribute('draggable', false);
+
+            item.addEventListener('dragstart', (event) => {
+                //change cursor during drag
+                event.dataTransfer.effectAllowed  = 'move';
+            });
+
+            item.addEventListener('drag', (event) => {
+                //indicates that dropzone is not droppable for this purpose
+                document.querySelector('#images-dropzone').style.pointerEvents = 'none';
+
+                const selectedItem = event.target,
+                    list = selectedItem.parentNode,
+                    x = event.clientX,
+                    y = event.clientY;
+
+                selectedItem.style.opacity = 0;
+
+                let swapItem = document.elementFromPoint(x, y) === null ? selectedItem : document.elementFromPoint(x, y);
+
+                if (list === swapItem.parentNode) {
+                    nextItem = swapItem !== selectedItem.nextSibling ? swapItem : swapItem.nextSibling;
+                    list.insertBefore(selectedItem, nextItem);
+
+                    //refresh position
+                    Array.from(list.children).forEach((item) => {
+                        item.querySelector('.js-sorted-position').innerHTML = Array.prototype.indexOf.call(list.children, item) + 1;
+                    });
+                }
+            });
+
+            item.addEventListener('dragend', (event) => {
+                //make dropzone droppable again
+                document.querySelector('#images-dropzone').style.pointerEvents = 'auto';
+
+                const selectedItem = event.target;
+                selectedItem.style.opacity = 1;
+
+                //send position to server
+                const newPosition = selectedItem.querySelector('.js-sorted-position').innerHTML;
+                const imageId = selectedItem.dataset.sortId;
+                $.ajax({
+                    type: "POST",
+                    url: imageReorder,
+                    data: {
+                        image_id: imageId,
+                        position: newPosition
+                    },
+                    statusCode: {
+                        404: function() {
+                            $(".image-manager .message").html(
+                                imageReorderErrorMessage
+                            );
+                        }
+                    }
+                }).done(function(data) {
+                    $(".image-manager .message").html(
+                        data
+                    );
+                });
+            });
+        }
+
+        enableDragSort(document.querySelectorAll('#js-sort-image'));
+    }
 });
