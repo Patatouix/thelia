@@ -724,7 +724,7 @@
                 $countryList
                     .find('.badge')
                     .removeClass('badge-success badge-danger')
-                    .addClass('badge-default')
+                    .addClass('badge-secondary')
                 ;
 
                 for (i = 0; i < countries.length; i++) {
@@ -732,10 +732,10 @@
                     selector = "[data-id='" + country.country + '-' + country.state + "']";
                     if (spec == country.specification) {
                         // same configuration
-                        $countryList.find(selector).removeClass('badge-default').addClass('badge-success');
+                        $countryList.find(selector).removeClass('badge-secondary').addClass('badge-success');
                     } else {
                         // an other configuration
-                        $countryList.find(selector).removeClass('badge-default').addClass('badge-danger');
+                        $countryList.find(selector).removeClass('badge-secondary').addClass('badge-danger');
                     }
                 }
 
@@ -802,11 +802,11 @@
                 }
 
                 if ($current.hasClass("badge-success")) {
-                    $current.removeClass("badge-success").addClass('badge-default');
+                    $current.removeClass("badge-success").addClass('badge-secondary');
                 } else if ($current.hasClass("badge-danger")) {
                     $current.removeClass("badge-danger").addClass("badge-success");
                 } else {
-                    $current.removeClass('badge-default').addClass("badge-success");
+                    $current.removeClass('badge-secondary').addClass("badge-success");
                 }
             };
 
@@ -894,7 +894,7 @@
 }
 
 .filter-selected .badge-danger,
-.filter-selected .badge-default {
+.filter-selected .badge-secondary {
     display: none;
     width: 0;
     height: 0;
@@ -906,7 +906,7 @@
     height: 0;
 }
 .filter-other .badge-success,
-.filter-other .badge-default {
+.filter-other .badge-secondary {
     display: none;
     width: 0;
     height: 0;
