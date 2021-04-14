@@ -99,13 +99,23 @@ $(function($){
         const previewFile = (file, error) => {
             let reader = new FileReader();
             reader.readAsDataURL(file);
-            reader.onloadend = () => {
-                let img = document.createElement('img');
-                img.src = reader.result;
-                imageDropzone.querySelector('#gallery').appendChild(img);
-                let span = document.createElement('span');
-                span.innerText = error;
-                imageDropzone.querySelector('#gallery').appendChild(span);
+            reader.onloadend = () => { console.log(file);
+
+                let template = '<div class="dz-preview dz-file-preview dz-error">'
+                    + '<div class="dz-details">'
+                        + '<div class="dz-filename">'
+                            + '<span data-dz-name="">' + file.name + '</span>'
+                        + '</div>'
+                        + '<div class="dz-size" data-dz-size="">'
+                            + '<strong>' + file.size / 1000000 + '</strong> MB'
+                        + '</div>'
+                        + '<img data-dz-thumbnail="" src="' + reader.result + '" alt="' + file.name + '">'
+                    + '</div>'
+                    +  '<div class="dz-error-mark"><span>✘</span></div>'
+                    + '<div class="dz-error-message"><span data-dz-errormessage="">' + error + '</span></div>'
+                + '</div>';
+
+                imageDropzone.querySelector('#gallery').insertAdjacentHTML('beforeend', template);
             }
         }
 

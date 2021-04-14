@@ -53,7 +53,8 @@
     }
     .dz-preview.dz-file-preview [data-dz-thumbnail],
     .dropzone-previews .dz-preview.dz-file-preview [data-dz-thumbnail] {
-        display: none;
+        //display: none;
+        object-fit: cover;
     }
     .dz-preview .dz-details,
     .dropzone-previews .dz-preview .dz-details {
