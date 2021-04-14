@@ -15,7 +15,7 @@
     {assign asked_country {$smarty.get.country|default:{country ask="default" attr="id"}}}
     {assign asked_state {$smarty.get.state|default:0}}
 
-<div class="taxes-rules edit-taxes-rules">
+<!-- <div class="taxes-rules edit-taxes-rules"> -->
 
     <div class="container-fluid">
 
@@ -294,7 +294,7 @@
         {/loop}
     </div>
 
-</div>
+<!-- </div> -->
 
 
 {* Confirmation dialog *}
@@ -511,15 +511,15 @@
                 $added.empty();
                 $deleted.empty();
 
-                $countryList.find('.label').each(function(){
+                $countryList.find('.badge').each(function(){
                     var $country = $(this);
-                    if ($country.hasClass('label-success')) {
+                    if ($country.hasClass('badge-success')) {
                         countries.push($country.data('id').split('-'));
                         $added.append($country.clone());
                         $added.append(" ");
                     } else {
                         if ($country.data('memorize') !== undefined) {
-                            if ($country.data('memorize').indexOf('label-success') !== -1) {
+                            if ($country.data('memorize').indexOf('badge-success') !== -1) {
                                 countriesDeleted.push($country.data('id').split('-'));
                                 $deleted.append($country.clone());
                                 $deleted.append(" ");
@@ -554,9 +554,9 @@
 
                 // update the modal form
                 $added.closest('.panel').css('display', (countries.length === 0) ? 'none' : 'block');
-                $added.find("span.label.hidden").removeClass('hidden');
+                $added.find("span.badge.hidden").removeClass('hidden');
                 $deleted.closest('.panel').css('display', (countriesDeleted.length === 0) ? 'none' : 'block');
-                $deleted.find("span.label.hidden").removeClass('hidden');
+                $deleted.find("span.badge.hidden").removeClass('hidden');
 
                 $('#country_list').val(JSON.stringify(countries));
                 $('#country_deleted_list').val(JSON.stringify(countriesDeleted));
@@ -722,9 +722,9 @@
 
                 // reset country/state status
                 $countryList
-                    .find('.label')
-                    .removeClass('label-success label-danger')
-                    .addClass('label-default')
+                    .find('.badge')
+                    .removeClass('badge-success badge-danger')
+                    .addClass('badge-default')
                 ;
 
                 for (i = 0; i < countries.length; i++) {
@@ -732,10 +732,10 @@
                     selector = "[data-id='" + country.country + '-' + country.state + "']";
                     if (spec == country.specification) {
                         // same configuration
-                        $countryList.find(selector).removeClass('label-default').addClass('label-success');
+                        $countryList.find(selector).removeClass('badge-default').addClass('badge-success');
                     } else {
                         // an other configuration
-                        $countryList.find(selector).removeClass('label-default').addClass('label-danger');
+                        $countryList.find(selector).removeClass('badge-default').addClass('badge-danger');
                     }
                 }
 
@@ -760,9 +760,9 @@
                 $countryList.attr('class', '');
                 $countryList.addClass('filter-' + status);
 
-                $countryList.find('.label').removeClass('hidden');
+                $countryList.find('.badge').removeClass('hidden');
                 if (text != '') {
-                    $countryList.find('.label').each(function () {
+                    $countryList.find('.badge').each(function () {
                         var $item = $(this);
                         if (-1 == $item.text().toLowerCase().indexOf(text)) {
                             $item.addClass("hidden");
@@ -778,7 +778,7 @@
 
                     $countryBlock.css('display', 'block');
                     if ($('#taxes').hasClass('in')) {
-                        hide = $countryBlock.find('span.label').filter(":visible").length == 0;
+                        hide = $countryBlock.find('span.badge').filter(":visible").length == 0;
                         $countryBlock.css('display', hide ? 'none' : 'block');
                     }
                 });
@@ -801,12 +801,12 @@
                     return;
                 }
 
-                if ($current.hasClass("label-success")) {
-                    $current.removeClass("label-success").addClass('label-default');
-                } else if ($current.hasClass("label-danger")) {
-                    $current.removeClass("label-danger").addClass("label-success");
+                if ($current.hasClass("badge-success")) {
+                    $current.removeClass("badge-success").addClass('badge-default');
+                } else if ($current.hasClass("badge-danger")) {
+                    $current.removeClass("badge-danger").addClass("badge-success");
                 } else {
-                    $current.removeClass('label-default').addClass("label-success");
+                    $current.removeClass('badge-default').addClass("badge-success");
                 }
             };
 
@@ -814,7 +814,7 @@
              * Discard status changes done in country list
              */
             var resetCountryList = function resetCountryList() {
-                $countryList.find('.label').each(function () {
+                $countryList.find('.badge').each(function () {
                     var $item = $(this);
                     if ($item.data('memorize') !== undefined) {
                         $item.attr('class', $item.data('memorize'));
@@ -852,7 +852,7 @@
                     $("#country-list-filter-text").on('keyup', filterCountryList);
 
                     $countryList
-                            .find('.label')
+                            .find('.badge')
                             .on('click', toggleCountryStatus);
 
                     $('#reset-country-list').on('click', resetCountryList);
@@ -887,26 +887,26 @@
 
 {block name="after-bootstrap-css"}
 <style type="text/css">
-#country-list .label,
-#tax_list_update_dialog .label {
+#country-list .badge,
+#tax_list_update_dialog .badge {
     line-height: 2;
     cursor: pointer;
 }
 
-.filter-selected .label-danger,
-.filter-selected .label-default {
+.filter-selected .badge-danger,
+.filter-selected .badge-default {
     display: none;
     width: 0;
     height: 0;
 }
-.filter-none .label-danger,
-.filter-none .label-success {
+.filter-none .badge-danger,
+.filter-none .badge-success {
     display: none;
     width: 0;
     height: 0;
 }
-.filter-other .label-success,
-.filter-other .label-default {
+.filter-other .badge-success,
+.filter-other .badge-default {
     display: none;
     width: 0;
     height: 0;
