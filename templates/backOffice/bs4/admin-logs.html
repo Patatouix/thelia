@@ -1,7 +1,7 @@
 {extends file="admin-layout.tpl"}
 
 {block name="after-bootstrap-css"}
-    <link rel="stylesheet" href="{stylesheet file='assets/js/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css'}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 {/block}
 
 {block name="no-return-functions"}
@@ -154,33 +154,30 @@
 {block name="javascript-initialization"}
     <script src="{javascript file='assets/js/bootstrap-switch/bootstrap-switch.js'}"></script>
 
-    {javascripts file='assets/js/moment-with-locales.min.js'}
-        <script src="{$asset_url}"></script>
-    {/javascripts}
+    <script>
+        {$langcode = {lang attr="code"}|substr:0:2}
+    </script>
 
-    {javascripts file='assets/js/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js'}
-        <script src="{$asset_url}"></script>
-    {/javascripts}
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://npmcdn.com/flatpickr/dist/l10n/{$langcode}.js"></script>
 
     <script type="text/javascript">
 
-        {$langcode = {lang attr="code"}|substr:0:2}
-
         jQuery(function($) {
 
-            $('.from-datetime-picker').datetimepicker({
+            flatpickr('.from-datetime-picker', {
+                allowInput: true,
+                dateFormat: 'Y-m-d',
                 locale: "{$langcode}",
-                format: 'YYYY-MM-DD',
-                defaultDate: moment().subtract(7, 'days'),
-                ignoreReadonly: true
-            });
+                defaultDate: new Date().fp_incr(-7)
+            })
 
-            $('.to-datetime-picker').datetimepicker({
+            flatpickr('.to-datetime-picker', {
+                allowInput: true,
+                dateFormat: 'Y-m-d',
                 locale: "{$langcode}",
-                format: 'YYYY-MM-DD',
-                defaultDate: moment(),
-                ignoreReadonly: true
-            });
+                defaultDate: "today"
+            })
 
             $('.js-show-logs').click(function(e) {
 
@@ -202,8 +199,8 @@
                     modules.push($(v).data('id'));
                 });
 
-                var fromDate = $('.from-datetime-picker').data('DateTimePicker').date().format('YYYY-MM-DD');
-                var toDate = $('.to-datetime-picker').data('DateTimePicker').date().format('YYYY-MM-DD');
+                var fromDate = document.querySelector('.from-datetime-picker').value;
+                var toDate = document.querySelector('.to-datetime-picker').value;
 
                 $.post(
                     "{url path='/admin/configuration/adminLogs/logger'}",

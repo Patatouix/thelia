@@ -1,7 +1,7 @@
 {extends file="admin-layout.tpl"}
 
 {block name="after-bootstrap-css"}
-    <link rel="stylesheet" href="{stylesheet file='assets/js/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css'}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 {/block}
 
 {block name="no-return-functions"}
@@ -249,32 +249,34 @@
 
 {block name="javascript-initialization"}
 
-    {javascripts file='assets/js/moment-with-locales.min.js'}
-        <script src="{$asset_url}"></script>
-    {/javascripts}
+    <script>
+        {$langcode = {lang attr="code"}|substr:0:2}
+    </script>
 
-    {javascripts file='assets/js/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js'}
-        <script src="{$asset_url}"></script>
-    {/javascripts}
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://npmcdn.com/flatpickr/dist/l10n/{$langcode}.js"></script>
 
 <script>
     (function($) {
 
         var loadingProduct = true;
 
-        {* data-date-format is a moment.js date format *}
-        {$langcode = {lang attr="code"}|substr:0:2}
+        const startInput = document.querySelector('#sale-update-form #start_date');
+        const endInput = document.querySelector('#sale-update-form #end_date');
 
-        $('.datetime-picker').datetimepicker({
-            locale: "{$langcode}"
-        }).on('dp.change', function(e) {
-            if ($(this).attr('id')=='start_date') {
-                $('#end_date').data('DateTimePicker').minDate(e.date);
-            } else if ($(this).attr('id')=='end_date') {
-                $('#start_date').data('DateTimePicker').maxDate(e.date);
+        flatpickr('.datetime-picker', {
+            allowInput: true,
+            enableTime: true,
+            dateFormat: 'Y-m-d H:i:ss',
+            locale: "{$langcode}",
+            onChange: function(selectedDates, dateStr) {
+                if (this.element.id === 'start_date') {
+                    endInput._flatpickr.set('minDate', dateStr);
+                } else if (this.element.id === 'end_date') {
+                    startInput._flatpickr.set('maxDate', dateStr);
+                }
             }
-        });
-
+        })
 
         // prevent form submission during products load
         $(document.body).on('submit', '#sale-update-form', function(ev) {
@@ -283,12 +285,12 @@
             }
         });
 
-        if ($('#sale-update-form #start_date').val()!='') {
-            $('#sale-update-form #end_date').data('DateTimePicker').minDate($('#sale-update-form #start_date').val());
+        if (startInput.value !== '') {
+            endInput._flatpickr.set('minDate', startInput.value);
         }
 
-        if ($('#sale-update-form #end_date').val()!='') {
-            $('#sale-update-form #start_date').data('DateTimePicker').maxDate($('#sale-update-form #end_date').val());
+        if (endInput.value !== '') {
+            startInput._flatpickr.set('maxDate', endInput.value);
         }
 
         $(document.body).on('change', '.invert-selection', function(ev) {

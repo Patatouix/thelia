@@ -254,7 +254,7 @@
                 </label>
 
                 <div class="form-group">
-                    <select name="{$name}" class="js-change-tax-type" data-toggle="selectpicker">
+                    <select name="{$name}" class="js-change-tax-type form-control" data-toggle="selectpicker">
                         {$typeValueWithError = $value}
                         {foreach from=$choices key=key item=choice}
                             {if $key == 0}
@@ -273,7 +273,7 @@
                     {$label}
                 </label>
                 {if $formType == 'choice'}
-                    <select name="{$name}" data-toggle="selectpicker" {if !$form_error && $attr_list.tax_type != $typeValue || $form_error && $attr_list.tax_type != $typeValueWithError}disabled="disabled"{/if}>
+                    <select name="{$name}" data-toggle="selectpicker" class="form-control" {if !$form_error && $attr_list.tax_type != $typeValue || $form_error && $attr_list.tax_type != $typeValueWithError}disabled="disabled"{/if}>
                         {foreach $choices as $choice}
                             <option value="{$choice->value}" {if !$form_error && $REQUIREMENTS.$label == $choice->value || $form_error && $value == $choice->value}selected="selected" {/if}>{$choice->label}</option>
                         {/foreach}

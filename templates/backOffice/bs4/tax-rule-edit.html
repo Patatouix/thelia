@@ -34,12 +34,12 @@
             <div class="col-md-12 general-block-decorator clearfix">
 
                 <ul class="nav nav-tabs clearfix">
-                    <li {if $oder_tab == 'data'}class="active"{/if}><a href="#data" data-tab-name="cart" data-toggle="tab"><span class="fas fa-shopping-cart"></span> {intl l="Description"}</a></li>
-                    <li {if $oder_tab == 'taxes'}class="active"{/if}><a href="#taxes" data-tab-name="bill" data-toggle="tab"><span class="far fa-list-alt"></span> {intl l="Taxes"}</a></li>
+                    <li class="nav-item"><a href="#data" data-tab-name="cart" data-toggle="tab" class="nav-link{if $oder_tab == 'data'} active{/if}"><span class="fas fa-shopping-cart"></span> {intl l="Description"}</a></li>
+                    <li class="nav-item"><a href="#taxes" data-tab-name="bill" data-toggle="tab" class="nav-link{if $oder_tab == 'taxes'} active{/if}"><span class="far fa-list-alt"></span> {intl l="Taxes"}</a></li>
                 </ul>
 
                 <div class="tab-content">
-                    <div class="tab-pane fade {if $oder_tab == 'data'}active in{/if}" id="data">
+                    <div class="tab-pane fade {if $oder_tab == 'data'}show active{/if}" id="data">
 
                         <div class="form-container">
 
@@ -105,16 +105,14 @@
 
                     </div>
 
-                    <div class="tab-pane fade {if $oder_tab == 'taxes'}active in{/if}" id="taxes">
+                    <div class="tab-pane fade {if $oder_tab == 'taxes'}show active{/if}" id="taxes">
 
                         <div class="col-md-12 title title-without-tabs">
                             {intl l="Manage taxes"}
                         </div>
 
-                        <hr class="space">
-
-                        <div class="card">
-                            <div class="panel-heading">{intl l="Select a configuration"}</div>
+                        <div class="card mb-3">
+                            <div class="card-header">{intl l="Select a configuration"}</div>
                             <div class="card-body">
                                 <div class="row">
 
@@ -130,7 +128,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="country-selector" class="label-control">{intl l="Choose a country"} :</label>
-                                            <select id="country-selector" name="country" data-toggle="selectpicker" data-live-search="true">
+                                            <select id="country-selector" class="form-control" name="country" data-toggle="selectpicker" data-live-search="true">
                                                 {loop type="country" name="country-list" visible="*"}
                                                     {if $HAS_STATES}
                                                         {$country_id=$ID}
@@ -159,13 +157,13 @@
                             </div>
                         </div>
 
-                        <div class="card">
-                            <div class="panel-heading">{intl l="Countries/states configuration"}</div>
+                        <div class="card mb-3">
+                            <div class="card-header">{intl l="Countries/states configuration"}</div>
                             <div class="card-body">
                                 <div id="country-list-filter">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <div id="country-list-filter-buttons" class="btn-group" data-toggle="buttons">
+                                            <div id="country-list-filter-buttons" class="btn-group btn-group-toggle" data-toggle="buttons">
                                                 <label class="btn btn-primary active">
                                                     <input type="radio" name="country-list-filter-status" id="country-list-filter-all" value="all" autocomplete="off" checked > {intl l="No filters"}
                                                 </label>
@@ -196,8 +194,8 @@
                                     {loop type="country" name="country-list" visible="1" has_states="1"}
                                         {$country_id=$ID}
                                         {$country_title=$TITLE}
-                                        <div class="card country-states">
-                                            <div class="panel-heading">{$country_title}</div>
+                                        <div class="card mb-3 country-states">
+                                            <div class="card-header">{$country_title}</div>
                                             <div class="card-body">
                                                 <span class="badge" data-id="{$ID}-0">{intl l="all states/provinces"}</span>
                                                 {loop type="state" name="state-list" visible="*" country={$country_id}}
@@ -223,14 +221,14 @@
                             </div>
                         </div>
 
-                        <div class="card">
-                            <div class="panel-heading">{intl l="Taxes configuration"}</div>
+                        <div class="card mb-3">
+                            <div class="card-header">{intl l="Taxes configuration"}</div>
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-6">
 
                                         <div id="panel" class="card place">
-                                            <div class="panel-heading">
+                                            <div class="card-header">
                                                 <h3 class="card-title">{intl l="Manage the tax rule taxes appliance order"}</h3>
                                             </div>
                                             <div class="card-body">
@@ -249,7 +247,7 @@
                                     <div class="col-md-6">
 
                                         <div id="panel-list" class="card take">
-                                            <div class="panel-heading">
+                                            <div class="card-header">
                                                 <h3 class="card-title">{intl l="Available taxes"}</h3>
                                             </div>
                                             <div class="card-body">
@@ -311,14 +309,14 @@
         {form_hidden_fields}
 
         <div class="card">
-            <div class="panel-heading">{intl l="Countries/states that will use this configuration"}</div>
+            <div class="card-header">{intl l="Countries/states that will use this configuration"}</div>
             <div id="countries-added" class="card-body">
                 <div></div>
             </div>
         </div>
 
         <div class="card">
-            <div class="panel-heading">{intl l="Countries/states deleted of this configuration"}</div>
+            <div class="card-header">{intl l="Countries/states deleted of this configuration"}</div>
             <div id="countries-deleted" class="card-body">
                 <div></div>
             </div>
@@ -889,7 +887,7 @@
 <style type="text/css">
 #country-list .badge,
 #tax_list_update_dialog .badge {
-    line-height: 2;
+    line-height: 1.25;
     cursor: pointer;
 }
 

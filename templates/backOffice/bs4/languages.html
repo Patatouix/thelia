@@ -145,7 +145,7 @@
                         <div class="form-group {if $error}has-error{/if}" >
                             <label for="{$label_attr.for}" class="label-control">{intl l="If a translation is missing or incomplete :"}</label>
                             <div class="input-group">
-                                <select name="{$name}" id="{$label_attr.for}" data-toggle="selectpicker">
+                                <select name="{$name}" id="{$label_attr.for}" class="form-control" data-toggle="selectpicker">
                                     {foreach $choices as $choice}
                                         <option value="{$choice->value}" {if $lang_without_translation == $choice->value}selected="selected"{/if}>{$choice->label}</option>
                                     {/foreach}

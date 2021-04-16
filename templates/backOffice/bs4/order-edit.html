@@ -50,7 +50,7 @@
                                             <div class="form-group">
                                                 <label class="col-sm-6 col-form-label">{intl l="Order status:"}</label>
                                                 <div class="col-sm-6">
-                                                    <select class="js-update-order-status" name="status_id" data-toggle="selectpicker">
+                                                    <select class="js-update-order-status form-control" name="status_id" data-toggle="selectpicker">
                                                     {assign "orderStatusId" $STATUS}
                                                     {loop type="order-status" name="all-status"}
                                                         <option {if $ID == $orderStatusId}selected="selected" {/if} value="{$ID}" data-content="<span class='label' style='background-color: {$COLOR};'>{$TITLE}</span>">{$TITLE}</option>
@@ -92,7 +92,7 @@
 
                                     {capture "order_tab_content"}
                                         {forhook rel="order.tab"}
-                                        <div class="tab-pane fade {if $order_tab == $id}active in{/if}" id="{$id}">
+                                        <div class="tab-pane fade {if $order_tab == $id}active show{/if}" id="{$id}">
                                             {if $href}
                                             {* ajax *}
                                             <div class="text-center"><span class="loading">{intl l="Please wait, loading"}</span></div>
@@ -107,14 +107,14 @@
 
 
                                 <ul class="nav nav-tabs clearfix">
-                                    <li {if $order_tab == 'cart'}class="active"{/if}><a href="#cart" data-tab-name="cart" data-toggle="tab"><span class="fas fa-shopping-cart"></span> {intl l="Ordered products"}</a></li>
-                                    <li {if $order_tab == 'bill'}class="active"{/if}><a href="#bill" data-tab-name="bill" data-toggle="tab"><span class="far fa-list-alt"></span> {intl l="Invoice and Delivery"}</a></li>
+                                    <li class="nav-item"><a href="#cart" data-tab-name="cart" data-toggle="tab" class="nav-link{if $order_tab == 'cart'} active{/if}"><span class="fas fa-shopping-cart"></span> {intl l="Ordered products"}</a></li>
+                                    <li class="nav-item"><a href="#bill" data-tab-name="bill" data-toggle="tab" class="nav-link{if $order_tab == 'bill'} active{/if}"><span class="far fa-list-alt"></span> {intl l="Invoice and Delivery"}</a></li>
                                     {$smarty.capture.order_tab_tab nofilter}
-                                    <li {if $order_tab == 'modules'}class="active"{/if}><a href="#modules" data-tab-name="modules" data-toggle="tab"><span class="fas fa-paperclip"></span> {intl l="Modules"}</a></li>
+                                    <li class="nav-item"><a href="#modules" data-tab-name="modules" data-toggle="tab" class="nav-link{if $order_tab == 'modules'} active{/if}"><span class="fas fa-paperclip"></span> {intl l="Modules"}</a></li>
                                 </ul>
 
                                 <div class="tab-content">
-                                    <div class="tab-pane fade {if $order_tab == 'cart'}active in{/if}" id="cart">
+                                    <div class="tab-pane fade {if $order_tab == 'cart'}active show{/if}" id="cart">
 
                                         {hook name="order-edit.cart-top" location="order-edit-cart-top" order_id=$order_id}
 
@@ -234,7 +234,7 @@
 
                                             <div class="col-lg-5 order-md-1 col-md-6">
                                                 <div class="card">
-                                                    <div class="panel-heading">
+                                                    <div class="card-header">
                                                         <h3 class="card-title">{intl l='Taxes'}</h3>
                                                     </div>
 
@@ -336,7 +336,7 @@
                                         {/loop}
 
                                         <div class="card">
-                                            <div class="panel-heading">
+                                            <div class="card-header">
                                                 <h3 class="card-title">
                                                     {intl l='Customer information'}
                                                 </h3>
@@ -364,7 +364,7 @@
                                         </div>
 
                                         <div class="card">
-                                            <div class="panel-heading">
+                                            <div class="card-header">
                                                 <h3 class="card-title">
                                                     {intl l='Payment information'}
                                                 </h3>
@@ -394,7 +394,7 @@
                                         {hook name="order-edit.cart-bottom" location="order-edit-cart-bottom" order_id=$order_id}
                                     </div> <!-- #cart -->
 
-                                    <div class="tab-pane fade {if $order_tab == 'bill'}active in{/if} clearfix" id="bill">
+                                    <div class="tab-pane fade {if $order_tab == 'bill'}active show{/if} clearfix" id="bill">
 
                                         {hook name="order-edit.bill-top" location="order-edit-bill-top" order_id=$order_id}
 
@@ -405,7 +405,7 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="card">
-                                                    <div class="panel-heading">
+                                                    <div class="card-header">
                                                         <h3 class="card-title">{intl l='Delivery module'}</h3>
                                                     </div>
                                                     <div class="card-body">
@@ -424,7 +424,7 @@
 
                                             <div class="col-md-6">
                                                 <div class="card">
-                                                    <div class="panel-heading">
+                                                    <div class="card-header">
                                                         <h3 class="card-title">{intl l='tracking reference'}</h3>
                                                     </div>
                                                     <div class="card-body">
@@ -451,7 +451,7 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="card">
-                                                    <div class="panel-heading">
+                                                    <div class="card-header">
                                                         <h3 class="card-title">{intl l='Invoice informations'}</h3>
                                                     </div>
                                                     <div class="card-body">
@@ -581,7 +581,7 @@
 
                                             <div class="col-md-6">
                                                 <div class="card">
-                                                    <div class="panel-heading">
+                                                    <div class="card-header">
                                                         <h3 class="card-title">{intl l='Delivery address'}</h3>
                                                     </div>
 
@@ -711,7 +711,7 @@
 
                                     {$smarty.capture.order_tab_content nofilter}
 
-                                    <div class="tab-pane fade {if $order_tab == 'modules'}active in{/if} clearfix" id="modules">
+                                    <div class="tab-pane fade {if $order_tab == 'modules'}active show{/if} clearfix" id="modules">
                                         {* ugly fix : {hook name="order.tab-content"} *}
                                         {include file="includes/module-tab-content.html" hook="order.tab-content" location="order-edit" id=$order_id view="order-edit"}
                                     </div>
