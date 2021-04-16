@@ -363,14 +363,14 @@
             <span class="message">{intl l="Add tax to this group"}</span>
         </p>
 
-        <% _.each(taxes, function(tax) { %>
+        <% taxes.forEach(function(tax) { %>
         <div class="drag bg-info" data-id="<%= tax.id %>"><%- tax.title %></div>
         <% }) %>
     </div>
 </script>
 
 <script id="tax-list" type="text/html">
-    <% _.each(taxes, function(tax) { %>
+    <% taxes.forEach(function(tax) { %>
     <div class="draggable bg-warning" data-id="<%= tax.id %>"><%- tax.title %></div>
     <% }) %>
 </script>
@@ -429,7 +429,7 @@
                 update: function( event, ui ){
                     // Check if we have an empty group
                     var $zone = $('.add-to-group', $group);
-                    if($zone.size() > 1 && $(this).find('> div').size() == 0){ // Remove empty group only if we have more than 1 group
+                    if($zone.length > 1 && $(this).find('> div').size() == 0){ // Remove empty group only if we have more than 1 group
                         $(this).slideUp(function(){ $(this).remove(); });
                     }
                 }
@@ -481,7 +481,7 @@
                     countryId = data[1];
                     stateId = data[2];
 
-                    specification = _.find(configuration.specifications, function(item) {
+                    specification = configuration.specifications.find(function(item) {
                         return (item.country == countryId && item.state == stateId);
                     });
 
@@ -541,9 +541,9 @@
 
                 // save the configuration spec to find the right configuration
                 // after an successful save
-                _.each(taxesRules, function(element, index) {
-                    var sortedTaxes = _.sortBy(element, function(num){ return num; });
-                    _.each(sortedTaxes, function(taxe) {
+                taxesRules.forEach(function(element, index) {
+                    var sortedTaxes = element.concat().sort();
+                    sortedTaxes.forEach(function(taxe) {
                         if (spec != '') spec += ',';
                         spec += taxe + '-' + (index+1);
                     });
@@ -633,12 +633,11 @@
                 // get current configuration
                 spec = getTaxesForSpec(spec);
 
-                nbGroup = _.isEmpty(spec) ? 0 : _.max(spec, function(tax){ return tax[1]; })[1];
-
+                nbGroup = !spec.length ? 0 : spec.reduce(function(a, b) { return a[1] >= b[1] ? a : b}, [])[1];
                 taxesUsed.length = nbGroup;
 
-                _.each(taxes, function(taxTitle, taxId) {
-                    var tax = _.find(spec, function (item) {
+                Object.entries(taxes).forEach(function([taxId, taxTitle], index) {
+                    var tax = spec.find(function (item) {
                         return item[0] == taxId;
                     });
 
@@ -695,8 +694,7 @@
             };
 
             var getSpecsForConfiguration = function getSpecsForConfiguration(specification) {
-                return _.filter(
-                    configuration.specifications,
+                return configuration.specifications.filter(
                     function(item){ return item.specification == specification; }
                 );
             };

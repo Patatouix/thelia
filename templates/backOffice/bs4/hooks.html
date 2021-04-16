@@ -505,13 +505,13 @@ form_content        = {$smarty.capture.delete_dialog nofilter}
         </tr>
     </thead>
     <tbody>
-        <% _.each(hooks, function(hook, index) { %>
+        <% Object.entries(hooks).forEach(function([key, value], index) { %>
         <tr>
             <td><input name="discover-new" value="<%- index %>" class="discover-new" type="checkbox" alt="" data-index="<%- index %>" /></td>
-            <td><%- hook.code %></td>
-            <td><%- hook.title ? hook.title : "-" %></td>
-            <td><% if (hook.block) { %><span class="badge badge-md badge-success"><i class='far fa-check-circle'></i></span><% } else { %><span class="badge badge-md badge-warning"><i class='far fa-times-circle'></i></span><% } %></td>
-            <td><% if (hook.module) { %><span class="badge badge-md badge-success"><i class='far fa-check-circle'></i></span><% } else { %><span class="badge badge-md badge-warning"><i class='far fa-times-circle'></i></span><% } %></td>
+            <td><%- value.code %></td>
+            <td><%- value.title ? value.title : "-" %></td>
+            <td><% if (value.block) { %><span class="badge badge-md badge-success"><i class='far fa-check-circle'></i></span><% } else { %><span class="badge badge-md badge-warning"><i class='far fa-times-circle'></i></span><% } %></td>
+            <td><% if (value.module) { %><span class="badge badge-md badge-success"><i class='far fa-check-circle'></i></span><% } else { %><span class="badge badge-md badge-warning"><i class='far fa-times-circle'></i></span><% } %></td>
         </tr>
         <% }); %>
         <tr>
@@ -535,12 +535,12 @@ form_content        = {$smarty.capture.delete_dialog nofilter}
         </tr>
         </thead>
         <tbody>
-        <% _.each(hooks, function(hook, index) { %>
+        <% Object.entries(hooks).forEach(function([key, value], index) { %>
         <tr>
-            <td><input name="discover-missing" value="<%- hook.id %>" class="discover-missing" type="checkbox" data-code="<%- hook.code %>" <% if (!hook.activate){ %>disabled<% }%>  /></td>
-            <td><%- hook.code %></td>
-            <td><%- hook.title %></td>
-            <td><% if (hook.native) { %><span class="badge badge-md badge-success"><i class='far fa-check-circle'></i></span><%
+            <td><input name="discover-missing" value="<%- value.id %>" class="discover-missing" type="checkbox" data-code="<%- value.code %>" <% if (!value.activate){ %>disabled<% }%>  /></td>
+            <td><%- value.code %></td>
+            <td><%- value.title %></td>
+            <td><% if (value.native) { %><span class="badge badge-md badge-success"><i class='far fa-check-circle'></i></span><%
                 } else { %><span class="badge badge-md badge-warning"><i class='far fa-times-circle'></i></span><% } %></td>
         </tr>
         <% }); %>

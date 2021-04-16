@@ -10,7 +10,7 @@
 {block name="check-access"}update{/block}
 
 {block name="main-content"}
-    <div class="shipping-configuration edit-shipping-configuration">
+    <!-- <div class="shipping-configuration edit-shipping-configuration"> -->
 
         <div class="container-fluid">
             {loop name="area-edit" type="area" id=$area_id}
@@ -103,7 +103,7 @@
 
                                                 <script id="tpl-countries-added" type="text/html">
                                                     <%
-                                                    _.each(items, function(item) {
+                                                    items.forEach(function(item) {
                                                     if (!item.hasStates) { %>
                                                     <tr>
                                                         <td><%= item.title %></td>
@@ -127,7 +127,7 @@
                                                         </td>
                                                     </tr>
                                                     <% }
-                                                    _.each(item.states, function(state) { %>
+                                                    item.states.forEach(function(state) { %>
                                                     <tr>
                                                         <td> &mdash; <%= state.title %></td>
                                                         <td class="text-center">
@@ -184,7 +184,7 @@
                 </div>
             {/elseloop}
         </div>
-    </div>
+    <!-- </div> -->
 
     {* Delete related content confirmation dialog *}
 
@@ -218,7 +218,7 @@ form_content    = {$smarty.capture.delete_country_dialog nofilter}
 
     <script id="tpl-countries-to-add" type="text/html">
         <%
-        _.each(items, function(item) {
+        items.forEach(function(item) {
         if (!item.hasStates) {
         %><option value="<%= item.id %>-0"><%- item.title %></option><%
         } else {
@@ -226,7 +226,7 @@ form_content    = {$smarty.capture.delete_country_dialog nofilter}
         <optgroup label="<%- item.title %>">
             <% if (item.allStates) { %><option value="<%= item.id %>-0"><%- i18n.states_all %></option><% } %>
             <%
-            _.each(item.states, function(state) {
+            item.states.forEach(function(state) {
             %><option value="<%= item.id %>-<%= state.id %>"><%- state.title %></option><%
             }) %>
         </optgroup>
@@ -277,13 +277,13 @@ form_content    = {$smarty.capture.delete_country_dialog nofilter}
                     addedList = [];
 
                 // build list of country/state not included
-                _.each(countries, function(country) {
+                countries.forEach(function(country) {
                     var addStates = []
                         , addedStates = []
                     ;
 
                     if (country.hasStates) {
-                        _.each(country.states, function (state) {
+                        country.states.forEach(function (state) {
                             if (isSelectedCountry(country.id, state.id)) {
                                 addedStates.push(state);
                             } else {
@@ -309,11 +309,11 @@ form_content    = {$smarty.capture.delete_country_dialog nofilter}
                 });
 
                 // sort List
-                var sorter = function sorter(item) {
-                    return item.title;
-                };
-                addList = _.sortBy(addList, sorter);
-                addedList = _.sortBy(addedList, sorter);
+                const sortBy = (key) => {
+                    return (a, b) => (a[key] > b[key] ? 1 : ((b[key] > a[key]) ? -1 : 0));
+                }
+                addList = addList.concat().sort(sortBy('title'));
+                addedList = addedList.concat().sort(sortBy('title'));
 
                 // render list
                 $countriesToAdd.html(render('countries-to-add', {items: addList}));
@@ -332,7 +332,7 @@ form_content    = {$smarty.capture.delete_country_dialog nofilter}
                 item.title = country.title;
                 item.hasStates = country.hasStates != 0;
                 item.states = (undefined !== states)
-                    ? _.sortBy(states, function(item) { return item.title; })
+                    ? states.concat().sort( (a, b) => a['title'] > b['title'] ? 1 : (b['title'] > a['title'] ? -1 : 0) )
                     : []
                 ;
                 item.allStates = (undefined !== allStates) ? allStates : false;
@@ -341,8 +341,7 @@ form_content    = {$smarty.capture.delete_country_dialog nofilter}
             };
 
             var isSelectedCountry = function isSelectedCountry(countryId, stateId) {
-                return _.find(
-                    configuration,
+                return configuration.find(
                     function(item) {
                         return countryId === (parseInt(item.countryId) || 0)
                             && stateId === (parseInt(item.stateId) || 0);
@@ -385,7 +384,6 @@ form_content    = {$smarty.capture.delete_country_dialog nofilter}
 
                 $('.btn-select-unassigned-countries').click(function() {
                     $(unassignedCountries).each(function(index, element) {
-                        console.log(element);
                         $('option[value=' + element + '-0]', '#countries-add').prop('selected', true);
                     })
                 });
