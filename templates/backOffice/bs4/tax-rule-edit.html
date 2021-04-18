@@ -401,17 +401,25 @@
                 'configuration': '{intl l="Configuration"}'
                 , 'configuration_new': '{intl l='New Configuration'}'
                 , 'countries': '{intl l="Countries"}'
+                , 'addTaxes': '{intl l="Add tax to this group"}'
             };
 
-            var tpl = {
-                'select-configuration-new': _.template('<option value=""><%- i18n.configuration_new %></option>')
-                , 'select-configuration': _.template('<option value="<%= spec %>"><%- i18n.configuration %> #<%= i + 1 %> (<%= specCount %> <%- i18n.countries %>)</option>')
-                , 'country-item': _.template('<span class="badge badge-"<%= status %>" data-id="<%= id %>"><%- title %></span>')
-                , 'tax-group': _.template($("#tax-group").html())
-                , 'tax-list': _.template($("#tax-list").html())
-            };
 
             {literal}
+
+            var tpl = {
+                'select-configuration-new': (data) => `<option value="">${data.i18n.configuration_new}</option>`,
+                'select-configuration': (data) => `<option value="${data.spec}">${data.i18n.configuration} #${data.i + 1} (${data.specCount} ${data.i18n.countries})</option>`,
+                'country-item': (data) => `<span class="badge badge-${data.status}" data-id="${data.id}">${data.title}</span>`,
+                'tax-group': (data) => `
+                    <div class="drop-group droppable add-to-group">
+                        <p class="drop-message"><span class="fas fa-plus"></span><span class="message">${data.i18n.addTaxes}</span></p>
+                        ${data.taxes.map(tax => `
+                            <div class="drag bg-info" data-id="${tax.id}">${tax.title}</div>
+                        `)}
+                    </div>`,
+                'tax-list': (data) => data.taxes.map(tax => `<div class="draggable bg-warning" data-id="${tax.id}">${tax.title}</div>`)
+            };
 
             // Default options for draggable
             var dragOptions = {

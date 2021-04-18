@@ -263,13 +263,27 @@ form_content    = {$smarty.capture.delete_country_dialog nofilter}
                 'configuration': '{intl l="Configuration"}'
                 , 'states_all': '{intl l='All States'}'
                 , 'countries': '{intl l="Countries"}'
+                , 'noCountryInShippingZone': '{intl l="This shipping zone does not contains any country."}'
             };
 
             {literal}
             var tpl = {
-                'countries-to-add': _.template($("#tpl-countries-to-add").html())
-                , 'countries-added': _.template($("#tpl-countries-added").html())
-                , 'countries-added-empty': _.template($("#tpl-countries-added-empty").html())
+                'countries-to-add': (data) => data.items.map(item =>
+                    !item.hasStates ? `<option value="${item.id}-0">${item.title}</option>` : (
+                        `<optgroup label="${item.title}">
+                            ${item.allStates ? `<option value="${item.id}-0">${data.i18n.states_all}</option>` : ``}
+                            ${item.states.map(state => `<option value="${item.id}-${state.id}">${state.title}</option>`)}
+                        </optgroup>`
+                    )
+                )
+                , 'countries-added': (data) => data.items.map(item => `
+                    ${!item.hasStates ? `<tr><td>${item.title}</td><td class="text-center"><input class="country-selection" type="checkbox" name="thelia_area_delete_country[country_id][]" value="${item.id}-0"></td></tr>` : `<tr><th colspan="2">${item.title}</th>`}
+                    ${item.allStates ? `<tr><td> &mdash; ${data.i18n.states_all}</td><td class="text-center"><input class="country-selection" type="checkbox" name="thelia_area_delete_country[country_id][]" value="${item.id}-0"></td></tr>` : ``}
+                    ${item.states.map(state =>
+                        `<tr><td> &mdash; ${state.title}</td><td class="text-center"><input class="country-selection" type="checkbox" name="thelia_area_delete_country[country_id][]" value="${item.id}-${state.id}"></td></tr>`
+                    )}
+                `)
+                , 'countries-added-empty': (data) => `<td colspan="2">${data.i18n.noCountryInShippingZone}</td>`
             };
 
             var initialize = function initialize() {
