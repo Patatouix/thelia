@@ -10,13 +10,12 @@ $(function($){
         $.imageUploadManager.onClickDeleteImage();
         $.imageUploadManager.onClickModal();
         $.imageUploadManager.onModalHidden();
-        //$.imageUploadManager.sortImage();
-        $.imageUploadManager.testSortable();
+        $.imageUploadManager.sortImage();
         $.imageUploadManager.onClickToggleVisibilityImage();
         $.imageUploadManager.onClickBtnDeleteSelectedImages();
         $.imageUploadManager.onClickBtnSelectDeselectImages();
 
-        //////////////////////////////////////////
+        // initiate dropzone
 
         let imageDropzone = document.getElementById('images-dropzone');
         let fileInput = imageDropzone.querySelector('input[type=file]');
@@ -99,7 +98,7 @@ $(function($){
         const previewFile = (file, error) => {
             let reader = new FileReader();
             reader.readAsDataURL(file);
-            reader.onloadend = () => { console.log(file);
+            reader.onloadend = () => {
 
                 let template = '<div class="dz-preview dz-file-preview dz-error">'
                     + '<div class="dz-details">'
@@ -109,49 +108,15 @@ $(function($){
                         + '<div class="dz-size" data-dz-size="">'
                             + '<strong>' + file.size / 1000000 + '</strong> MB'
                         + '</div>'
-                        + '<img data-dz-thumbnail="" src="' + reader.result + '" alt="' + file.name + '">'
+                        + (file.type.startsWith('image/') ? ('<img data-dz-thumbnail="" src="' + reader.result + '" alt="' + file.name + '">') : '')
                     + '</div>'
                     +  '<div class="dz-error-mark"><span>✘</span></div>'
                     + '<div class="dz-error-message"><span data-dz-errormessage="">' + error + '</span></div>'
                 + '</div>';
 
-                imageDropzone.querySelector('#gallery').insertAdjacentHTML('beforeend', template);
+                imageDropzone.querySelector('#imagePreview').insertAdjacentHTML('beforeend', template);
             }
         }
-
-        //////////////////////////////////////////
-
-        /*var imageDropzone = new Dropzone("#images-dropzone", {
-            dictDefaultMessage : $('.btn-browse').html(),
-            uploadMultiple: false,
-            acceptedFiles: 'image/png, image/gif, image/jpeg'
-        });*/
-
-        /*var totalFiles      = 0,
-            completedFiles  = 0;
-
-        imageDropzone.on("addedfile", function(file){
-            totalFiles += 1;
-
-            if(totalFiles == 1){
-                $('.dz-message').hide();
-            }
-        });
-
-        imageDropzone.on("complete", function(file){
-            completedFiles += 1;
-
-            if (completedFiles === totalFiles){
-                $('.dz-message').slideDown();
-            }
-        });*/
-
-        /*imageDropzone.on("success", function(file) {
-            imageDropzone.removeFile(file);
-            $.imageUploadManager.updateImageListAjax();
-            $.imageUploadManager.onClickDeleteImage();
-            $.imageUploadManager.onClickToggleVisibilityImage();
-        });*/
     };
 
     // Update picture list via AJAX call
@@ -325,55 +290,6 @@ $(function($){
     };
 
     $.imageUploadManager.sortImage = function() {
-        $( "#js-sort-image" ).sortable({
-            placeholder: "ui-sortable-placeholder col-sm-6 col-md-3",
-            change: function( event, ui ) {
-                /* refresh position */
-                var pickedElement = ui.item;
-                var position = 0;
-                $( "#js-sort-image").children('li').each(function(k, element) {
-                    if($(element).data('sort-id') == pickedElement.data('sort-id')) {
-                        return true;
-                    }
-                    position++;
-                    if($(element).is('.ui-sortable-placeholder')) {
-                        pickedElement.find('.js-sorted-position').html(position);
-                    } else {
-                        $(element).find('.js-sorted-position').html(position);
-                    }
-                });
-            },
-            stop: function( event, ui ) {
-                /* update */
-                var newPosition = ui.item.find('.js-sorted-position').html();
-                var imageId = ui.item.data('sort-id');
-
-                $.ajax({
-                    type: "POST",
-                    url: imageReorder,
-                    data: {
-                        image_id: imageId,
-                        position: newPosition
-                    },
-                    statusCode: {
-                        404: function() {
-                            $(".image-manager .message").html(
-                                imageReorderErrorMessage
-                            );
-                        }
-                    }
-                }).done(function(data) {
-                    $(".image-manager .message").html(
-                        data
-                    );
-                });
-            }
-        });
-        $( "#js-sort-image" ).disableSelection();
-    };
-
-
-    $.imageUploadManager.testSortable = function() {
 
         function enableDragSort(draggableLists) {
             draggableLists.forEach((list) => {
@@ -396,6 +312,7 @@ $(function($){
             //prevents from dragging wrong elements
             item.querySelector('a.thumbnail').setAttribute('draggable', false);
             item.querySelector('img.card-img').setAttribute('draggable', false);
+            item.querySelectorAll('a').forEach(el => el.setAttribute('draggable', false));
 
             item.addEventListener('dragstart', (event) => {
                 //change cursor during drag

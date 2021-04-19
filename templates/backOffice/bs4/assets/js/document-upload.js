@@ -14,39 +14,108 @@ $(function($){
         $.documentUploadManager.sortDocument();
         $.documentUploadManager.onClickToggleVisibilityDocument();
 
-        var documentDropzone = new Dropzone("#documents-dropzone", {
-            dictDefaultMessage : $('.btn-browse').html(),
-            uploadMultiple: false
+        //initiate dropzone
+
+        let documentDropzone = document.getElementById('documents-dropzone');
+        let fileInput = documentDropzone.querySelector('input[type=file]');
+
+        //for browsers that enable JS, hide fallback and show upload button
+        documentDropzone.querySelector('.fallback').classList.add('d-none');
+        documentDropzone.querySelector('.btn-browse').classList.remove('d-none');
+
+        documentDropzone.addEventListener('click', () => fileInput.click());
+
+        //enable droppable zone
+        const preventDefaults = (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+        };
+
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            documentDropzone.addEventListener(eventName, preventDefaults, false)
         });
 
-        var totalFiles      = 0,
-            completedFiles  = 0;
+        //highlight dropzone on hover
+        const highlight = (e) => {
+            documentDropzone.classList.add('dz-drag-hover');
+        };
 
-        documentDropzone.on("addedfile", function(file){
-            totalFiles += 1;
+        const unhighlight = (e) => {
+            documentDropzone.classList.remove('dz-drag-hover');
+        };
 
-            if(totalFiles == 1){
-                $('.dz-message').hide();
+        ['dragenter', 'dragover'].forEach(eventName => {
+            documentDropzone.addEventListener(eventName, highlight, false)
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            documentDropzone.addEventListener(eventName, unhighlight, false)
+        });
+
+        //file drop event
+        const handleDrop = (e) => {
+            let files = e.dataTransfer.files;
+            Array.from(files).forEach((file) => {
+                uploadFile(file);
+            });
+        };
+
+        documentDropzone.addEventListener('drop', handleDrop, false);
+
+        //do the same when uploading files
+        fileInput.addEventListener('change', (e) => {
+            let files = fileInput.files;
+            Array.from(files).forEach((file) => {
+                uploadFile(file);
+            });
+        });
+
+        //send dropped files to the server
+        const uploadFile = (file) => {
+            var url = documentDropzone.getAttribute('action');
+            var xhr = new XMLHttpRequest();
+            var formData = new FormData();
+            xhr.open('POST', url, true);
+
+            xhr.addEventListener('readystatechange', (e) => {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    //documentDropzone.removeFile(file);
+                    $.documentUploadManager.updateDocumentListAjax();
+                    $.documentUploadManager.onClickDeleteDocument();
+                    $.documentUploadManager.onClickToggleVisibilityDocument();
+                }
+                else if (xhr.readyState == 4 && xhr.status != 200) {
+                    previewFile(file, xhr.responseText);
+                }
+            });
+
+            formData.append('file', file);
+            xhr.send(formData);
+        }
+
+        //thumbnail of dropped files
+        const previewFile = (file, error) => {
+            let reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onloadend = () => {
+
+                let template = '<div class="dz-preview dz-file-preview dz-error">'
+                    + '<div class="dz-details">'
+                        + '<div class="dz-filename">'
+                            + '<span data-dz-name="">' + file.name + '</span>'
+                        + '</div>'
+                        + '<div class="dz-size" data-dz-size="">'
+                            + '<strong>' + file.size / 1000000 + '</strong> MB'
+                        + '</div>'
+                        + (file.type.startsWith('image/') ? ('<img data-dz-thumbnail="" src="' + reader.result + '" alt="' + file.name + '">') : '')
+                    + '</div>'
+                    +  '<div class="dz-error-mark"><span>✘</span></div>'
+                    + '<div class="dz-error-message"><span data-dz-errormessage="">' + error + '</span></div>'
+                + '</div>';
+
+                documentDropzone.querySelector('#documentPreview').insertAdjacentHTML('beforeend', template);
             }
-        });
-
-        documentDropzone.on("complete", function(file){
-            completedFiles += 1;
-
-            if (completedFiles === totalFiles){
-                $('.dz-message').slideDown();
-            }
-        });
-
-        documentDropzone.on("success", function(file) {
-            documentDropzone.removeFile(file);
-            $.documentUploadManager.updateDocumentListAjax();
-            $.documentUploadManager.onClickDeleteDocument();
-            $.documentUploadManager.onClickToggleVisibilityDocument();
-        });
-
-
-
+        }
     };
 
     // Update picture list via AJAX call
@@ -159,29 +228,67 @@ $(function($){
     };
 
     $.documentUploadManager.sortDocument = function() {
-        $( "#js-sort-document" ).sortable({
-            placeholder: "ui-sortable-placeholder col-sm-6 col-md-3",
-            change: function( event, ui ) {
-                /* refresh position */
-                var pickedElement = ui.item;
-                var position = 0;
-                $( "#js-sort-document").children('li').each(function(k, element) {
-                    if($(element).data('sort-id') == pickedElement.data('sort-id')) {
-                        return true;
-                    }
-                    position++;
-                    if($(element).is('.ui-sortable-placeholder')) {
-                        pickedElement.find('.js-sorted-position').html(position);
-                    } else {
-                        $(element).find('.js-sorted-position').html(position);
-                    }
-                });
-            },
-            stop: function( event, ui ) {
-                /* update */
-                var newPosition = ui.item.find('.js-sorted-position').html();
-                var documentId = ui.item.data('sort-id');
 
+        function enableDragSort(draggableLists) {
+            draggableLists.forEach((list) => {
+                enableDragList(list);
+            })
+        }
+
+        function enableDragList(list) {
+            list.addEventListener('drop', (e) => e.preventDefault());
+            list.addEventListener('dragover', (e) => e.preventDefault());
+            Array.from(list.children).forEach((item) => {
+                enableDragItem(item);
+            })
+        }
+
+        function enableDragItem(item) {
+
+            item.setAttribute('draggable', true);
+
+            //prevents from dragging wrong children elements
+            item.querySelectorAll('a').forEach(el => el.setAttribute('draggable', false));
+
+            item.addEventListener('dragstart', (event) => {
+                //change cursor during drag
+                event.dataTransfer.effectAllowed  = 'move';
+            });
+
+            item.addEventListener('drag', (event) => {
+                //indicates that dropzone is not droppable for this purpose
+                document.querySelector('#documents-dropzone').style.pointerEvents = 'none';
+
+                const selectedItem = event.target,
+                    list = selectedItem.parentNode,
+                    x = event.clientX,
+                    y = event.clientY;
+
+                selectedItem.style.opacity = 0;
+
+                let swapItem = document.elementFromPoint(x, y) === null ? selectedItem : document.elementFromPoint(x, y);
+
+                if (list === swapItem.parentNode) {
+                    nextItem = swapItem !== selectedItem.nextSibling ? swapItem : swapItem.nextSibling;
+                    list.insertBefore(selectedItem, nextItem);
+
+                    //refresh position
+                    Array.from(list.children).forEach((item) => {
+                        item.querySelector('.js-sorted-position').innerHTML = Array.prototype.indexOf.call(list.children, item) + 1;
+                    });
+                }
+            });
+
+            item.addEventListener('dragend', (event) => {
+                //make dropzone droppable again
+                document.querySelector('#documents-dropzone').style.pointerEvents = 'auto';
+
+                const selectedItem = event.target;
+                selectedItem.style.opacity = 1;
+
+                //send position to server
+                const newPosition = selectedItem.querySelector('.js-sorted-position').innerHTML;
+                const documentId = selectedItem.dataset.sortId;
                 $.ajax({
                     type: "POST",
                     url: documentReorder,
@@ -197,12 +304,13 @@ $(function($){
                         }
                     }
                 }).done(function(data) {
-                        $(".document-manager .message").html(
-                            data
-                        );
-                    });
-            }
-        });
-        $( "#js-sort-document" ).disableSelection();
-    };
+                    $(".document-manager .message").html(
+                        data
+                    );
+                });
+            });
+        }
+
+        enableDragSort(document.querySelectorAll('#js-sort-document'));
+    }
 });
