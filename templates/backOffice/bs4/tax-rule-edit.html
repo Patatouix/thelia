@@ -437,7 +437,7 @@
                 update: function( event, ui ){
                     // Check if we have an empty group
                     var $zone = $('.add-to-group', $group);
-                    if($zone.length > 1 && $(this).find('> div').size() == 0){ // Remove empty group only if we have more than 1 group
+                    if($zone.length > 1 && $(this).find('> div').length == 0){ // Remove empty group only if we have more than 1 group
                         $(this).slideUp(function(){ $(this).remove(); });
                     }
                 }
@@ -445,33 +445,167 @@
 
             // Default options for droppable
             var dropOptions = {
-                accept: "#panel-list .draggable", // Controls which draggable elements are accepted
+                accept: "draggable", // Controls which draggable elements are accepted
                 hoverClass: "over",
-                drop: function( event, ui ) {
-                    var $drop = $(this);
+                drop: function(e) {
+                    const droppedTaxId = e.dataTransfer.getData('Text');
+                    const droppedTax = document.querySelector('div[data-id="' + droppedTaxId + '"]');
+                    if (droppedTax.matches('#panel-list .draggable')) {
+                        var $drop = $(this);
+                        if($drop.hasClass('create-group')){
+                            // Check if we have already an empty group
+                            var $empty_group = $group.find('.drop-group:not(:has(> div))');
+                            if($empty_group.length > 0){ // if yes (Use the first empty group)
+                                $drop = $empty_group.filter(':first');
+                            }else{ //if no (Create a new group)
+                                $drop = $group.find('.drop-group:last-child').clone().appendTo($group.find('.card-body'));
 
-                    if($(this).hasClass('create-group')){
-                        // Check if we have already an empty group
-                        var $empty_group = $group.find('.drop-group:not(:has(> div))');
-                        if($empty_group.size() > 0){ // if yes (Use the first empty group)
-                            $drop = $empty_group.filter(':first');
-                        }else{ //if no (Create a new group)
-                            $drop = $group.find('.drop-group:last-child').clone().appendTo($group.find('.card-body'));
+                                // Remove taxes
+                                $drop.find('> div').remove();
 
-                            // Remove taxes
-                            $drop.find('> div').remove();
-
-                            // Make the new group droppable
-                            $drop
-                                .droppable(dropOptions)
-                                .sortable(sortOptions);
+                                // Make the new group droppable
+                                Array.from($drop.get()).forEach(element => droppableTest(element, dropOptions));
+                            }
                         }
-                    }
 
-                    $("<div></div>").addClass('drag bg-info').attr('data-id', ui.draggable.data('id')).text( ui.draggable.text()).appendTo( $drop );
-                    ui.draggable.remove();
+                        $("<div></div>").addClass('drag bg-info').attr('data-id', droppedTaxId).text( $(droppedTax).text() ).appendTo( $drop );
+                        $(droppedTax).remove();
+                        // refresh sortable
+                        Array.from($drop.get()).forEach(element => sortableTest(element, sortOptions));
+                    }
                 }
             };
+
+            /////////////////////////////////////////////////////////
+
+            /**
+             * Make children of element draggable.
+             */
+            var draggableTest = function draggable(element, options) {
+
+                function enableDrag(element) {
+                    element.addEventListener('drop', (e) => e.preventDefault());
+                    element.addEventListener('dragover', (e) => e.preventDefault());
+                    Array.from(element.children).forEach((item) => {
+                        enableDragItem(item);
+                    })
+                }
+
+                function enableDragItem(item) {
+
+                    item.setAttribute('draggable', true);
+
+                    //prevents from dragging wrong children elements
+                    //item.querySelectorAll('a').forEach(el => el.setAttribute('draggable', false));
+                    //item.querySelectorAll('img').forEach(el => el.setAttribute('draggable', false));
+                    item.querySelectorAll(options.cancel).forEach(el => el.setAttribute('draggable', false));
+
+                    item.addEventListener('dragstart', (event) => {
+                        //change cursor during drag
+                        event.dataTransfer.effectAllowed  = options.cursor;
+                        event.dataTransfer.setData("Text", item.dataset.id);
+                        event.dataTransfer.setData(item.classList[0], '');
+                    });
+
+                    item.addEventListener('drag', (event) => event.target.style.opacity = 0);
+                    item.addEventListener('dragend', (event) => event.target.style.opacity = 1);
+                }
+
+                enableDrag(element);
+            }
+
+            /**
+             * Make children of element sortable.
+             */
+            var sortableTest = function sortable(element, options) {
+
+                function enableSort(element) {
+                    element.addEventListener('drop', (e) => e.preventDefault());
+                    element.addEventListener('dragover', (e) => e.preventDefault());
+                    Array.from(element.children).forEach((item) => {
+                        enableSortItem(item);
+                    })
+                }
+
+                function enableSortItem(item) {
+
+                    item.setAttribute('draggable', true);
+
+                    //prevents from dragging wrong children elements
+                    //item.querySelectorAll('a').forEach(el => el.setAttribute('draggable', false));
+                    //item.querySelectorAll('img').forEach(el => el.setAttribute('draggable', false));
+                    item.querySelectorAll(options.cancel).forEach(el => el.setAttribute('draggable', false));
+
+                    item.addEventListener('dragstart', (event) => {
+                        //change cursor during drag
+                        event.dataTransfer.effectAllowed  = options.cursor;
+                        event.dataTransfer.setData("Text", item.dataset.id);
+                        event.dataTransfer.setData(item.classList[0], '');
+                    });
+
+                    item.addEventListener('drag', (event) => {
+                        Array.from(document.querySelectorAll('.drop-message')).forEach(element => element.style.pointerEvents = 'none');
+
+                        const selectedItem = event.target,
+                            list = selectedItem.parentNode,
+                            x = event.clientX,
+                            y = event.clientY;
+
+                        selectedItem.style.opacity = 0;
+
+                        let swapItem = document.elementFromPoint(x, y) === null ? selectedItem : document.elementFromPoint(x, y);
+
+                        if (list === swapItem.parentNode) {
+                            nextItem = swapItem !== selectedItem.nextSibling ? swapItem : swapItem.nextSibling;
+                            list.insertBefore(selectedItem, nextItem);
+                        }
+                    });
+
+                    item.addEventListener('dragend', (event) => event.target.style.opacity = 1);
+                }
+
+                enableSort(element);
+            }
+
+            /**
+             * Make zone droppable.
+             */
+            var droppableTest = function droppable(element, options) {
+
+                const preventDefaults = (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                };
+
+                ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                    element.addEventListener(eventName, preventDefaults, false)
+                });
+
+                //highlight dropzone on hover
+                const highlight = (e) => {
+                    if (e.dataTransfer.types.includes(options.accept)) {
+                        element.classList.add(options.hoverClass);
+                    }
+                };
+
+                const unhighlight = (e) => {
+                    if (e.dataTransfer.types.includes(options.accept)) {
+                        element.classList.remove(options.hoverClass);
+                    }
+                };
+
+                ['dragenter', 'dragover'].forEach(eventName => {
+                    element.addEventListener(eventName, highlight, false)
+                });
+
+                ['dragleave', 'drop'].forEach(eventName => {
+                    element.addEventListener(eventName, unhighlight, false)
+                });
+
+                element.addEventListener('drop', options.drop, false);
+            }
+
+            ////////////////////////////////////////////////////////////////
 
             /**
              * Try to find a configuration used for this country/state
@@ -633,9 +767,9 @@
 
                 // remove old
                 if (taxesConfigurationInitialized) {
-                    $('.draggable', $list).draggable("destroy");
-                    $('.droppable', $group).droppable("destroy");
-                    $('.droppable', $group).sortable("destroy");
+                    //$('.draggable', $list).draggable("destroy");
+                    //$('.droppable', $group).droppable("destroy");
+                    //$('.droppable', $group).sortable("destroy");
                 }
 
                 // get current configuration
@@ -672,28 +806,29 @@
                 $groupContainer.append(render('tax-list', {taxes: taxesUnused}));
 
                 // Make the list of taxes draggable
-                $('.draggable', $list).draggable(dragOptions);
+                draggableTest(document.querySelector('#panel-list .card-body'), dragOptions);
                 // let the drop-group be droppable & sortable, accepting the tax items
-                $('.droppable', $group)
-                    .droppable(dropOptions)
-                    .sortable(sortOptions);
-                $('.place .card-body').sortable(sortOptions);
+                Array.from(document.querySelectorAll('#panel .droppable')).forEach(element => droppableTest(element, dropOptions));
+                Array.from(document.querySelectorAll('#panel .droppable')).forEach(element => sortableTest(element, dropOptions));
+                // let tax groups be sortable
+                //sortableTest(document.querySelector('.place .card-body'), sortOptions);
 
                 taxesConfigurationInitialized = true;
             };
 
-            // let the gallery be droppable as well, accepting items from the trash
-            $('.remove-from-group', $list)
-                .droppable({
-                    accept: "#panel .drag",
-                    hoverClass: 'over',
-                    drop: function( event, ui ) {
-                        $("<div></div>").addClass('draggable bg-warning').text( ui.draggable.text() ).attr('data-id', ui.draggable.data('id')).draggable(dragOptions).appendTo(  $list.find('.card-body') );
-                        ui.draggable.remove();
-
+            droppableTest(document.querySelector('#panel-list .remove-from-group'), {
+                accept: "drag",
+                hoverClass: 'over',
+                drop: function(e) {
+                    const droppedTaxId = e.dataTransfer.getData('Text');
+                    const droppedTax = document.querySelector('div[data-id="' + droppedTaxId + '"]');
+                    if (droppedTax.matches('#panel .drag')) {
+                        $("<div></div>").addClass('draggable bg-warning').text( $(droppedTax).text() ).attr('data-id', droppedTaxId).appendTo( $list.find('.card-body') );
+                        $(droppedTax).remove();
+                        draggableTest(document.querySelector('#panel-list .card-body'), dragOptions);
                     }
-                });
-
+                }
+            })
 
             // Utils
             var render = function render(tplName, obj) {
