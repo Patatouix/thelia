@@ -10,7 +10,7 @@
 {block name="page-title"}{intl l='Edit order status'}{/block}
 
 {block name="main-content"}
-    <div class="order-status edit-order-status">
+    <!-- <div class="order-status edit-order-status"> -->
         <div class="container-fluid">
             {loop name="order_status__edit" type="order-status" id=$order_status_id backend_context="1" lang=$edit_language_id}
 
@@ -98,7 +98,7 @@
                                                     {/if}
 
                                                     <div class="row">
-                                                        <div class="col-md-8">
+                                                        <div class="col-md-12">
                                                             <div class="row">
                                                                 <div class="col-md-6">
                                                                     {custom_render_form_field field="code"}
@@ -163,7 +163,7 @@
 
             {/loop}
         </div>
-    </div>
+    <!-- </div> -->
 {/block}
 
 {block name="javascript-last-call"}

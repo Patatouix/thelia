@@ -10,7 +10,7 @@
 {block name="check-access"}update{/block}
 
 {block name="main-content"}
-    <div class="templates edit-template">
+    <!-- <div class="templates edit-template"> -->
 
         <div class="container-fluid">
 
@@ -33,7 +33,7 @@
                                 {intl l='Edit template "%name"' name={$NAME}}
                             </div>
 
-                            <div class="form-container">
+                            <div class="col form-container">
                                 <div class="col-md-12">
 
                                     {form name="thelia.admin.template.modification"}
@@ -68,43 +68,43 @@
                             </div>
                         </div>
 
-                        <div class="row">
-                            <div class="form-container">
-                                <div class="col-md-6">
-                                    <div class="card">
-                                        <div class="card-body card-sm">
-                                            <p class="title title-without-tabs">
-                                                <a href="{url path='/admin/configuration/attributes'}">{intl l='Attributes'}</a>
-                                            </p>
-                                            <p>{intl l="Manage attributes included in this product template"}</p>
 
-                                            <div id="attribute_list_management">
-                                                <div class="loading"></div>
-                                            </div>
+                        <div class="row form-container">
+                            <div class="col-md-6">
+                                <div class="card mb-3">
+                                    <div class="card-body card-sm">
+                                        <p class="title title-without-tabs">
+                                            <a href="{url path='/admin/configuration/attributes'}">{intl l='Attributes'}</a>
+                                        </p>
+                                        <p>{intl l="Manage attributes included in this product template"}</p>
+
+                                        <div id="attribute_list_management">
+                                            <div class="loading"></div>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
 
-                                <div class="col-md-6">
-                                    <div class="card">
-                                        <div class="card-body card-sm">
-                                            <p class="title title-without-tabs">
-                                                <a href="{url path='/admin/configuration/features'}">{intl l='Features'}</a>
-                                            </p>
-                                            <p>{intl l="Manage features included in this product template"}</p>
+                            <div class="col-md-6">
+                                <div class="card mb-3">
+                                    <div class="card-body card-sm">
+                                        <p class="title title-without-tabs">
+                                            <a href="{url path='/admin/configuration/features'}">{intl l='Features'}</a>
+                                        </p>
+                                        <p>{intl l="Manage features included in this product template"}</p>
 
-                                            <div id="feature_list_management">
-                                                <div class="loading"></div>
-                                            </div>
+                                        <div id="feature_list_management">
+                                            <div class="loading"></div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
+
                         <div class="row">
                             <div class="col-md-6">
-                                <div class="card">
+                                <div class="card mb-3">
                                     <div class="card-body card-sm">
                                         {$max_products = {$smarty.get.p|default:50}}
                                         {$total = {count type="product" backend_context=1 visible='*' template_id=$template_id}}
@@ -146,7 +146,7 @@
                             </div>
 
                             <div class="col-md-6">
-                                <div class="card">
+                                <div class="card mb-3">
                                     <div class="card-body card-sm">
                                         {$max_categories = {$smarty.get.c|default:50}}
                                         {$total = {count type="category" name="cat-using" backend_context=1 visible='*' template_id=$template_id}}
@@ -205,7 +205,7 @@
             {/elseloop}
 
         </div>
-    </div>
+    <!-- </div> -->
 {/block}
 
 {block name="javascript-initialization"}
