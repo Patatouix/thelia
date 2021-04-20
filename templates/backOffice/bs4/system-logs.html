@@ -10,7 +10,7 @@
 {block name="check-access"}update{/block}
 
 {block name="main-content"}
-<div class="variables edit-variable">
+<!-- <div class="variables edit-variable"> -->
 
     <div class="container-fluid">
 
@@ -151,7 +151,7 @@
                                         <fieldset>
                                         {foreach $destinations as $classname => $destination}
 	                                        {$active = in_array(get_class($destination), $active_destinations)}
-											<div class="card">
+											<div class="card bg-light mb-3">
 												<div class="card-body card-sm">
 													<input type="hidden" name="destinations[{$classname}][classname]" value="{get_class($destination)}" />
 
@@ -197,7 +197,7 @@
 			</div>
 		</div>
     </div>
-</div>
+<!-- </div> -->
 {/block}
 
 {block name="javascript-initialization"}

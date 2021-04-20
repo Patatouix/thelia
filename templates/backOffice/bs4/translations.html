@@ -286,7 +286,7 @@
 
                                             {$currfile = $file_names}
 
-											<div class="card">
+											<div class="card mb-3">
 											    <div class="card-header">
                                                     {loop name="lang_list" type="lang" id=$edit_language_id}
                                                         <img src="{image file="assets/img/flags/{$CODE}.png"}" alt="{$TITLE}" />
@@ -302,7 +302,7 @@
                                         {/if}
 
 	                                    <tr>
-	                                        <td class="col-md-6">
+	                                        <td class="w-25">
 	                                            {$info.text}
 
 
@@ -314,12 +314,12 @@
 												{/if}
 		                                    </td>
 
-	                                        <td class="col-md-6" >
+	                                        <td class="w-75">
 	                                            <div class="input-group input-group-default {if $not_translated}has-error{/if}">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text">
                                                             <a href="#" data-text-num="{$idx}" class="copy-translation" title="{intl l='Copy source text in input field'}">
-                                                                <span class="fas fa-chevron-right"></span>
+                                                                <span class="fas fa-chevron-right fa-fw"></span>
                                                             </a>
                                                         </span>
                                                     </div>
@@ -331,7 +331,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text">
                                                             <a href="#" data-text-num="{$idx}" class="copy-translation-custom" title="{intl l='Copy source text in input field'}">
-                                                                <span class="fas fa-play"></span>
+                                                                <span class="fas fa-play fa-fw"></span>
                                                             </a>
                                                         </span>
                                                     </div>
@@ -343,7 +343,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text">
                                                             <a href="#" data-text-num="{$idx}" class="copy-translation-global" title="{intl l='Copy source text in input field'}">
-                                                                <span class="fas fa-forward"></span>
+                                                                <span class="fas fa-forward fa-fw"></span>
                                                             </a>
                                                         </span>
                                                     </div>

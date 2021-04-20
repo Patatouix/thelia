@@ -6,7 +6,7 @@
 {block name="check-access"}view{/block}
 
 {block name="main-content"}
-<div class="hooks">
+<!-- <div class="hooks"> -->
 
     <div class="container-fluid">
 
@@ -38,7 +38,7 @@
             </div>
             <div class="hooks-filter">
                 <form class="form-horizontal" role="form" action="#" id="hook-filter-form">
-                    <div class="form-group">
+                    <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="hooks-filter-status">{intl l="By status"}</label>
                         <div class="col-sm-2">
                             <select id="hooks-filter-status" class="form-control">
@@ -70,7 +70,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group row">
                         <label class="col-form-label col-sm-2">{intl l="Hide empty hook"}</label>
                         <div class="col-sm-2">
                             <div class="custom-control custom-switch">
@@ -116,8 +116,7 @@
                             </a>
                         </div>
                     </div>
-
-                    <div class="card d-none">
+                    <div class="card d-none bg-light mb-3">
                         <div class="card-body card-sm" id="hook-info-{$ID}">
                             <div class="row">
                                 <div class="hook-description col-md-8">
@@ -158,7 +157,7 @@
         </div>
 
     </div>
-</div>
+<!-- </div> -->
 
 
 
@@ -284,7 +283,7 @@
 
            $(".action-info-btn").click(function(e){
                e.preventDefault();
-               $($(this).data("target")).toggleClass("hidden");
+               $($(this).data("target")).parent().toggleClass("d-none d-block position-static");
            });
 
            {* Inline editing of object position using bootstrap-editable *}
