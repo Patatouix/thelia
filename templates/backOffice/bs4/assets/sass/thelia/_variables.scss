@@ -10,12 +10,14 @@ $topBarHeight: 50px;
 
 // Brand colors
 // -------------------------
+$white:   #fff    !default;
 $green:   #28a745 !default;
 $cyan:    #17a2b8 !default;
 $yellow:  #ffc107 !default;
 $red:     #dc3545 !default;
 
 $primary:       #f39922;
+$secondary:     $white;
 $success:       $green;
 $info:          $cyan;
 $warning:       $yellow;

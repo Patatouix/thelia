@@ -164,8 +164,8 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div id="country-list-filter-buttons" class="btn-group btn-group-toggle" data-toggle="buttons">
-                                                <label class="btn btn-primary active">
-                                                    <input type="radio" name="country-list-filter-status" id="country-list-filter-all" value="all" autocomplete="off" checked > {intl l="No filters"}
+                                                <label class="btn btn-primary">
+                                                    <input type="radio" name="country-list-filter-status" id="country-list-filter-all" value="all" autocomplete="off" > {intl l="No filters"}
                                                 </label>
                                                 <label class="btn btn-primary">
                                                     <input type="radio" name="country-list-filter-status" id="country-list-filter-selected" value="selected" autocomplete="off" > {intl l="Use this config."}
@@ -351,10 +351,10 @@
     {/javascripts}
 
     {javascripts file='assets/js/libs/underscore-min.js'}
-        <script src="{$asset_url}"></script>
+        <!-- <script src="{$asset_url}"></script> -->
     {/javascripts}
 
-    <script src="//code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    <!-- <script src="//code.jquery.com/ui/1.10.3/jquery-ui.js"></script> -->
 
 <script id="tax-group" type="text/html">
     <div class="drop-group droppable add-to-group">
@@ -416,7 +416,7 @@
                         <p class="drop-message"><span class="fas fa-plus"></span><span class="message">${data.i18n.addTaxes}</span></p>
                         ${data.taxes.map(tax => `
                             <div class="drag bg-info" data-id="${tax.id}">${tax.title}</div>
-                        `)}
+                        `).join('')}
                     </div>`,
                 'tax-list': (data) => data.taxes.map(tax => `<div class="draggable bg-warning" data-id="${tax.id}">${tax.title}</div>`)
             };
@@ -434,11 +434,12 @@
             var sortOptions = {
                 cursor: 'move',
                 cancel: '.drop-message',
-                update: function( event, ui ){
+                accept: 'drag',
+                update: function(event, element){
                     // Check if we have an empty group
                     var $zone = $('.add-to-group', $group);
-                    if($zone.length > 1 && $(this).find('> div').length == 0){ // Remove empty group only if we have more than 1 group
-                        $(this).slideUp(function(){ $(this).remove(); });
+                    if($zone.length > 1 && $(element).find('> div').length == 0){ // Remove empty group only if we have more than 1 group
+                        $(element).slideUp(function(){ $(element).remove(); });
                     }
                 }
             };
@@ -450,7 +451,7 @@
                 drop: function(e) {
                     const droppedTaxId = e.dataTransfer.getData('Text');
                     const droppedTax = document.querySelector('div[data-id="' + droppedTaxId + '"]');
-                    if (droppedTax.matches('#panel-list .draggable')) {
+                    if (droppedTax !== null && droppedTax.classList.contains('draggable')) {
                         var $drop = $(this);
                         if($drop.hasClass('create-group')){
                             // Check if we have already an empty group
@@ -463,8 +464,14 @@
                                 // Remove taxes
                                 $drop.find('> div').remove();
 
-                                // Make the new group droppable
+                                // Make the new group droppable and sortable with other groups
                                 Array.from($drop.get()).forEach(element => droppableTest(element, dropOptions));
+                                sortableTest(document.querySelector('.place .card-body'), {
+                                    cursor: 'move',
+                                    cancel: '.drop-message',
+                                    accept: 'drop-group',
+                                    update: function(event, element){}
+                                });
                             }
                         }
 
@@ -484,8 +491,6 @@
             var draggableTest = function draggable(element, options) {
 
                 function enableDrag(element) {
-                    element.addEventListener('drop', (e) => e.preventDefault());
-                    element.addEventListener('dragover', (e) => e.preventDefault());
                     Array.from(element.children).forEach((item) => {
                         enableDragItem(item);
                     })
@@ -503,6 +508,7 @@
                     item.addEventListener('dragstart', (event) => {
                         //change cursor during drag
                         event.dataTransfer.effectAllowed  = options.cursor;
+                        //set some useful information for dragged item
                         event.dataTransfer.setData("Text", item.dataset.id);
                         event.dataTransfer.setData(item.classList[0], '');
                     });
@@ -519,15 +525,19 @@
              */
             var sortableTest = function sortable(element, options) {
 
-                function enableSort(element) {
-                    element.addEventListener('drop', (e) => e.preventDefault());
-                    element.addEventListener('dragover', (e) => e.preventDefault());
-                    Array.from(element.children).forEach((item) => {
-                        enableSortItem(item);
-                    })
-                }
+                const preventDefaults = (e) => {
+                    //make sortable zone droppable only if dragged item is of good type
+                    if (e.dataTransfer.types.includes(options.accept)) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                    }
+                };
 
-                function enableSortItem(item) {
+                ['dragover', 'drop'].forEach(eventName => {
+                    element.addEventListener(eventName, preventDefaults, false)
+                });
+
+                const enableSortItem = (item) => {
 
                     item.setAttribute('draggable', true);
 
@@ -537,13 +547,19 @@
                     item.querySelectorAll(options.cancel).forEach(el => el.setAttribute('draggable', false));
 
                     item.addEventListener('dragstart', (event) => {
+                        //prevent drag conflicts between parent and child
+                        event.stopPropagation();
                         //change cursor during drag
                         event.dataTransfer.effectAllowed  = options.cursor;
+                        //set some useful information for dragged item
                         event.dataTransfer.setData("Text", item.dataset.id);
                         event.dataTransfer.setData(item.classList[0], '');
                     });
 
                     item.addEventListener('drag', (event) => {
+                        //prevent drag conflicts between parent and child
+                        event.stopPropagation();
+
                         Array.from(document.querySelectorAll('.drop-message')).forEach(element => element.style.pointerEvents = 'none');
 
                         const selectedItem = event.target,
@@ -561,10 +577,15 @@
                         }
                     });
 
-                    item.addEventListener('dragend', (event) => event.target.style.opacity = 1);
+                    item.addEventListener('dragend', (event) => {
+                        event.target.style.opacity = 1;
+                        options.update(event, element);
+                    })
                 }
 
-                enableSort(element);
+                Array.from(element.children).forEach((item) => {
+                    enableSortItem(item);
+                })
             }
 
             /**
@@ -573,8 +594,11 @@
             var droppableTest = function droppable(element, options) {
 
                 const preventDefaults = (e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
+                    if (e.dataTransfer.types.includes(options.accept)) {
+                        //accept drop only if dragged item is of good type
+                        e.preventDefault();
+                        e.stopPropagation();
+                    }
                 };
 
                 ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
@@ -811,7 +835,12 @@
                 Array.from(document.querySelectorAll('#panel .droppable')).forEach(element => droppableTest(element, dropOptions));
                 Array.from(document.querySelectorAll('#panel .droppable')).forEach(element => sortableTest(element, dropOptions));
                 // let tax groups be sortable
-                //sortableTest(document.querySelector('.place .card-body'), sortOptions);
+                sortableTest(document.querySelector('.place .card-body'), {
+                    cursor: 'move',
+                    cancel: '.drop-message',
+                    accept: 'drop-group',
+                    update: function(event, element){}
+                });
 
                 taxesConfigurationInitialized = true;
             };
@@ -880,9 +909,9 @@
 
                 // apply filter depending of the spec
                 if (spec == "") {
-                    $('#country-list-filter-none').parent().trigger('click');
+                   $('#country-list-filter-none').parent().button('toggle');
                 } else {
-                    $('#country-list-filter-selected').parent().trigger('click');
+                    $('#country-list-filter-selected').parent().button('toggle');
                 }
 
                 initTaxesConfiguration();
@@ -1030,6 +1059,8 @@
 #tax_list_update_dialog .badge {
     line-height: 1.25;
     cursor: pointer;
+    background-color: #6c757d;
+    color: #fff;
 }
 
 .filter-selected .badge-danger,
