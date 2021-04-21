@@ -344,162 +344,164 @@
 
 	                {hook name="product.before-combinations" location="product_before_combinations" }
 
-					<table class="table table-striped table-sm table-responsive" id="combinations_list">
-					    <caption>
-					        {intl l='Attribute Combinations'}
+                    <div class="table-responsive">
+                        <table class="table table-striped table-sm" id="combinations_list">
+                            <caption>
+                                {intl l='Attribute Combinations'}
 
-					        {hook name="product.combinations-list-caption" location="product_combinations_list_caption" }
+                                {hook name="product.combinations-list-caption" location="product_combinations_list_caption" }
 
-                            {include file='renderer/buttons.html' btn_group=false buttons=[
-                                [
-                                    'type' => 'create',
-                                    'id' => 'open_combination_builder',
-                                    'class' => 'action-btn',
-                                    'title' => {intl l='Quickly create combinations using the combination builder'},
-                                    'text' => {intl l='Combination builder'},
-                                    'href' => '#combination_builder_dialog',
-                                    'auth' => ['resource' => 'admin.product', 'access' => 'UPDATE'],
-                                    'data' => [
-                                        'toggle' => 'modal'
+                                {include file='renderer/buttons.html' btn_group=false buttons=[
+                                    [
+                                        'type' => 'create',
+                                        'id' => 'open_combination_builder',
+                                        'class' => 'action-btn',
+                                        'title' => {intl l='Quickly create combinations using the combination builder'},
+                                        'text' => {intl l='Combination builder'},
+                                        'href' => '#combination_builder_dialog',
+                                        'auth' => ['resource' => 'admin.product', 'access' => 'UPDATE'],
+                                        'data' => [
+                                            'toggle' => 'modal'
+                                        ],
+                                        'with_text' => true
                                     ],
-                                    'with_text' => true
-                                ],
-                                [
-                                    'type' => 'create',
-                                    'class' => 'action-btn',
-                                    'title' => {intl l='Add a new combination'},
-                                    'href' => '#combination_creation_dialog',
-                                    'auth' => ['resource' => 'admin.product', 'access' => 'UPDATE'],
-                                    'data' => [
-                                        'toggle' => 'modal'
+                                    [
+                                        'type' => 'create',
+                                        'class' => 'action-btn',
+                                        'title' => {intl l='Add a new combination'},
+                                        'href' => '#combination_creation_dialog',
+                                        'auth' => ['resource' => 'admin.product', 'access' => 'UPDATE'],
+                                        'data' => [
+                                            'toggle' => 'modal'
+                                        ]
                                     ]
-                                ]
-                            ]}
-					    </caption>
+                                ]}
+                            </caption>
 
-					    <thead>
-					        <tr>
-                                <th class="col-sm-2 text-center">{intl l='Reference'}</th>
-                                <th class="col-sm-2 text-center">{intl l='EAN Code'}</th>
-                                <th class="col-sm-1 text-center">{intl l='Stock'}</th>
-								<th class="col-sm-1 text-center"><small>{intl l='Price (%currency)<br />w/o taxes' currency={$currency_symbol}}</small></th>
-								<th class="col-sm-1 text-center"><small>{intl l='Price (%currency)<br />w/ taxes' currency={$currency_symbol}}</small></th>
-								<th class="col-sm-1 text-center"><small>{intl l='Weight<br />(Kg)'}</small></th>
-                                <th class="text-center"><small>{intl l='Default'}</small></th>
-                                <th class="text-center"><small>{intl l='Sale'}</small></th>
-                                <th class="text-center"><small>{intl l='New'}</small></th>
-								<th class="col-sm-1 text-center"><small>{intl l='Sale price (%currency)<br />w/o taxes' currency={$currency_symbol}}</small></th>
-								<th class="col-sm-1 text-center"><small>{intl l='Sale price (%currency)<br />w/ taxes' currency={$currency_symbol}}</small></th>
-					        </tr>
-					    </thead>
+                            <thead>
+                                <tr>
+                                    <th class="col-sm-2 text-center">{intl l='Reference'}</th>
+                                    <th class="col-sm-2 text-center">{intl l='EAN Code'}</th>
+                                    <th class="col-sm-1 text-center">{intl l='Stock'}</th>
+                                    <th class="col-sm-1 text-center"><small>{intl l='Price (%currency)<br />w/o taxes' currency={$currency_symbol}}</small></th>
+                                    <th class="col-sm-1 text-center"><small>{intl l='Price (%currency)<br />w/ taxes' currency={$currency_symbol}}</small></th>
+                                    <th class="col-sm-1 text-center"><small>{intl l='Weight<br />(Kg)'}</small></th>
+                                    <th class="text-center"><small>{intl l='Default'}</small></th>
+                                    <th class="text-center"><small>{intl l='Sale'}</small></th>
+                                    <th class="text-center"><small>{intl l='New'}</small></th>
+                                    <th class="col-sm-1 text-center"><small>{intl l='Sale price (%currency)<br />w/o taxes' currency={$currency_symbol}}</small></th>
+                                    <th class="col-sm-1 text-center"><small>{intl l='Sale price (%currency)<br />w/ taxes' currency={$currency_symbol}}</small></th>
+                                </tr>
+                            </thead>
 
-					    <tbody>
-	                        {* Get number of PSE defined, assume the form have the same number of values for each fields *}
+                            <tbody>
+                                {* Get number of PSE defined, assume the form have the same number of values for each fields *}
 
-	                        {form_field field='product_sale_element_id' value_key=0}
-	                           {$pse_count = $total_value_count}
-	                        {/form_field}
+                                {form_field field='product_sale_element_id' value_key=0}
+                                {$pse_count = $total_value_count}
+                                {/form_field}
 
-	                        {for $idx = 0 to $total_value_count-1}
-	                        <tr>
-                                <td colspan="10">
+                                {for $idx = 0 to $total_value_count-1}
+                                <tr>
+                                    <td colspan="10">
 
-                                    {form_field field='product_sale_element_id' value_key=$idx}
-                                        <input type="hidden" class="pse_id_field" name="{$name}" value="{$value}" />
-                                        {$current_pse_id = $value}
+                                        {form_field field='product_sale_element_id' value_key=$idx}
+                                            <input type="hidden" class="pse_id_field" name="{$name}" value="{$value}" />
+                                            {$current_pse_id = $value}
+                                        {/form_field}
+
+                                        <div class="btn-group">
+                                            <a class="btn btn-secondary btn-sm pse-assoc-image pse-assoc-image-document" data-target="#pse-assoc-image-document-modal" data-id="{$value}" title="{intl l="Associate images"}">
+                                                <span class="far fa-image"></span>
+                                            </a>
+                                            <a class="btn btn-secondary btn-sm pse-assoc-document pse-assoc-image-document" data-target="#pse-assoc-image-document-modal" data-id="{$value}" title="{intl l="Associate documents"}">
+                                                <span class="fas fa-file"></span>
+                                            </a>
+                                            {if $VIRTUAL}
+                                            <a class="btn btn-success btn-sm pse-assoc-virtual pse-assoc-image-document" data-type="virtual" data-target="#pse-assoc-image-document-modal" data-id="{$value}" title="{intl l="Associate downloadable file"}">
+                                                <span class="far fa-arrow-alt-circle-down"></span>
+                                            </a>
+                                            {/if}
+                                        </div>
+
+                                        <a class="btn btn-secondary btn-sm combination-delete" title="{intl l='Delete this combination'}"  href="#combination_delete_dialog" data-id="{$current_pse_id}" data-toggle="modal"><i class="fas fa-trash-alt"></i></a>
+
+                                        {assign var='combination_list' value=array()}
+                                        {loop name="product.sales.elements.combinations" type="attribute_combination" product_sale_elements=$current_pse_id backend_context="1" order="manual"}
+                                            {$combination_list[$ATTRIBUTE_TITLE][] = $ATTRIBUTE_AVAILABILITY_TITLE}
+                                        {/loop}
+
+                                        {format_array_2d values=$combination_list}
+                                    </td>
+
+                                    <td class="text-right">ID: {$current_pse_id}</td>
+                                </tr>
+
+                                <tr>
+                                    {form_field field='reference' value_key=$idx}
+                                    <td {if $error}class="has-error"{/if}><input class="form-control form-control-sm" type="text" name="{$name}" value="{$value}" /></td>
                                     {/form_field}
 
-                                    <div class="btn-group">
-                                        <a class="btn btn-secondary btn-sm pse-assoc-image pse-assoc-image-document" data-target="#pse-assoc-image-document-modal" data-id="{$value}" title="{intl l="Associate images"}">
-                                            <span class="far fa-image"></span>
-                                        </a>
-                                        <a class="btn btn-secondary btn-sm pse-assoc-document pse-assoc-image-document" data-target="#pse-assoc-image-document-modal" data-id="{$value}" title="{intl l="Associate documents"}">
-                                            <span class="fas fa-file"></span>
-                                        </a>
-                                        {if $VIRTUAL}
-                                        <a class="btn btn-success btn-sm pse-assoc-virtual pse-assoc-image-document" data-type="virtual" data-target="#pse-assoc-image-document-modal" data-id="{$value}" title="{intl l="Associate downloadable file"}">
-                                            <span class="far fa-arrow-alt-circle-down"></span>
-                                        </a>
-                                        {/if}
-                                    </div>
+                                    {form_field field='ean_code' value_key=$idx}
+                                    <td {if $error}class="has-error"{/if}><input class="form-control form-control-sm" type="text" name="{$name}" value="{$value}" /></td>
+                                    {/form_field}
 
-                                    <a class="btn btn-secondary btn-sm combination-delete" title="{intl l='Delete this combination'}"  href="#combination_delete_dialog" data-id="{$current_pse_id}" data-toggle="modal"><i class="fas fa-trash-alt"></i></a>
+                                    {form_field field='quantity' value_key=$idx}
+                                    <td {if $error}class="has-error"{/if}>
+                                        <input class="form-control form-control-sm text-right" required type="text" name="{$name}" value="{$value}" />
+                                    </td>
+                                    {/form_field}
 
-									{assign var='combination_list' value=array()}
-									{loop name="product.sales.elements.combinations" type="attribute_combination" product_sale_elements=$current_pse_id backend_context="1" order="manual"}
-										{$combination_list[$ATTRIBUTE_TITLE][] = $ATTRIBUTE_AVAILABILITY_TITLE}
-									{/loop}
+                                    {form_field field='price' value_key=$idx}
+                                    <td {if $error}class="has-error"{/if}><input {if !$show_pricing_fields}readonly{/if} required data-price-type="price-without-tax" data-rel-price="price_with_tax_{$idx}" id="price_without_tax_{$idx}" class="price_field automatic_price_field form-control text-right form-control-sm" required type="text" name="{$name}" value="{$value}" /></td>
+                                    {/form_field}
 
-									{format_array_2d values=$combination_list}
-								</td>
+                                    {form_field field='price_with_tax' value_key=$idx}
+                                    <td {if $error}class="has-error"{/if}><input {if !$show_pricing_fields}readonly{/if} data-price-type="price-with-tax" data-rel-price="price_without_tax_{$idx}" id="price_with_tax_{$idx}" class="price_field automatic_price_field form-control text-right form-control-sm" type="text" name="{$name}" value="{$value}" /></td>
+                                    {/form_field}
 
-                                <td class="text-right">ID: {$current_pse_id}</td>
-                            </tr>
-
-                            <tr>
-                                {form_field field='reference' value_key=$idx}
-                                <td {if $error}class="has-error"{/if}><input class="form-control form-control-sm" type="text" name="{$name}" value="{$value}" /></td>
-                                {/form_field}
-
-                                {form_field field='ean_code' value_key=$idx}
-                                <td {if $error}class="has-error"{/if}><input class="form-control form-control-sm" type="text" name="{$name}" value="{$value}" /></td>
-                                {/form_field}
-
-                                {form_field field='quantity' value_key=$idx}
-                                <td {if $error}class="has-error"{/if}>
-                                    <input class="form-control form-control-sm text-right" required type="text" name="{$name}" value="{$value}" />
-                                </td>
-                                {/form_field}
-
-                                {form_field field='price' value_key=$idx}
-                                <td {if $error}class="has-error"{/if}><input {if !$show_pricing_fields}readonly{/if} required data-price-type="price-without-tax" data-rel-price="price_with_tax_{$idx}" id="price_without_tax_{$idx}" class="price_field automatic_price_field form-control text-right form-control-sm" required type="text" name="{$name}" value="{$value}" /></td>
-                                {/form_field}
-
-                                {form_field field='price_with_tax' value_key=$idx}
-                                <td {if $error}class="has-error"{/if}><input {if !$show_pricing_fields}readonly{/if} data-price-type="price-with-tax" data-rel-price="price_without_tax_{$idx}" id="price_with_tax_{$idx}" class="price_field automatic_price_field form-control text-right form-control-sm" type="text" name="{$name}" value="{$value}" /></td>
-                                {/form_field}
-
-                                {form_field field='weight' value_key=$idx}
-                                <td {if $error}class="has-error"{/if}><input required class="form-control text-right form-control-sm" type="text" name="{$name}" value="{$value}" /></td>
-                                {/form_field}
+                                    {form_field field='weight' value_key=$idx}
+                                    <td {if $error}class="has-error"{/if}><input required class="form-control text-right form-control-sm" type="text" name="{$name}" value="{$value}" /></td>
+                                    {/form_field}
 
 
-                                {form_field field='default_pse'}
-                                <td class="{if $error}has-error {/if}text-center">
-                                    <input class="form-control-sm" type="radio" name="{$name}" value="{$current_pse_id}" {if $value == $current_pse_id}checked="checked"{/if}/>
-                                </td>
-                                {/form_field}
+                                    {form_field field='default_pse'}
+                                    <td class="{if $error}has-error {/if}text-center">
+                                        <input class="form-control-sm" type="radio" name="{$name}" value="{$current_pse_id}" {if $value == $current_pse_id}checked="checked"{/if}/>
+                                    </td>
+                                    {/form_field}
 
-                                {form_field field='onsale' value_key=$idx}
-                                <td class="{if $error}has-error {/if}text-center">
-                                    <input class="form-control-sm" type="checkbox" name="{$name}" value="1" {if $value != 0}checked="checked"{/if}/>
-                                </td>
-                                {/form_field}
+                                    {form_field field='onsale' value_key=$idx}
+                                    <td class="{if $error}has-error {/if}text-center">
+                                        <input class="form-control-sm" type="checkbox" name="{$name}" value="1" {if $value != 0}checked="checked"{/if}/>
+                                    </td>
+                                    {/form_field}
 
-                                {form_field field='isnew' value_key=$idx}
-                                <td class="{if $error}has-error {/if}text-center">
-                                     <input class="form-control-sm" type="checkbox" name="{$name}" value="1" {if $value != 0}checked="checked"{/if}/>
-                                </td>
-                                {/form_field}
+                                    {form_field field='isnew' value_key=$idx}
+                                    <td class="{if $error}has-error {/if}text-center">
+                                        <input class="form-control-sm" type="checkbox" name="{$name}" value="1" {if $value != 0}checked="checked"{/if}/>
+                                    </td>
+                                    {/form_field}
 
-                                {form_field field='sale_price' value_key=$idx}
-                                <td {if $error}class="has-error"{/if}>
-                                    <input {if !$show_pricing_fields}readonly{/if} required data-price-type="sale-price-without-tax" data-rel-price="sale_price_with_tax_{$idx}" id="sale_price_without_tax_{$idx}" class="price_field automatic_price_field form-control text-right form-control-sm" type="text" name="{$name}" value="{$value}"  />
-                                </td>
-                                {/form_field}
+                                    {form_field field='sale_price' value_key=$idx}
+                                    <td {if $error}class="has-error"{/if}>
+                                        <input {if !$show_pricing_fields}readonly{/if} required data-price-type="sale-price-without-tax" data-rel-price="sale_price_with_tax_{$idx}" id="sale_price_without_tax_{$idx}" class="price_field automatic_price_field form-control text-right form-control-sm" type="text" name="{$name}" value="{$value}"  />
+                                    </td>
+                                    {/form_field}
 
-                                {form_field field='sale_price_with_tax' value_key=$idx}
-                                <td {if $error}class="has-error"{/if}>
-                                    <input {if !$show_pricing_fields}readonly{/if} data-price-type="sale-price-with-tax" data-rel-price="sale_price_without_tax_{$idx}" id="sale_price_with_tax_{$idx}" class="price_field automatic_price_field form-control text-right form-control-sm" type="text" name="{$name}" value="{$value}"  />
-                                </td>
-                                {/form_field}
-                            </tr>
+                                    {form_field field='sale_price_with_tax' value_key=$idx}
+                                    <td {if $error}class="has-error"{/if}>
+                                        <input {if !$show_pricing_fields}readonly{/if} data-price-type="sale-price-with-tax" data-rel-price="sale_price_without_tax_{$idx}" id="sale_price_with_tax_{$idx}" class="price_field automatic_price_field form-control text-right form-control-sm" type="text" name="{$name}" value="{$value}"  />
+                                    </td>
+                                    {/form_field}
+                                </tr>
 
-                            {hook name="product.combinations-row" pse=$current_pse_id idx=$idx}
+                                {hook name="product.combinations-row" pse=$current_pse_id idx=$idx}
 
-	                        {/for}
-					    </tbody>
-					</table>
+                                {/for}
+                            </tbody>
+                        </table>
+                    </div>
 
 	                {hook name="product.after-combinations" location="product_after_combinations" }
 

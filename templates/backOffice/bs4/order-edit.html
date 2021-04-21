@@ -47,7 +47,7 @@
                                     <div class="col-md-6 actions">
                                         <form class="form-horizontal" role="form" id="order-update-status-form" action="{url path="/admin/order/update/$ID/status"}" method="post">
                                             <input class="js-current-tab" type="hidden" name="tab" value="{$order_tab}">
-                                            <div class="form-group">
+                                            <div class="form-group row">
                                                 <label class="col-sm-6 col-form-label">{intl l="Order status:"}</label>
                                                 <div class="col-sm-6">
                                                     <select class="js-update-order-status form-control" name="status_id" data-toggle="selectpicker">
@@ -200,8 +200,8 @@
 
                                         <div class="row">
                                             <div class="col-lg-5 col-md-6 order-md-2">
-                                                <div class="card">
-                                                    <table class="table table-sm table-left-aligned">
+                                                <div class="card mb-3">
+                                                    <table class="table table-sm table-left-aligned mb-0">
                                                         <tbody class="table-sm">
                                                             <tr>
                                                                 <th>{intl l="Total without tax"}</th>
@@ -223,7 +223,7 @@
                                                                 <th>{intl l="Shipping with taxes"}</th>
                                                                 <td class="text-right">{format_money number=$POSTAGE currency_id=$CURRENCY}</td>
                                                             </tr>
-                                                            <tr class="info">
+                                                            <tr class="bg-info">
                                                                 <th>{intl l="ORDER TOTAL WITH TAXES"}</th>
                                                                 <td class="text-right"><strong>{format_money number=$TOTAL_TAXED_AMOUNT currency_id=$CURRENCY}</strong></td>
                                                             </tr>
@@ -233,12 +233,12 @@
                                             </div>
 
                                             <div class="col-lg-5 order-md-1 col-md-6">
-                                                <div class="card">
+                                                <div class="card mb-3">
                                                     <div class="card-header">
                                                         <h3 class="card-title">{intl l='Taxes'}</h3>
                                                     </div>
 
-                                                    <table class="table table-sm table-left-aligned">
+                                                    <table class="table table-sm table-left-aligned mb-0">
                                                         <tbody class="table-sm">
                                                             <tr>
                                                                 <th colspan="2">{intl l='Items taxes'}</th>
@@ -291,7 +291,7 @@
                                                                 {/if}
                                                             </tr>
 
-                                                            <tr class="info">
+                                                            <tr class="bg-info">
                                                                 <th>{intl l="Taxes total"}</th>
                                                                 <td class="text-right"><strong>{format_money number=$TOTAL_TAX currency_id=$CURRENCY}</strong></td>
                                                             </tr>
@@ -299,8 +299,8 @@
                                                     </table>
                                                 </div>
 
-                                                <div class="card">
-                                                    <table class="table table-sm table-left-aligned">
+                                                <div class="card mb-3">
+                                                    <table class="table table-sm table-left-aligned mb-0">
                                                         <tbody class="table-sm">
                                                         <tr>
                                                             <th>{intl l="Coupon code"}</th>
@@ -335,13 +335,13 @@
                                             {assign "orderInvoiceCompany" $COMPANY}
                                         {/loop}
 
-                                        <div class="card">
+                                        <div class="card mb-3">
                                             <div class="card-header">
                                                 <h3 class="card-title">
                                                     {intl l='Customer information'}
                                                 </h3>
                                             </div>
-                                            <table class="table table-sm table-left-aligned">
+                                            <table class="table table-sm table-left-aligned mb-0">
                                                 <tbody>
                                                 <tr>
                                                     <th>{intl l="Customer"}</th>
@@ -363,13 +363,13 @@
                                             {hook name="order-edit.customer-information-bottom" order_id=$order_id customer_id=$CUSTOMER}
                                         </div>
 
-                                        <div class="card">
+                                        <div class="card mb-3">
                                             <div class="card-header">
                                                 <h3 class="card-title">
                                                     {intl l='Payment information'}
                                                 </h3>
                                             </div>
-                                            <table class="table table-sm table-left-aligned">
+                                            <table class="table table-sm table-left-aligned mb-0">
                                                 <tbody>
                                                 <tr>
                                                     <th>{intl l="Payment module"}</th>
@@ -404,7 +404,7 @@
 
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <div class="card">
+                                                <div class="card mb-3">
                                                     <div class="card-header">
                                                         <h3 class="card-title">{intl l='Delivery module'}</h3>
                                                     </div>
@@ -423,7 +423,7 @@
                                             </div>
 
                                             <div class="col-md-6">
-                                                <div class="card">
+                                                <div class="card mb-3">
                                                     <div class="card-header">
                                                         <h3 class="card-title">{intl l='tracking reference'}</h3>
                                                     </div>
@@ -450,7 +450,7 @@
 
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <div class="card">
+                                                <div class="card mb-3">
                                                     <div class="card-header">
                                                         <h3 class="card-title">{intl l='Invoice informations'}</h3>
                                                     </div>
@@ -494,7 +494,7 @@
                                                         </div>
                                                     </div>
 
-                                                    <table class="table table-sm table-left-aligned">
+                                                    <table class="table table-sm table-left-aligned mb-0">
                                                     <tbody>
                                                     <tr>
                                                         <th>{intl l="Invoice reference"}</th>
@@ -580,7 +580,7 @@
                                             </div>
 
                                             <div class="col-md-6">
-                                                <div class="card">
+                                                <div class="card mb-3">
                                                     <div class="card-header">
                                                         <h3 class="card-title">{intl l='Delivery address'}</h3>
                                                     </div>
@@ -625,7 +625,7 @@
                                                         </div>
                                                     </div>
 
-                                                    <table class="table table-sm table-left-aligned">
+                                                    <table class="table table-sm table-left-aligned mb-0">
                                                         <tbody>
                                                         {ifhook rel="order-edit.bill-delivery-address"}
                                                             {* delivery module can customize the delivery address *}

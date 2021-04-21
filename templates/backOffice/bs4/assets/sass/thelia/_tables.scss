@@ -176,3 +176,9 @@ caption {
   padding-top: 0;
   padding-bottom: 0;
 }
+
+.table-responsive {
+    > .table-bordered {
+        border: $table-border-width solid $table-border-color;
+    }
+}

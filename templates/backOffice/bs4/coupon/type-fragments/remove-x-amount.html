@@ -2,7 +2,7 @@
     <label for="coupon-amount" class="col-form-label">{intl l='Discount amount'}</label>
 
     <div class="input-group">
-        <input id="coupon-amount" type="money" class="col-form-label" name="{$amount_field_name}" value="{$amount_value}" placeholder="{intl l="Amount, e.g. 12.50"}">
+        <input id="coupon-amount" type="money" class="form-control" name="{$amount_field_name}" value="{$amount_value}" placeholder="{intl l="Amount, e.g. 12.50"}">
         <div class="input-group-append">
             {loop type="currency" name="get-symbol" default_only="true"}
                 <div class="input-group-text">{$SYMBOL}</div>
