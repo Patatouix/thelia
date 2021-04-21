@@ -11,7 +11,7 @@
 
 {block name="main-content"}
 
-    <div class="catalog edit-category">
+    <div class="col catalog edit-category">
         <div class="container-fluid">
 
             {include file="includes/catalog-breadcrumb.html" editing_category="true"}
@@ -201,7 +201,7 @@
                                                     </div>
 
                                                     <div class="col-md-6">
-                                                        <div id="content_selector" class="hide">
+                                                        <div id="content_selector" class="d-none">
                                                             <div class="input-group">
                                                                 <select required="required" name="content_id" id="content_id" class="form-control">
                                                                     <option value="">{intl l='Select a folder content...'}</option>
@@ -214,7 +214,7 @@
                                                             <span class="form-text">{intl l='Select a content and click (+) to add it to this category'}</span>
                                                         </div>
 
-                                                        <div id="content_selector_empty" class="hide">
+                                                        <div id="content_selector_empty" class="d-none">
                                                            <div class="alert alert-info">
                                                                {intl l="No available content in this folder"}
                                                            </div>
@@ -405,20 +405,20 @@ $(function() {
 	                 });
 
 	                 if (have_content) {
-	                	 $('#content_selector_empty').addClass('hide');
-	                     $('#content_selector').removeClass('hide');
+	                	 $('#content_selector_empty').addClass('d-none');
+	                     $('#content_selector').removeClass('d-none');
 	                 }
 	                 else {
-	                	 $('#content_selector_empty').removeClass('hide');
-	                     $('#content_selector').addClass('hide');
+	                	 $('#content_selector_empty').removeClass('d-none');
+	                     $('#content_selector').addClass('d-none');
 	                 }
 
 	             }
 	        });
         }
         else {
-            $('#content_selector_empty').addClass('hide');
-        	$('#content_selector').addClass('hide');
+            $('#content_selector_empty').addClass('d-none');
+        	$('#content_selector').addClass('d-none');
         }
     });
 
