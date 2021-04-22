@@ -227,3 +227,8 @@ option.disabled-select-option {
 .form-control {
   border-radius: $border-radius-base;
 }
+
+select.badge,
+option.badge {
+    font-size: inherit;
+}

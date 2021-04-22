@@ -126,24 +126,29 @@
                                     </div>
 
                                     <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="country-selector" class="label-control">{intl l="Choose a country"} :</label>
-                                            <select id="country-selector" class="form-control" name="country" data-toggle="selectpicker" data-live-search="true">
-                                                {loop type="country" name="country-list" visible="*"}
-                                                    {if $HAS_STATES}
-                                                        {$country_id=$ID}
-                                                        {$country_title=$TITLE}
-                                                        <optgroup label="{$country_title}">
-                                                            <option value="{$country_id}-0">{intl l="all states"}</option>
-                                                            {loop type="state" name="state-list" visible="*" country={$country_id}}
-                                                                <option value="{$country_id}-{$ID}">{$TITLE}</option>
-                                                            {/loop}
-                                                        </optgroup>
-                                                    {else}
-                                                        <option value="{$ID}-0">{$TITLE}</option>
-                                                    {/if}
-                                                {/loop}
-                                            </select>
+                                        <div class="row align-items-end">
+                                            <div class="form-group col-md-6">
+                                                <label for="country-selector" class="label-control">{intl l="Choose a country"} :</label>
+                                                <select id="country-selector" class="form-control" name="country" >
+                                                    {loop type="country" name="country-list" visible="*"}
+                                                        {if $HAS_STATES}
+                                                            {$country_id=$ID}
+                                                            {$country_title=$TITLE}
+                                                            <optgroup label="{$country_title}">
+                                                                <option value="{$country_id}-0">{intl l="all states"}</option>
+                                                                {loop type="state" name="state-list" visible="*" country={$country_id}}
+                                                                    <option value="{$country_id}-{$ID}">{$TITLE}</option>
+                                                                {/loop}
+                                                            </optgroup>
+                                                        {else}
+                                                            <option value="{$ID}-0">{$TITLE}</option>
+                                                        {/if}
+                                                    {/loop}
+                                                </select>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <input type="text" id="countries-filter" class="form-control" value="" placeholder="{intl l='filter country'}">
+                                            </div>
                                         </div>
                                     </div>
 
@@ -396,6 +401,7 @@
             var $configurationSelector = $('#configuration-selector');
             var $countrySelector = $('#country-selector');
             var $countryList = $('#country-list');
+            var $countriesFilter = $("#countries-filter");
 
             var i18n = {
                 'configuration': '{intl l="Configuration"}'
@@ -991,6 +997,24 @@
                 });
             };
 
+            const filterCountries = function filterCountries() {    console.log('filter');
+                const search = $countriesFilter.val().trim().toLowerCase();
+
+                if (search == '') {
+                    $countrySelector.find('option, optgroup').removeClass('hidden');
+                } else {
+                    $countrySelector.find('option, optgroup').each(function() {
+                        var $item = $(this);
+                        var text = $item.text();
+
+                        if (text.toLowerCase().indexOf(search) !== -1) {
+                            $item.removeClass('hidden');
+                        } else {
+                            $item.addClass('hidden');
+                        }
+                    });
+                }
+            };
 
             /**
              * Initialize everything when document loaded and after a successful save.
@@ -1026,6 +1050,8 @@
                     $('#reset-country-list').on('click', resetCountryList);
 
                     $('#tax_list_update_dialog form').on('submit', saveConfiguration);
+
+                    $countriesFilter.on('input', filterCountries);
 
                     eventsRegistered = true;
                 }

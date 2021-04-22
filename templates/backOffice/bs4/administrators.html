@@ -186,7 +186,7 @@
     <div class="row">
         <div class="col-md-6">
             {custom_render_form_field field="locale"}
-                <select {form_field_attributes field="locale" no_standard_classes=1} data-toggle="selectpicker">
+                <select {form_field_attributes field="locale"}>
                     {loop name='lang-admin' type="lang"}
                         <option value="{$LOCALE}">{$LOCALE}: {$TITLE}</option>
                     {/loop}
@@ -195,7 +195,7 @@
         </div>
         <div class="col-md-6">
             {custom_render_form_field field="profile"}
-                <select {form_field_attributes field="profile" no_standard_classes=1} data-toggle="selectpicker">
+                <select {form_field_attributes field="profile"}>
                     {foreach $choices as $choice}
                         {if $choice->value == 0}
                             <option value="0">{intl l='Superadministrator'}</option>
@@ -284,7 +284,7 @@
     <div class="row">
         <div class="col-md-6">
             {custom_render_form_field field="locale"}
-                <select {form_field_attributes field="locale" no_standard_classes=1 extra_classes='js-locale'} data-toggle="selectpicker">
+                <select {form_field_attributes field="locale" extra_classes='js-locale'}>
                     {loop name='lang-admin' type="lang"}
                         <option value="{$LOCALE}" {if $LOCALE == $value}selected="selected"{/if}>{$LOCALE}: {$TITLE}</option>
                     {/loop}
@@ -293,7 +293,7 @@
         </div>
         <div class="col-md-6">
             {custom_render_form_field field="profile"}
-                <select {form_field_attributes field="profile" no_standard_classes=1 extra_classes='js-profile'} data-toggle="selectpicker">
+                <select {form_field_attributes field="profile" extra_classes='js-profile'}>
                     {foreach $choices as $choice}
                         {if $choice->value == 0}
                             <option value="0">{intl l='Superadministrator'}</option>
@@ -390,15 +390,13 @@ jQuery(function($) {
             }
             if($v.data('value')) {
                 var fieldValue = $v.data('value');
+            } else if ($v.data('field-class') === 'js-profile') {
+                var fieldValue = 0;
             } else {
                 var fieldValue = $v.text();
             }
 
             $('.' + $v.data('field-class')).val($.trim(fieldValue));
-
-            if($('.' + $v.data('field-class')).is('select')) {
-                $('.' + $v.data('field-class')).selectpicker('refresh');
-            }
         });
     });
 })

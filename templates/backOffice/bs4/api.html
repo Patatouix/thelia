@@ -131,7 +131,7 @@
             <div class="form-group {if $error}has-error{/if}">
                 <label for="{$label_attr.for}" class="col-form-label">{$label} : </label>
 
-                <select id="{$label_attr.for}" class="form-control" name="{$name}" required="required" data-toggle="selectpicker">
+                <select id="{$label_attr.for}" class="form-control" name="{$name}" required="required">
                     {foreach $choices as $choice}
                         {if $choice->value == 0}
                             <option value="0">{intl l='Superadministrator'}</option>
@@ -193,7 +193,7 @@
             <div class="form-group {if $error}has-error{/if}">
                 <label for="{$label_attr.for}" class="col-form-label">{$label} :</label>
 
-                <select id="{$label_attr.for}" class="form-control" name="{$name}" required="required" data-toggle="selectpicker">
+                <select id="{$label_attr.for}" class="form-control" name="{$name}" required="required">
                     {foreach $choices as $choice}
                         {if $choice->value == 0}
                             <option value="0" {if $value == null}selected{/if}>{intl l='Superadministrator'}</option>

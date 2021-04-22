@@ -50,10 +50,10 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-6 col-form-label">{intl l="Order status:"}</label>
                                                 <div class="col-sm-6">
-                                                    <select class="js-update-order-status form-control" name="status_id" data-toggle="selectpicker">
+                                                    <select class="js-update-order-status form-control badge" name="status_id">
                                                     {assign "orderStatusId" $STATUS}
                                                     {loop type="order-status" name="all-status"}
-                                                        <option {if $ID == $orderStatusId}selected="selected" {/if} value="{$ID}" data-content="<span class='label' style='background-color: {$COLOR};'>{$TITLE}</span>">{$TITLE}</option>
+                                                        <option {if $ID == $orderStatusId}selected="selected" {/if} value="{$ID}" class="badge" style="color: {$COLOR};" data-color="{$COLOR}">{$TITLE}</option>
                                                     {/loop}
                                                     </select>
                                                 </div>
@@ -199,7 +199,7 @@
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-lg-5 col-md-6 order-md-2">
+                                            <div class="col-md-6 order-md-6 col-lg-5 order-lg-7 offset-lg-2">
                                                 <div class="card mb-3">
                                                     <table class="table table-sm table-left-aligned mb-0">
                                                         <tbody class="table-sm">
@@ -232,7 +232,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-lg-5 order-md-1 col-md-6">
+                                            <div class="col-md-6 order-md-2 col-lg-5">
                                                 <div class="card mb-3">
                                                     <div class="card-header">
                                                         <h3 class="card-title">{intl l='Taxes'}</h3>
@@ -862,8 +862,19 @@
 
             });
 
+            $(".js-update-order-status").css({
+                "color": $(this).find("option:selected").data("color"),
+                "border-color": $(this).find("option:selected").data("color")
+            });
+
             $(".js-update-order-status").change(function (e) {
                 e.preventDefault();
+                $(this).css({
+                    "color": $(this).find("option:selected").data("color"),
+                    "border-color": $(this).find("option:selected").data("color")
+                });
+                //trick for updating the caret color in chrome
+                $(this).blur();
                 $('#order-update-status-form').submit();
             });
 
@@ -899,6 +910,8 @@
                     }
                 });
             });
+
+            $
         });
     </script>
 
