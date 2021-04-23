@@ -1,9 +1,5 @@
 {extends file="admin-layout.tpl"}
 
-{block name="after-bootstrap-css"}
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-{/block}
-
 {block name="no-return-functions"}
     {$admin_current_location = 'configuration'}
 {/block}
@@ -39,37 +35,32 @@
                         </div>
 
 
-                        <div class="row">
-                            <div class="col-md-1 text-right">
-                                <p class="form-control-static"><strong>{intl l='Period'} :</strong></p>
-                            </div>
-
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <div class="input-group date">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">{intl l='From'}</span>
-                                        </div>
-                                        <input class="form-control datetime-picker from-datetime-picker" type="text" id="from_date" readonly="readonly">
-                                        <div class="input-group-append">
-                                            <span class="input-group-text"><span class="fas fa-calendar-alt"></span></span>
-                                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-1 col-form-label"><strong>{intl l='Period'} :</strong></label>
+                            <div class="col-md-4 my-1">
+                                <div class="input-group date">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">{intl l='From'}</span>
+                                    </div>
+                                    <input class="form-control" type="date" id="from_date_native">
+                                    <input class="form-control d-none" type="text" id="from_date_flatpickr">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text"><span class="fas fa-calendar-alt"></span></span>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <div class="input-group date">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">{intl l='To'}</span>
-                                        </div>
-                                        <input class="form-control datetime-picker to-datetime-picker" type="text" id="to_date" readonly="readonly">
-                                        <div class="input-group-append">
-                                            <span class="input-group-text">
-                                                <span class="fas fa-calendar-alt"></span>
-                                            </span>
-                                        </div>
+                            <div class="col-md-4 my-1">
+                                <div class="input-group date">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">{intl l='To'}</span>
+                                    </div>
+                                    <input class="form-control" type="date" id="to_date_native">
+                                    <input class="form-control d-none" type="text" id="to_date_flatpickr">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">
+                                            <span class="fas fa-calendar-alt"></span>
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -152,32 +143,39 @@
 {/block}
 
 {block name="javascript-initialization"}
-    <script src="{javascript file='assets/js/bootstrap-switch/bootstrap-switch.js'}"></script>
+    <script type="text/javascript" src="{javascript file='assets/js/flatpickr/flatpickr.js'}"></script>
 
     <script>
         {$langcode = {lang attr="code"}|substr:0:2}
     </script>
 
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <script src="https://npmcdn.com/flatpickr/dist/l10n/{$langcode}.js"></script>
+    <script type="text/javascript" src="{javascript file='assets/js/flatpickr/localization/*.js'}"></script>
 
     <script type="text/javascript">
 
         jQuery(function($) {
 
-            flatpickr('.from-datetime-picker', {
-                allowInput: true,
-                dateFormat: 'Y-m-d',
-                locale: "{$langcode}",
-                defaultDate: new Date().fp_incr(-7)
-            })
+            const datetimeInputType = (document.querySelector('#from_date_native').type === 'date') ? 'native' : 'flatpickr';
 
-            flatpickr('.to-datetime-picker', {
-                allowInput: true,
-                dateFormat: 'Y-m-d',
-                locale: "{$langcode}",
-                defaultDate: "today"
-            })
+            if (datetimeInputType === 'flatpickr') {
+
+                flatpickr('#from_date_flatpickr', {
+                    allowInput: true,
+                    dateFormat: 'Y-m-d',
+                    locale: "{$langcode}",
+                    defaultDate: new Date().fp_incr(-7)
+                })
+
+                flatpickr('#to_date_flatpickr', {
+                    allowInput: true,
+                    dateFormat: 'Y-m-d',
+                    locale: "{$langcode}",
+                    defaultDate: "today"
+                })
+
+                Array.from(document.querySelectorAll('#from_date_native, #to_date_native')).forEach(element => element.classList.add('d-none'));
+                Array.from(document.querySelectorAll('#from_date_flatpickr, #to_date_flatpickr')).forEach(element => element.classList.remove('d-none'));
+            }
 
             $('.js-show-logs').click(function(e) {
 
@@ -199,8 +197,8 @@
                     modules.push($(v).data('id'));
                 });
 
-                var fromDate = document.querySelector('.from-datetime-picker').value;
-                var toDate = document.querySelector('.to-datetime-picker').value;
+                var fromDate = document.querySelector('#from_date_' + datetimeInputType).value;
+                var toDate = document.querySelector('#to_date_' + datetimeInputType).value;
 
                 $.post(
                     "{url path='/admin/configuration/adminLogs/logger'}",

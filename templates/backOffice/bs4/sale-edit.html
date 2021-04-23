@@ -1,9 +1,5 @@
 {extends file="admin-layout.tpl"}
 
-{block name="after-bootstrap-css"}
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-{/block}
-
 {block name="no-return-functions"}
     {$admin_current_location = 'sales'}
 {/block}
@@ -70,7 +66,8 @@
                                     {custom_render_form_field field='start_date'}
                                         {* data-date-format is a moment.js date format *}
                                         <div class="input-group">
-                                            <input type="text" {form_field_attributes field="start_date" extra_class="datetime-picker"}>
+                                            <input type="datetime-local" class="form-control start_date native">
+                                            <input type="text" {form_field_attributes field="start_date" extra_class="start_date fallback d-none"}>
                                             <div class="input-group-append">
                                                 <span class="input-group-text"><span class="fas fa-calendar-alt"></span>
                                             </div>
@@ -80,7 +77,8 @@
                                     {custom_render_form_field field='end_date'}
 
                                         <div class="input-group">
-                                            <input type="text" {form_field_attributes field="end_date" extra_class="datetime-picker"}>
+                                            <input type="datetime-local" class="form-control end_date native">
+                                            <input type="text" {form_field_attributes field="end_date" extra_class="end_date fallback d-none"}>
                                             <div class="input-group-append">
                                                 <span class="input-group-text"><span class="fas fa-calendar-alt"></span>
                                             </div>
@@ -249,34 +247,71 @@
 
 {block name="javascript-initialization"}
 
+    <script src="{javascript file='assets/js/flatpickr/flatpickr.js'}"></script>
+
     <script>
         {$langcode = {lang attr="code"}|substr:0:2}
+        {$flatpickrLocalFile = "assets/js/flatpickr/localization/{$langcode}.js"}
     </script>
 
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <script src="https://npmcdn.com/flatpickr/dist/l10n/{$langcode}.js"></script>
+    <script src="{javascript file=$flatpickrLocalFile}"></script>
 
 <script>
     (function($) {
 
         var loadingProduct = true;
 
-        const startInput = document.querySelector('#sale-update-form #start_date');
-        const endInput = document.querySelector('#sale-update-form #end_date');
+        const saleUpdateForm = document.querySelector('#sale-update-form'),
+            nativeStartInput = saleUpdateForm.querySelector('.start_date.native'),
+            nativeEndInput = saleUpdateForm.querySelector('.end_date.native'),
+            fallbackStartInput = saleUpdateForm.querySelector('.start_date.fallback'),
+            fallbackEndInput = saleUpdateForm.querySelector('.end_date.fallback');
 
-        flatpickr('.datetime-picker', {
-            allowInput: true,
-            enableTime: true,
-            dateFormat: 'Y-m-d H:i:ss',
-            locale: "{$langcode}",
-            onChange: function(selectedDates, dateStr) {
-                if (this.element.id === 'start_date') {
-                    endInput._flatpickr.set('minDate', dateStr);
-                } else if (this.element.id === 'end_date') {
-                    startInput._flatpickr.set('maxDate', dateStr);
+        //if datetime-local is not supported, input[type="datetime-local"] will be converted to input[type="text"]
+        const isDatetimeLocalSupported = saleUpdateForm.querySelector('.native').type === 'datetime-local';
+
+        if (isDatetimeLocalSupported) {
+
+            // use datetime-local input, but fallback input will act as intermediary between server and datetime-local input
+            // data from server (Y-m-d H:i:s) needs to be converted into good format for input[type="datetime-local"] (yyyy-MM-ddThh:mm), and vice versa
+            nativeStartInput.value = fallbackStartInput.value.replace(' ', 'T');
+            nativeEndInput.value = fallbackEndInput.value.replace(' ', 'T');
+
+            if (nativeStartInput.value !== '') nativeEndInput.setAttribute('min', nativeStartInput.value);
+            if (nativeEndInput.value !== '') nativeStartInput.setAttribute('max', nativeEndInput.value);
+
+            nativeStartInput.addEventListener('change', () => {
+                nativeEndInput.setAttribute('min', nativeStartInput.value);
+                fallbackStartInput.value = nativeStartInput.value.replace('T', ' ').concat(':00');
+            });
+            nativeEndInput.addEventListener('change', () => {
+                nativeStartInput.setAttribute('max', nativeEndInput.value);
+                fallbackEndInput.value = nativeEndInput.value.replace('T', ' ').concat(':00');
+            });
+
+        } else {
+
+            // use flatpickr datetime picker as fallback
+            flatpickr('.fallback', {
+                allowInput: true,
+                enableTime: true,
+                dateFormat: 'Y-m-d H:i:ss',
+                locale: "{$langcode}",
+                onChange: function(selectedDates, dateStr) {
+                    if (this.element.id === 'start_date') {
+                        fallbackEndInput._flatpickr.set('minDate', dateStr);
+                    } else if (this.element.id === 'end_date') {
+                        fallbackStartInput._flatpickr.set('maxDate', dateStr);
+                    }
                 }
-            }
-        })
+            });
+
+            if (fallbackStartInput.value !== '') fallbackEndInput._flatpickr.set('minDate', fallbackStartInput.value);
+            if (fallbackEndInput.value !== '') fallbackStartInput._flatpickr.set('maxDate', fallbackEndInput.value);
+
+            [fallbackStartInput, fallbackEndInput].forEach(element => element.classList.remove('d-none'));
+            [nativeStartInput, nativeEndInput].forEach(element => element.classList.add('d-none'));
+        }
 
         // prevent form submission during products load
         $(document.body).on('submit', '#sale-update-form', function(ev) {
@@ -284,14 +319,6 @@
                 return false;
             }
         });
-
-        if (startInput.value !== '') {
-            endInput._flatpickr.set('minDate', startInput.value);
-        }
-
-        if (endInput.value !== '') {
-            startInput._flatpickr.set('maxDate', endInput.value);
-        }
 
         $(document.body).on('change', '.invert-selection', function(ev) {
             var checked = $(this).prop('checked');
