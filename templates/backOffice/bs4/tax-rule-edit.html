@@ -127,9 +127,9 @@
 
                                     <div class="col-md-6">
                                         <div class="row align-items-end">
-                                            <div class="form-group col-md-6">
+                                            <div class="form-group col">
                                                 <label for="country-selector" class="label-control">{intl l="Choose a country"} :</label>
-                                                <select id="country-selector" class="form-control" name="country" >
+                                                <select id="country-selector" class="form-control d-none" name="country">
                                                     {loop type="country" name="country-list" visible="*"}
                                                         {if $HAS_STATES}
                                                             {$country_id=$ID}
@@ -145,9 +145,29 @@
                                                         {/if}
                                                     {/loop}
                                                 </select>
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <input type="text" id="countries-filter" class="form-control" value="" placeholder="{intl l='filter country'}">
+                                                <div class="dropdown country-selector">
+                                                    <div role="button" class="dropdown-toggle form-control" data-toggle="dropdown"></div>
+                                                    <div class="dropdown-menu" style="min-width: 100%;">
+                                                        <div class="p-2">
+                                                            <input type="text" id="countries-filter" class="form-control" value="" placeholder="{intl l='filter country'}">
+                                                        </div>
+                                                        <div style="max-height: 350px; overflow-y: scroll;">
+                                                            {loop type="country" name="country-list" visible="*"}
+                                                                {if $HAS_STATES}
+                                                                    {$country_id=$ID}
+                                                                    {$country_title=$TITLE}
+                                                                    <button class="dropdown-item btn-optgroup font-weight-bold border-top" type="button" disabled>{$country_title}</button>
+                                                                    <button class="dropdown-item pl-5" type="button" data-value="{$country_id}-0">{intl l="all states"}</button>
+                                                                    {loop type="state" name="state-list" visible="*" country={$country_id}}
+                                                                        <button class="dropdown-item pl-5" type="button" data-value="{$country_id}-{$ID}">{$TITLE}</button>
+                                                                    {/loop}
+                                                                {else}
+                                                                    <button class="dropdown-item" type="button" data-value="{$ID}-0">{$TITLE}</button>
+                                                                {/if}
+                                                            {/loop}
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -402,6 +422,7 @@
             var $countrySelector = $('#country-selector');
             var $countryList = $('#country-list');
             var $countriesFilter = $("#countries-filter");
+            var $countriesDropdown = $('.dropdown.country-selector');
 
             var i18n = {
                 'configuration': '{intl l="Configuration"}'
@@ -640,7 +661,7 @@
             /**
              * Try to find a configuration used for this country/state
              */
-            $countrySelector.change(function(e) {
+            $countrySelector.change(function(e) { console.log('change');
                 var country = $('#country-selector').val()
                     , data = country.match(/(\d+)\-(\d+)/)
                     , countryId = 0
@@ -997,23 +1018,25 @@
                 });
             };
 
-            const filterCountries = function filterCountries() {    console.log('filter');
+            const filterCountries = function filterCountries() {
                 const search = $countriesFilter.val().trim().toLowerCase();
 
                 if (search == '') {
-                    $countrySelector.find('option, optgroup').removeClass('hidden');
+                    $countriesDropdown.find('button').removeClass('d-none');
                 } else {
-                    $countrySelector.find('option, optgroup').each(function() {
-                        var $item = $(this);
-                        var text = $item.text();
+                    $countriesDropdown.find('button').each(function() {
+                        let $item = $(this);
+                        let text = $item.text();
 
                         if (text.toLowerCase().indexOf(search) !== -1) {
-                            $item.removeClass('hidden');
+                            $item.removeClass('d-none');
                         } else {
-                            $item.addClass('hidden');
+                            $item.addClass('d-none');
                         }
                     });
                 }
+                //refresh dropdown position (else it will not stick to the dropdown toggler)
+                $countriesDropdown.find('.dropdown-toggle').dropdown('update');
             };
 
             /**
@@ -1052,6 +1075,10 @@
                     $('#tax_list_update_dialog form').on('submit', saveConfiguration);
 
                     $countriesFilter.on('input', filterCountries);
+                    $countriesDropdown.find('.dropdown-menu button').on('click', function(event) {
+                        $countriesDropdown.find('.dropdown-toggle').html($(this).html());
+                        $countrySelector.val($(this).data('value')).trigger('change');
+                    })
 
                     eventsRegistered = true;
                 }

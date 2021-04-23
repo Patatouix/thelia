@@ -145,13 +145,10 @@
 {block name="javascript-initialization"}
     <script type="text/javascript" src="{javascript file='assets/js/flatpickr/flatpickr.js'}"></script>
 
+    {$flatpickrLocalFile = "assets/js/flatpickr/localization/{lang attr="code"}.js"}
+    <script src="{javascript file=$flatpickrLocalFile}"></script>
+
     <script>
-        {$langcode = {lang attr="code"}|substr:0:2}
-    </script>
-
-    <script type="text/javascript" src="{javascript file='assets/js/flatpickr/localization/*.js'}"></script>
-
-    <script type="text/javascript">
 
         jQuery(function($) {
 

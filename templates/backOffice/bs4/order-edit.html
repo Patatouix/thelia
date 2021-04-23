@@ -50,12 +50,22 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-6 col-form-label">{intl l="Order status:"}</label>
                                                 <div class="col-sm-6">
-                                                    <select class="js-update-order-status form-control badge" name="status_id">
+                                                    <select class="js-update-order-status form-control d-none" name="status_id">
                                                     {assign "orderStatusId" $STATUS}
                                                     {loop type="order-status" name="all-status"}
-                                                        <option {if $ID == $orderStatusId}selected="selected" {/if} value="{$ID}" class="badge" style="color: {$COLOR};" data-color="{$COLOR}">{$TITLE}</option>
+                                                        <option {if $ID == $orderStatusId}selected="selected" {/if} value="{$ID}">{$TITLE}</option>
                                                     {/loop}
                                                     </select>
+                                                    <div class="dropdown">
+                                                        <div role="button" class="dropdown-toggle form-control" data-toggle="dropdown"></div>
+                                                        <div class="dropdown-menu" style="min-width: 100%;">
+                                                            {loop type="order-status" name="all-status"}
+                                                                <button class="dropdown-item{if $ID == $orderStatusId} selected{/if}" type="button" data-value="{$ID}">
+                                                                    <span class="badge text-white" style="background-color: {$COLOR}">{$TITLE}</span>
+                                                                </button>
+                                                            {/loop}
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </form>
@@ -862,21 +872,14 @@
 
             });
 
-            $(".js-update-order-status").css({
-                "color": $(this).find("option:selected").data("color"),
-                "border-color": $(this).find("option:selected").data("color")
-            });
+            const statusDropdown = document.querySelector('#order-update-status-form .dropdown');
+            statusDropdown.querySelector('.dropdown-toggle').innerHTML = statusDropdown.querySelector('button.selected').innerHTML;
 
-            $(".js-update-order-status").change(function (e) {
-                e.preventDefault();
-                $(this).css({
-                    "color": $(this).find("option:selected").data("color"),
-                    "border-color": $(this).find("option:selected").data("color")
-                });
-                //trick for updating the caret color in chrome
-                $(this).blur();
+            Array.from(statusDropdown.querySelectorAll('button')).forEach(element => element.addEventListener('click', event => {
+                statusDropdown.querySelector('.dropdown-toggle').innerHTML = element.innerHTML;
+                document.querySelector('#order-update-status-form .js-update-order-status').value = element.dataset.value;
                 $('#order-update-status-form').submit();
-            });
+            }));
 
             $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
                 $(".js-current-tab").val($(e.target).data("tab-name"));

@@ -249,11 +249,7 @@
 
     <script src="{javascript file='assets/js/flatpickr/flatpickr.js'}"></script>
 
-    <script>
-        {$langcode = {lang attr="code"}|substr:0:2}
-        {$flatpickrLocalFile = "assets/js/flatpickr/localization/{$langcode}.js"}
-    </script>
-
+    {$flatpickrLocalFile = "assets/js/flatpickr/localization/{lang attr="code"}.js"}
     <script src="{javascript file=$flatpickrLocalFile}"></script>
 
 <script>
