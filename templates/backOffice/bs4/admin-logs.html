@@ -159,14 +159,14 @@
                 flatpickr('#from_date_flatpickr', {
                     allowInput: true,
                     dateFormat: 'Y-m-d',
-                    locale: "{$langcode}",
+                    locale: '{lang attr="code"}',
                     defaultDate: new Date().fp_incr(-7)
                 })
 
                 flatpickr('#to_date_flatpickr', {
                     allowInput: true,
                     dateFormat: 'Y-m-d',
-                    locale: "{$langcode}",
+                    locale: '{lang attr="code"}',
                     defaultDate: "today"
                 })
 

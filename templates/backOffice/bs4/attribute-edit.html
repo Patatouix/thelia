@@ -295,7 +295,7 @@
 
 {block name="javascript-initialization"}
 
-    {javascripts file='assets/js/bootstrap-editable/bootstrap-editable.js'}
+    {javascripts file='assets/js/thelia-editable/thelia-editable.js'}
         <script src="{$asset_url}"></script>
     {/javascripts}
 
@@ -314,10 +314,10 @@
                 form_name = "thelia.admin.attributeav.creation"
             }
 
-            {* Inline editing of object position using bootstrap-editable *}
+            {* Inline editing of object position using thelia-editable *}
 
             document.querySelectorAll('.positionChange').forEach(element => {
-                new BootstrapEditable(element, {
+                new TheliaEditable(element, {
                     url: "{url noamp='1' path='/admin/configuration/attributes-av/update-position'}",
                     title: '{intl l="Enter new value position"}',
                     positionInputName: 'position',

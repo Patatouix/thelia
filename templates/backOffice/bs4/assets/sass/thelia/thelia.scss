@@ -10,7 +10,6 @@
 @import "tables";
 @import "modals";
 @import "wizard";
-@import "bootstrap-editable";
 @import "bootstrap-switch";
 @import "bootstrap-select";
 @import "tooltip";
@@ -361,8 +360,29 @@ ul.navbar-top-menu li.dropdown:hover > ul.dropdown-menu {
 
 // -- Editable tweaks ---------------------------------------------------------
 
+.editable-clear-x {
+    background: url(#{$imgDir}/clear.png) center center no-repeat;
+    display: block;
+    width: 13px;
+    height: 13px;
+    position: absolute;
+    opacity: 0.6;
+    z-index: 100;
+
+    top: 50%;
+    right: 90px;
+    margin-top: -6px;
+
+}
+
+.editable-clear-x:hover {
+    opacity: 1;
+}
+
 .editable-click, a.editable-click, a.editable-click:hover {
   border-bottom: 1px dotted #0088CC;
+  color: inherit;
+  font-weight: inherit;
 }
 
 .ui-slider{

@@ -292,7 +292,7 @@
                 allowInput: true,
                 enableTime: true,
                 dateFormat: 'Y-m-d H:i:ss',
-                locale: "{$langcode}",
+                locale: '{lang attr="code"}',
                 onChange: function(selectedDates, dateStr) {
                     if (this.element.id === 'start_date') {
                         fallbackEndInput._flatpickr.set('minDate', dateStr);

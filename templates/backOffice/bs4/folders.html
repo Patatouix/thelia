@@ -572,11 +572,7 @@
 
 {block name="javascript-initialization"}
 
-    {javascripts file='assets/js/bootstrap-switch/bootstrap-switch.js'}
-        <script src="{$asset_url}"></script>
-    {/javascripts}
-
-    {javascripts file='assets/js/bootstrap-editable/bootstrap-editable.js'}
+    {javascripts file='assets/js/thelia-editable/thelia-editable.js'}
         <script src="{$asset_url}"></script>
     {/javascripts}
 
@@ -629,10 +625,10 @@
                 });
             });
 
-            {* Inline editing of object position using bootstrap-editable *}
+            {* Inline editing of object position using thelia-editable *}
 
             document.querySelectorAll('.folderPositionChange').forEach(element => {
-                new BootstrapEditable(element, {
+                new TheliaEditable(element, {
                     url: "{url noamp='1' path='/admin/folders/update-position'}",
                     positionInputName: 'position',
                     idInputName: 'folder_id',
@@ -642,7 +638,7 @@
             });
 
             document.querySelectorAll('.contentPositionChange').forEach(element => {
-                new BootstrapEditable(element, {
+                new TheliaEditable(element, {
                     url: "{url noamp='1' path='/admin/content/update-position'}",
                     title: '{intl l="Enter new content position"}',
                     positionInputName: 'position',

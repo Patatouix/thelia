@@ -661,7 +661,7 @@
             /**
              * Try to find a configuration used for this country/state
              */
-            $countrySelector.change(function(e) { console.log('change');
+            $countrySelector.change(function(e) {
                 var country = $('#country-selector').val()
                     , data = country.match(/(\d+)\-(\d+)/)
                     , countryId = 0
@@ -744,9 +744,9 @@
                 lastSelectedSpec = spec;
 
                 // update the modal form
-                $added.closest('.panel').css('display', (countries.length === 0) ? 'none' : 'block');
+                $added.closest('.card').css('display', (countries.length === 0) ? 'none' : 'block');
                 $added.find("span.badge.hidden").removeClass('hidden');
-                $deleted.closest('.panel').css('display', (countriesDeleted.length === 0) ? 'none' : 'block');
+                $deleted.closest('.card').css('display', (countriesDeleted.length === 0) ? 'none' : 'block');
                 $deleted.find("span.badge.hidden").removeClass('hidden');
 
                 $('#country_list').val(JSON.stringify(countries));
@@ -972,7 +972,7 @@
                     ;
 
                     $countryBlock.css('display', 'block');
-                    if ($('#taxes').hasClass('in')) {
+                    if ($('#taxes').hasClass('show')) {
                         hide = $countryBlock.find('span.badge').filter(":visible").length == 0;
                         $countryBlock.css('display', hide ? 'none' : 'block');
                     }
@@ -1058,6 +1058,8 @@
                         render('select-configuration', {'spec': spec, 'specCount': specCount, 'i': i})
                     );
                 }
+                console.log('.dropdown-menu button[value="' + $countrySelector.val() + '"]');
+                $countriesDropdown.find('.dropdown-toggle').html($countriesDropdown.find('.dropdown-menu button[data-value="' + $countrySelector.val() + '"]').html());
 
                 // event
                 if (!eventsRegistered) {
@@ -1074,6 +1076,7 @@
 
                     $('#tax_list_update_dialog form').on('submit', saveConfiguration);
 
+                    $countriesDropdown.on('shown.bs.dropdown', () => $countriesFilter.focus());
                     $countriesFilter.on('input', filterCountries);
                     $countriesDropdown.find('.dropdown-menu button').on('click', function(event) {
                         $countriesDropdown.find('.dropdown-toggle').html($(this).html());
@@ -1112,8 +1115,6 @@
 #tax_list_update_dialog .badge {
     line-height: 1.25;
     cursor: pointer;
-    background-color: #6c757d;
-    color: #fff;
 }
 
 .filter-selected .badge-danger,
@@ -1133,6 +1134,10 @@
     display: none;
     width: 0;
     height: 0;
+}
+.badge-secondary {
+    background-color: #6c757d;
+    color: #fff;
 }
 </style>
 {/block}

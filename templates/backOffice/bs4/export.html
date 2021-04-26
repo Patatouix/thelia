@@ -158,11 +158,8 @@
 {/block}
 
 {block name="javascript-initialization"}
-    {javascripts file='assets/js/bootstrap-switch/bootstrap-switch.js'}
-        <script src="{$asset_url}"></script>
-    {/javascripts}
 
-    {javascripts file='assets/js/bootstrap-editable/bootstrap-editable.js'}
+    {javascripts file='assets/js/thelia-editable/thelia-editable.js'}
         <script src="{$asset_url}"></script>
     {/javascripts}
 
@@ -173,7 +170,7 @@
         $(document).ready(function() {
 
             document.querySelectorAll('.exportPositionChange').forEach(element => {
-                new BootstrapEditable(element, {
+                new TheliaEditable(element, {
                     url: "{url noamp='1' path='/admin/export/position'}",
                     positionInputName: 'value',
                     idInputName: 'id',
@@ -183,7 +180,7 @@
             });
 
             document.querySelectorAll('.exportCategoryPositionChange').forEach(element => {
-                new BootstrapEditable(element, {
+                new TheliaEditable(element, {
                     url: "{url noamp='1' path='/admin/export/position/category'}",
                     positionInputName: 'value',
                     idInputName: 'id',

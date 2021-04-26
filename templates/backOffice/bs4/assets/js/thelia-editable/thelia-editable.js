@@ -1,4 +1,4 @@
-class BootstrapEditable {
+class TheliaEditable {
 
     constructor(element, options) {
         this.element = element;
@@ -7,20 +7,16 @@ class BootstrapEditable {
             html: true,
             sanitize: false,    //by default, popover html content doesn't accept <form> tag
             content:
-                '<div class="editableform-loading" style="display: none;"></div>'
-                + '<form class="form-inline editableform" action="' + options.url + '">'
-                    + '<div class="form-group">'
-                        + '<div class="editable-input" style="position: relative;">'
-                            + '<input type="text" name="' + options.positionInputName + '" class="form-control input-mini" style="padding-right: 24px;">'
-                            + '<input type="hidden" name="' + options.idInputName + '" value="' + options.idInputValue + '">'
-                            + this.additionalInputsHtml(options.additionalInputs)
-                            + '<span class="editable-clear-x"></span>'
+                '<form action="' + options.url + '" class="form-inline">'
+                    + '<div class="input-group">'
+                        + '<input type="text" name="' + options.positionInputName + '" class="form-control">'
+                        + '<span class="editable-clear-x"></span>'
+                        + '<div class="input-group-append">'
+                            + '<button type="submit" class="btn btn-primary"><i class="fas fa-check fa-fw"></i></button>'
+                            + '<button type="button" class="btn btn-secondary editable-cancel"><i class="fas fa-times fa-fw"></i></button>'
                         + '</div>'
-                        + '<button type="submit" class="btn btn-primary btn-sm editable-submit"><i class="fas fa-check"></i></button>'
-                    + '<button type="button" class="btn btn-secondary btn-sm editable-cancel"><i class="fas fa-times"></i></button>'
-                    + '</div>'
-
-                    + '<div class="editable-error-block help-block" style="display: none;"></div>'
+                    + '<input type="hidden" name="' + options.idInputName + '" value="' + options.idInputValue + '">'
+                    + this.additionalInputsHtml(options.additionalInputs)
                 + '</form>'
         }
         this.options = Object.assign(this.defaultOptions, options);
@@ -49,6 +45,9 @@ class BootstrapEditable {
                 )) {
                     popover.popover('hide');
                     $('html').off(event);
+                // input content clearing
+                } else if (event.target === popoverHtml.querySelector('.editable-clear-x')) {
+                    popoverHtml.querySelector('input').value = '';
                 }
             });
         })

@@ -114,10 +114,10 @@
             $('#attribute_delete_id').val($(this).data('id'));
         });
 
-        {* Inline editing of object position using bootstrap-editable *}
+        {* Inline editing of object position using thelia-editable *}
 
         document.querySelectorAll('.attributePositionChange').forEach(element => {
-            new BootstrapEditable(element, {
+            new TheliaEditable(element, {
                 url: "{url noamp='1' path='/admin/template/update-attribute-position'}",
                 title: '{intl l="Enter new category position"}',
                 positionInputName: 'position',

@@ -249,11 +249,7 @@
 
 {block name="javascript-initialization"}
 
-    {javascripts file='assets/js/bootstrap-switch/bootstrap-switch.js'}
-        <script src="{$asset_url}"></script>
-    {/javascripts}
-
-    {javascripts file='assets/js/bootstrap-editable/bootstrap-editable.js'}
+    {javascripts file='assets/js/thelia-editable/thelia-editable.js'}
         <script src="{$asset_url}"></script>
     {/javascripts}
 
@@ -286,10 +282,10 @@
                $($(this).data("target")).parent().toggleClass("d-none d-block position-static");
            });
 
-           {* Inline editing of object position using bootstrap-editable *}
+           {* Inline editing of object position using thelia-editable *}
 
            document.querySelectorAll('.moduleHookPositionChange').forEach(element => {
-                new BootstrapEditable(element, {
+                new TheliaEditable(element, {
                     url: "{url noamp='1' path='/admin/module-hooks/update-position'}",
                     positionInputName: 'position',
                     idInputName: 'module_hook_id',

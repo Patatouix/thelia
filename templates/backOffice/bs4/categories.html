@@ -774,11 +774,7 @@
 
 {block name="javascript-initialization"}
 
-    {javascripts file='assets/js/bootstrap-switch/bootstrap-switch.js'}
-        <script src="{$asset_url}"></script>
-    {/javascripts}
-
-    {javascripts file='assets/js/bootstrap-editable/bootstrap-editable.js'}
+    {javascripts file='assets/js/thelia-editable/thelia-editable.js'}
         <script src="{$asset_url}"></script>
     {/javascripts}
     {javascripts file='assets/js/jquery.typewatch.js'}
@@ -833,10 +829,10 @@
                 });
             });
 
-            {* Inline editing of object position using bootstrap-editable *}
+            {* Inline editing of object position using thelia-editable *}
 
             document.querySelectorAll('.categoryPositionChange').forEach(element => {
-                new BootstrapEditable(element, {
+                new TheliaEditable(element, {
                     url: "{url noamp='1' path='/admin/categories/update-position'}",
                     positionInputName: 'position',
                     idInputName: 'category_id',
@@ -846,7 +842,7 @@
             });
 
             document.querySelectorAll('.productPositionChange').forEach(element => {
-                new BootstrapEditable(element, {
+                new TheliaEditable(element, {
                     url: "{url noamp='1' path='/admin/products/update-position'}",
                     positionInputName: 'position',
                     idInputName: 'product_id',

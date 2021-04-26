@@ -531,10 +531,10 @@ form_content    = {$smarty.capture.delete_category_dialog nofilter}
 			}
 		});
 
-		{* Inline editing of accessory position using bootstrap-editable *}
+		{* Inline editing of accessory position using thelia-editable *}
 
         document.querySelectorAll('.accessoryPositionChange').forEach(element => {
-            new BootstrapEditable(element, {
+            new TheliaEditable(element, {
                 url: "{url noamp='1' path='/admin/product/update-accessory-position'}",
                 title: '{intl l="Enter new accessory position"}',
                 positionInputName: 'position',
@@ -548,7 +548,7 @@ form_content    = {$smarty.capture.delete_category_dialog nofilter}
         });
 
         document.querySelectorAll('.contentPositionChange').forEach(element => {
-            new BootstrapEditable(element, {
+            new TheliaEditable(element, {
                 url: "{url noamp='1' path='/admin/product/update-content-position'}",
                 title: '{intl l="Enter new content position"}',
                 positionInputName: 'position',
