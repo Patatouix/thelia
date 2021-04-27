@@ -2,10 +2,6 @@ $(function($){
     // Manage document upload
     $.documentUploadManager = {};
 
-    Dropzone.autoDiscover = false;
-
-
-
     // Remove document on click
     $.documentUploadManager.initDocumentDropZone = function() {
         $.documentUploadManager.onClickDeleteDocument();

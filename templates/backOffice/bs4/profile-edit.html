@@ -341,7 +341,7 @@
 
             document.querySelectorAll('.toggle-line').forEach((e) => {
                 e.addEventListener('click', () => {
-                    const selector = ".switch_line_"  + e.dataset.id; console.log(selector);
+                    const selector = ".switch_line_"  + e.dataset.id;
                     document.querySelectorAll(selector).forEach((e) => e.checked = !e.checked);
                 });
             });

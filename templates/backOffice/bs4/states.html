@@ -244,35 +244,31 @@
 
 {block name="javascript-initialization"}
 
-    {javascripts file='assets/js/bootstrap-switch/bootstrap-switch.js'}
-        <script src="{$asset_url}"></script>
-
-        <script>
-            $(document).ready(function(){
-                // Toogle switch on input radio
-                $('.switch-radio').on('switch-change', function () {
-                    $('.switch-radio').bootstrapSwitch('toggleRadioState');
-                });
-
-                $('.state-delete').click(function(ev){
-                    $('#state_delete_id').val($(this).data('id'));
-                });
-
-                {* Visibility toggle *}
-
-                $(".visibleToggle").on('change', function(event, data) {
-                    $.ajax({
-                        url : "{url path='admin/configuration/state/toggle-online'}",
-                        data : {
-                            state_id : $(this).data('id'),
-                            action : 'visibilityToggle'
-                        }
-                    });
-                });
+    <script>
+        $(document).ready(function(){
+            // Toogle switch on input radio
+            $('.switch-radio').on('switch-change', function () {
+                $('.switch-radio').bootstrapSwitch('toggleRadioState');
             });
 
-        </script>
-    {/javascripts}
+            $('.state-delete').click(function(ev){
+                $('#state_delete_id').val($(this).data('id'));
+            });
+
+            {* Visibility toggle *}
+
+            $(".visibleToggle").on('change', function(event, data) {
+                $.ajax({
+                    url : "{url path='admin/configuration/state/toggle-online'}",
+                    data : {
+                        state_id : $(this).data('id'),
+                        action : 'visibilityToggle'
+                    }
+                });
+            });
+        });
+
+    </script>
 
 {/block}
 

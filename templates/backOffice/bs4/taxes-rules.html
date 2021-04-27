@@ -10,7 +10,7 @@
 {block name="check-access"}view{/block}
 
 {block name="main-content"}
-    <div class="taxes-rules">
+    <!-- <div class="taxes-rules"> -->
 
         <div class="container-fluid">
 
@@ -213,7 +213,7 @@
             {hook name="taxes-rules.bottom" location="taxes_rules_bottom" }
 
         </div>
-    </div>
+    <!-- </div> -->
 
 {* -- Add tax confirmation dialog ----------------------------------- *}
     {form name="thelia.admin.tax.add"}
@@ -403,10 +403,6 @@ form_content        = {$smarty.capture.tax_delete_dialog nofilter}
 {/block}
 
 {block name="javascript-initialization"}
-
-    {javascripts file='assets/js/bootstrap-select/bootstrap-select.js'}
-        <script src='{$asset_url}'></script>
-    {/javascripts}
 
     <script type="text/javascript">
         jQuery(function($) {

@@ -309,13 +309,6 @@ form_content        = {$smarty.capture.delete_dialog nofilter}
 
 {block name="javascript-initialization"}
 
-{javascripts file='assets/js/bootstrap-switch/bootstrap-switch.js'}
-<script src="{$asset_url}"></script>
-{/javascripts}
-{javascripts file='assets/js/libs/underscore-min.js'}
-<script src="{$asset_url}"></script>
-{/javascripts}
-
 <script>
     $(document).ready(function(){
 
@@ -460,7 +453,7 @@ form_content        = {$smarty.capture.delete_dialog nofilter}
                         newHooks = data.new,
                         content += newTpl({hooks: data.new, locales: locales});
                     }
-                    if (data.missing.length !== 0){ console.log(data.missing);
+                    if (data.missing.length !== 0){
                         missingHooks = data.missing,
                         content += missingTpl({hooks: data.missing, locales: locales});
                     }

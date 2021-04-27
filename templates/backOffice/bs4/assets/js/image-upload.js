@@ -2,8 +2,6 @@ $(function($){
     // Manage picture upload
     $.imageUploadManager = {};
 
-    Dropzone.autoDiscover = false;
-
     // Remove image on click
     $.imageUploadManager.initImageDropZone = function() {
 

@@ -266,48 +266,44 @@
 
 {block name="javascript-initialization"}
 
-    {javascripts file='assets/js/bootstrap-switch/bootstrap-switch.js'}
-        <script src="{$asset_url}"></script>
-
-        <script>
-            $(document).ready(function(){
-                // Toogle switch on input radio
-                $('.switch-radio').on('switch-change', function () {
-                    $('.switch-radio').bootstrapSwitch('toggleRadioState');
-                });
-
-                $('.country-delete').click(function(ev){
-                    $('#country_delete_id').val($(this).data('id'));
-                });
-
-                $('.change-default-toggle').on('change', function(e, data){
-                    if(this.value) {
-                        $.ajax({
-                            url : "{url path='/admin/configuration/country/toggleDefault'}",
-                            data : {
-                                country_id: $(this).data('id')
-                            }
-                        }).fail(function(){
-                            $('#toggle-default-failed').modal('show');
-                        });
-                    }
-                });
-
-                {* Visibility toggle *}
-
-                $(".visibleToggle").on('change', function(event, data) {
-                    $.ajax({
-                        url : "{url path='admin/configuration/country/toggle-online'}",
-                        data : {
-                            country_id : $(this).data('id'),
-                            action : 'visibilityToggle'
-                        }
-                    });
-                });
+    <script>
+        $(document).ready(function(){
+            // Toogle switch on input radio
+            $('.switch-radio').on('switch-change', function () {
+                $('.switch-radio').bootstrapSwitch('toggleRadioState');
             });
 
-        </script>
-    {/javascripts}
+            $('.country-delete').click(function(ev){
+                $('#country_delete_id').val($(this).data('id'));
+            });
+
+            $('.change-default-toggle').on('change', function(e, data){
+                if(this.value) {
+                    $.ajax({
+                        url : "{url path='/admin/configuration/country/toggleDefault'}",
+                        data : {
+                            country_id: $(this).data('id')
+                        }
+                    }).fail(function(){
+                        $('#toggle-default-failed').modal('show');
+                    });
+                }
+            });
+
+            {* Visibility toggle *}
+
+            $(".visibleToggle").on('change', function(event, data) {
+                $.ajax({
+                    url : "{url path='admin/configuration/country/toggle-online'}",
+                    data : {
+                        country_id : $(this).data('id'),
+                        action : 'visibilityToggle'
+                    }
+                });
+            });
+        });
+
+    </script>
 
 {/block}
 
