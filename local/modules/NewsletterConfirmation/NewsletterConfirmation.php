@@ -26,6 +26,8 @@ class NewsletterConfirmation extends BaseModule
     /** @var string */
     const DOMAIN_NAME = 'newsletterconfirmation';
 
+    protected $translator;
+
     public function postActivation(ConnectionInterface $con = null)
     {
         self::setConfigValue('newsletter_email_confirmation', 1);
@@ -46,7 +48,7 @@ class NewsletterConfirmation extends BaseModule
                 $locale = $language->getLocale();
                 $message->setLocale($locale);
                 $message->setSubject(
-                    $this->trans('Your subscription to {$store} newsletter', [], $locale)
+                    $this->trans('Confirmation of your subscription to {config key="store_name"} newsletter', [], $locale)
                 );
                 $message->setTitle(
                     $this->trans('Newsletter subscription confirmation message', [], $locale)

@@ -55,7 +55,6 @@ class NewsletterSubscribeListener implements EventSubscriberInterface
                 [ ConfigQuery::getStoreEmail() => ConfigQuery::getStoreName() ],
                 [ $event->getEmail() => $event->getFirstname()." ".$event->getLastname() ],
                 [
-                    'store' =>  ConfigQuery::read('store_name', 'Thelia'),
                     'email' => $event->getEmail(),
                     'firstname' => $event->getFirstname(),
                     'lastname' => $event->getLastname(),
