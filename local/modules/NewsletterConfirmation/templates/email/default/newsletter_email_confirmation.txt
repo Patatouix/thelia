@@ -1,1 +1,10 @@
-salut ! txt
+{default_translation_domain domain='email.default'}
+{if $firstname || $lastname}
+{intl l="Dear %firstname %lastname," firstname=$firstname lastname=$lastname}
+{else}
+{intl l="Hello,"}
+{/if}
+{intl l="Thank you for your subscription to %store newsletter." store=$store}
+{intl l="Please confirm your email address by clicking the link below, or copying it in your browser address bar."}
+    {url path='/module/newsletterconfirmation/confirmation/confirm' id=$id token=$token}
+{intl l="The %store team." store={config key="store_name"}}

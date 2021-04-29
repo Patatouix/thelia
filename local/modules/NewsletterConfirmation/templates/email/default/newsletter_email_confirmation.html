@@ -6,7 +6,7 @@
 {block name="pre-header"}{/block}
 
 {* Subject  *}
-{block name="email-subject"}{intl l="Your subscription to %store newsletter" store={config key="store_name"}}{/block}
+{block name="email-subject"}{intl l="Your subscription to %store newsletter" store=$store}{/block}
 
 {* Title  *}
 {block name="email-title"}{/block}
@@ -18,8 +18,8 @@
     {else}
         <p>{intl l="Hello,"}</p>
     {/if}
-    <p>{intl l="Thank you for your subscription to %store newsletter." store={config key="store_name"}}</p>
+    <p>{intl l="Thank you for your subscription to %store newsletter." store=$store}</p>
     <p>{intl l="Please confirm your email address by clicking the link below, or copying it in your browser address bar."}</p>
     <p><a href="{url path='/module/newsletterconfirmation/confirmation/confirm' id=$id token=$token}">{url path='/module/newsletterconfirmation/confirmation/confirm' id=$id token=$token}</a></p>
-    <p>{intl l="The %store team." store={config key="store_name"}}</p>
+    <p>{intl l="The %store team." store=$store}</p>
 {/block}

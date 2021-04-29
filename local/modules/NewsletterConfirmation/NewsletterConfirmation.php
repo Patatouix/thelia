@@ -46,12 +46,10 @@ class NewsletterConfirmation extends BaseModule
                 $locale = $language->getLocale();
                 $message->setLocale($locale);
                 $message->setSubject(
-                    //$this->trans('Order {$order_ref} validated. Download your files.', [], $locale)
-                    'sujet'
+                    $this->trans('Your subscription to {$store} newsletter', [], $locale)
                 );
                 $message->setTitle(
-                    //$this->trans('Virtual product download message', [], $locale)
-                    'titre'
+                    $this->trans('Newsletter subscription confirmation message', [], $locale)
                 );
             }
             $message->save();
