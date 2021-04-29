@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database defaultIdMethod="native" name="thelia"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="../../../core/vendor/thelia/propel/resources/xsd/database.xsd" >
+
+    <table name="newsletter_confirmation" namespace="NewsletterConfirmation\Model">
+        <column autoIncrement="true" name="id" primaryKey="true" required="true" type="INTEGER" />
+        <column name="confirmation_token" type="VARCHAR" size="255" required="true" />
+        <column name="newsletter_id" type="INTEGER" required="true" />
+        <foreign-key foreignTable="newsletter" name="fk_newsletter_confirmation_id" onDelete="CASCADE" onUpdate="RESTRICT">
+            <reference foreign="id" local="newsletter_id" />
+        </foreign-key>
+        <behavior name="timestampable" />
+    </table>
+
+    <external-schema filename="local/config/schema.xml" referenceOnly="true" />
+
+</database>

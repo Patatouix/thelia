@@ -1,0 +1,25 @@
+{extends file="email-layout.tpl"}
+
+{* Do not provide a "Open in browser" link  *}
+{block name="browser"}{/block}
+{* No pre-header *}
+{block name="pre-header"}{/block}
+
+{* Subject  *}
+{block name="email-subject"}{intl l="Your subscription to %store newsletter" store={config key="store_name"}}{/block}
+
+{* Title  *}
+{block name="email-title"}{/block}
+
+{* Content  *}
+{block name="email-content"}
+    {if $firstname || $lastname}
+        <p>{intl l="Dear %firstname %lastname," firstname=$firstname lastname=$lastname}</p>
+    {else}
+        <p>{intl l="Hello,"}</p>
+    {/if}
+    <p>{intl l="Thank you for your subscription to %store newsletter." store={config key="store_name"}}</p>
+    <p>{intl l="Please confirm your email address by clicking the link below, or copying it in your browser address bar."}</p>
+    <p><a href="{url path='/module/newsletterconfirmation/confirmation/confirm' id=$id token=$token}">{url path='/module/newsletterconfirmation/confirmation/confirm' id=$id token=$token}</a></p>
+    <p>{intl l="The %store team." store={config key="store_name"}}</p>
+{/block}
