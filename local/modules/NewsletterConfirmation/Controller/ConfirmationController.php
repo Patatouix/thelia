@@ -18,22 +18,23 @@ class ConfirmationController extends BaseFrontController
         $success = false;
 
         if ($newsletterConfirmationId && $tokenFromUrl) {
-            $newsletterConfirmation = NewsletterConfirmationQuery::create()->findPk($newsletterConfirmationId);
-            $tokenFromDb = $newsletterConfirmation->getConfirmationToken();
+            if (null !== $newsletterConfirmation = NewsletterConfirmationQuery::create()->findPk($newsletterConfirmationId)) {
+                $tokenFromDb = $newsletterConfirmation->getConfirmationToken();
 
-            //compare tokens
-            if ($tokenFromUrl === $tokenFromDb) {
+                //compare tokens
+                if ($tokenFromUrl === $tokenFromDb) {
 
-                $newsletter = $newsletterConfirmation->getNewsletter();
-                $event = new NewsletterEvent(
-                    $newsletter->getEmail(),
-                    $newsletter->getLocale()
-                );
-                $event->setNewsletter($newsletter);
+                    $newsletter = $newsletterConfirmation->getNewsletter();
+                    $event = new NewsletterEvent(
+                        $newsletter->getEmail(),
+                        $newsletter->getLocale()
+                    );
+                    $event->setNewsletter($newsletter);
 
-                $this->dispatch(TheliaEvents::NEWSLETTER_CONFIRM_SUBSCRIPTION, $event);
+                    $this->dispatch(TheliaEvents::NEWSLETTER_CONFIRM_SUBSCRIPTION, $event);
 
-                $success = true;
+                    $success = true;
+                }
             }
         }
 
