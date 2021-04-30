@@ -1,0 +1,30 @@
+{extends file="layout.tpl"}
+
+{* Breadcrumb *}
+{block name='no-return-functions' append}
+    {$breadcrumbs = [['title' => {intl l="Newsletter"}, 'url'=>{url path="/newsletter-unsubscribe"}]]}
+{/block}
+
+{block name="main-content"}
+    <div class="main">
+        <article class="col-main" role="main" aria-labelledby="main-label">
+            <h1 id="main-label" class="page-header">{intl l="Newsletter Subscription Confirmation" d="newsletterconfirmation.fo.default"}</h1>
+            {hook name="newsletter-confirmation.top"}
+            <p>{intl l="We confirm the subscription of your email address '%email' to %store newsletter." email={$email} store={config key="store_name"} d="newsletterconfirmation.fo.default"}</p>
+            {hook name="newsletter-confirmation.bottom"}
+        </article>
+    </div>
+{/block}
+
+
+{block name="stylesheet"}
+    {hook name="newsletter-unsubscribe.stylesheet"}
+{/block}
+
+{block name="after-javascript-include"}
+    {hook name="newsletter-unsubscribe.after-javascript-include"}
+{/block}
+
+{block name="javascript-initialization"}
+    {hook name="newsletter-unsubscribe.javascript-initialization"}
+{/block}

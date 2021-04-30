@@ -4,12 +4,8 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
 
-    <route id="newsletterconfirmation.configuration" path="/admin/module/newsletterconfirmation/configuration/update" methods="post">
-        <default key="_controller">NewsletterConfirmation\Controller\Configuration::editConfiguration</default>
-    </route>
-
     <route id="newsletterconfirmation.confirmation" path="/module/newsletterconfirmation/confirmation/confirm" methods="get">
-        <default key="_controller">NewsletterConfirmation\Controller\Confirmation::confirm</default>
+        <default key="_controller">NewsletterConfirmation\Controller\ConfirmationController::confirm</default>
     </route>
 
 </routes>

@@ -16,7 +16,7 @@ use Thelia\Model\ConfigQuery;
  * @package AreaDeletedListener\EventListener
  * @author Thomas Arnaud <tarnaud@openstudio.fr>
  */
-class NewsletterSubscribeListener implements EventSubscriberInterface
+class NewsletterConfirmSubscriptionListener implements EventSubscriberInterface
 {
     protected $mailer;
     protected $tokenProvider;
@@ -30,12 +30,19 @@ class NewsletterSubscribeListener implements EventSubscriberInterface
     /**
      * @param AreaDeleteEvent $event
      */
-    public function updateConfig(NewsletterEvent $event)
+    public function verifyEmail(NewsletterEvent $event)
     {
-        if ($data = NewsletterConfirmation::getConfigValue('newsletter_email_confirmation', 1)) {
+        $newsletter = $event->getNewsletter();
+
+        if ($newsletter->getUnsubscribed()) {
+            $newsletter
+                ->setUnsubscribed(false)
+                ->save();
+        } else {
+            //prevents email subscription confirmation from being sent
+            $event->stopPropagation();
 
             //unsubscribe user
-            $newsletter = $event->getNewsletter();
             $newsletter
                 ->setUnsubscribed(true)
                 ->save();
@@ -50,6 +57,7 @@ class NewsletterSubscribeListener implements EventSubscriberInterface
                 ->setNewsletterId($newsletter->getId())
                 ->save();
 
+            //send verification email
             $this->mailer->sendEmailMessage(
                 'newsletter_email_confirmation',
                 [ ConfigQuery::getStoreEmail() => ConfigQuery::getStoreName() ],
@@ -72,8 +80,8 @@ class NewsletterSubscribeListener implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            TheliaEvents::NEWSLETTER_SUBSCRIBE => [
-                'updateConfig', 128
+            TheliaEvents::NEWSLETTER_CONFIRM_SUBSCRIPTION => [
+                'verifyEmail', 256
             ]
         ];
     }

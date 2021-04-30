@@ -20,6 +20,7 @@ use Thelia\Model\MessageQuery;
 use Thelia\Model\Message;
 use Thelia\Model\LangQuery;
 use Thelia\Core\Translation\Translator;
+use Thelia\Model\ConfigQuery;
 
 class NewsletterConfirmation extends BaseModule
 {
@@ -30,7 +31,7 @@ class NewsletterConfirmation extends BaseModule
 
     public function postActivation(ConnectionInterface $con = null)
     {
-        self::setConfigValue('newsletter_email_confirmation', 1);
+        ConfigQuery::write('notify_newsletter_subscription', 1);
 
         $database = new Database($con);
         $database->insertSql(null, array(__DIR__ . '/Config/sql/create.sql'));
@@ -61,8 +62,6 @@ class NewsletterConfirmation extends BaseModule
     public function destroy(ConnectionInterface $con = null, $deleteModuleData = false)
     {
         if ($deleteModuleData) {
-            ModuleConfigQuery::create()->deleteConfigValue(self::getModuleId(), 'newsletter_email_confirmation');
-
             $database = new Database($con);
             $database->insertSql(null, array(__DIR__ . '/Config/sql/destroy.sql'));
         }

@@ -1,4 +1,4 @@
-{default_translation_domain domain='email.default'}
+{default_translation_domain domain='newsletterconfirmation.email.default'}
 {if $firstname || $lastname}
 {intl l="Dear %firstname %lastname," firstname=$firstname lastname=$lastname}
 {else}
