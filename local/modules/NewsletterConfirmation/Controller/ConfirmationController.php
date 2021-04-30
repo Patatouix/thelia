@@ -39,7 +39,7 @@ class ConfirmationController extends BaseFrontController
         }
 
         return $this->render('newsletter', [
-            'success' => $success,
+            'confirmation_success' => $success,
             'email' => ($success ? $newsletter->getEmail() : null)
         ]);
     }
