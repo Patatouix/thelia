@@ -13,11 +13,17 @@
         <language>en_US</language>
         <language>fr_FR</language>
     </languages>
-    <version>0.2.0</version>
-    <author>
-        <name>Thierry Caresmel</name>
-        <email>thierry@pixel-plurimedia.fr</email>
-    </author>
+    <version>1.0.0</version>
+    <authors>
+        <author>
+            <name>Charles Anguenot</name>
+            <email>charles@pixel-plurimedia.fr</email>
+        </author>
+        <author>
+            <name>Thierry Caresmel</name>
+            <email>thierry@pixel-plurimedia.fr</email>
+        </author>
+    </authors>
     <type>classic</type>
     <thelia>2.4.3</thelia>
     <stability>alpha</stability>

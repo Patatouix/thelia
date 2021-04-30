@@ -1,6 +1,6 @@
 # Newsletter Confirmation
 
-Add a short description here. You can also add a screenshot if needed.
+Module for Thelia that verifies the email of newsletter subscribers, by sending them an email with a link they have to click in order to confirm their subscription.
 
 ## Installation
 
@@ -17,39 +17,14 @@ Add it in your main thelia composer.json file
 composer require your-vendor/newsletter-confirmation-module:~1.0
 ```
 
-## Usage
+## Events
 
-Explain here how to use your module, how to configure it, etc.
+The module listens to and dispatches NEWSLETTER_CONFIRM_SUBSCRIPTION event.
 
 ## Hook
 
-If your module use one or more hook, fill this part. Explain which hooks are used.
-
-
-## Loop
-
-If your module declare one or more loop, describe them here like this :
-
-[loop name]
-
-### Input arguments
-
-|Argument |Description |
-|---      |--- |
-|**arg1** | describe arg1 with an exemple. |
-|**arg2** | describe arg2 with an exemple. |
-
-### Output arguments
-
-|Variable   |Description |
-|---        |--- |
-|$VAR1    | describe $VAR1 variable |
-|$VAR2    | describe $VAR2 variable |
-
-### Exemple
-
-Add a complete exemple of your loop
+The module uses "newsletter.top" hook in order to display a message on newsletter.html after the email link click.
 
 ## Other ?
 
-If you have other think to put, feel free to complete your readme as you want.
+I'm a beginner developper and Thelia user. Use this module at your own risk.

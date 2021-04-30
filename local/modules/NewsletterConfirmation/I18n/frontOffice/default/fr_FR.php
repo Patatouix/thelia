@@ -1,7 +1,6 @@
 <?php
 
 return array(
-    'Newsletter Subscription Confirmation' => 'Confirmation de votre inscription à la Newsletter',
-    'An error occured during the confirmation of your subscription to %store newsletter.' => 'Une erreur s\'est produite lors de la confirmation de votre inscription à la newsletter de %store.',
-    'We confirm the subscription of your email address \'%email\' to %store newsletter.' => 'Nous vous confirmons l\'inscription de votre adresse \'%email\' à la newsletter de %store.',
+   'Your subscription to the %store newsletter on your email adress %email has been successfully confirmed !' => 'Votre inscription à la newsletter de %store sur l\'adresse e-mail %email a été confirmée !',
+   'An error occured. Your subscription to the %store newsletter has not been confirmed.' => 'Une erreur s\'est produite. Votre inscription à la newsletter de %store n\'a pas pu être confirmée.'
 );

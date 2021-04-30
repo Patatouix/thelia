@@ -2,7 +2,7 @@
 
 namespace NewsletterConfirmation\EventListeners;
 
-use NewsletterConfirmation\NewsletterConfirmation;
+use NewsletterConfirmation\Model\Base\NewsletterConfirmationQuery;
 use NewsletterConfirmation\Model\NewsletterConfirmation as ModelNewsletterConfirmation;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Thelia\Core\Event\TheliaEvents;
@@ -51,7 +51,10 @@ class NewsletterConfirmSubscriptionListener implements EventSubscriberInterface
             $token = $this->tokenProvider->getToken();
 
             //store token in newsletter_confirmation table
-            $newsletterConfirmation = new ModelNewsletterConfirmation();
+            if (null === $newsletterConfirmation = NewsletterConfirmationQuery::create()->findOneByNewsletterId($newsletter->getId())) {
+                $newsletterConfirmation = new ModelNewsletterConfirmation();
+            }
+
             $newsletterConfirmation
                 ->setConfirmationToken($token)
                 ->setNewsletterId($newsletter->getId())

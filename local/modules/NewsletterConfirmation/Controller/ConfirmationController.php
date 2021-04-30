@@ -3,21 +3,9 @@
 namespace NewsletterConfirmation\Controller;
 
 use NewsletterConfirmation\Model\NewsletterConfirmationQuery;
-use NewsletterConfirmation\NewsletterConfirmation;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Thelia\Controller\Admin\BaseAdminController;
-use Thelia\Controller\BaseController;
 use Thelia\Controller\Front\BaseFrontController;
 use Thelia\Core\Event\TheliaEvents;
-use Thelia\Core\Security\AccessManager;
-use Thelia\Core\Security\Resource\AdminResources;
-use Thelia\Form\Exception\FormValidationException;
-use Thelia\Mailer\MailerFactory;
-use Thelia\Model\Newsletter;
-use Thelia\Model\NewsletterQuery;
-use Thelia\Tools\URL;
-use Thelia\Model\ConfigQuery;
 use Thelia\Core\Event\Newsletter\NewsletterEvent;
 
 class ConfirmationController extends BaseFrontController
@@ -26,6 +14,8 @@ class ConfirmationController extends BaseFrontController
     {
         $newsletterConfirmationId = $request->get('id');
         $tokenFromUrl = $request->get('token');
+
+        $success = false;
 
         if ($newsletterConfirmationId && $tokenFromUrl) {
             $newsletterConfirmation = NewsletterConfirmationQuery::create()->findPk($newsletterConfirmationId);
@@ -42,15 +32,14 @@ class ConfirmationController extends BaseFrontController
                 $event->setNewsletter($newsletter);
 
                 $this->dispatch(TheliaEvents::NEWSLETTER_CONFIRM_SUBSCRIPTION, $event);
-            }
 
-            return $this->render('newsletter-confirmation', [
-                'email' => $newsletter->getEmail()
-            ]);
+                $success = true;
+            }
         }
-        else
-        {
-            return $this->render('newsletter-confirmation-error');
-        }
+
+        return $this->render('newsletter', [
+            'success' => $success,
+            'email' => ($success ? $newsletter->getEmail() : null)
+        ]);
     }
 }

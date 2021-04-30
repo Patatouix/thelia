@@ -12,4 +12,10 @@
         </service>
     </services>
 
+    <hooks>
+        <hook id="newsletterconfirmation.hook">
+            <tag name="hook.event_listener" event="newsletter.top" type="front" templates="render:newsletter_confirmation_alert.html" />
+        </hook>
+    </hooks>
+
 </config>
