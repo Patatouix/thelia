@@ -246,10 +246,6 @@
 
     <script>
         $(document).ready(function(){
-            // Toogle switch on input radio
-            $('.switch-radio').on('switch-change', function () {
-                $('.switch-radio').bootstrapSwitch('toggleRadioState');
-            });
 
             $('.state-delete').click(function(ev){
                 $('#state_delete_id').val($(this).data('id'));

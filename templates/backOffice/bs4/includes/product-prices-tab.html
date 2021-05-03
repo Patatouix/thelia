@@ -345,7 +345,7 @@
 	                {hook name="product.before-combinations" location="product_before_combinations" }
 
                     <div class="table-responsive">
-                        <table class="table table-striped table-sm" id="combinations_list">
+                        <table class="table table-striped table-sm table-fit" id="combinations_list">
                             <caption>
                                 {intl l='Attribute Combinations'}
 
@@ -582,7 +582,7 @@
 	</div>
 
 
-	<div id="attribute_value_selector" class="hide">
+	<div id="attribute_value_selector" class="d-none">
 	    <div class="input-group">
 	        {* <label class="col-form-label">{intl l="Attribute values"} : </label> *}
 
@@ -598,14 +598,14 @@
 	    <span class="form-text">{intl l='Select a value click (+) to add it to the combination'}</span>
 	</div>
 
-	<div id="attribute_value_selector_empty" class="hide">
+	<div id="attribute_value_selector_empty" class="d-none">
 	    <div class="alert alert-info">
 	       {intl l="No available value for this attribute"}
 	   </div>
 	</div>
 
 	<div class="form-group">
-	    <div class="alert alert-danger hide" id="combination_attributes_error"></div>
+	    <div class="alert alert-danger d-none" id="combination_attributes_error"></div>
 
 	    <select required="required" multiple="multiple" size="5" name="combination_attributes[]" id="combination_attributes" class="form-control">
 	    </select>

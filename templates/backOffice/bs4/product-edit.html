@@ -247,11 +247,11 @@
                                 <input name="search" class="js-input-search form-control" type="text"/>
                             </div>
                         </div>
-                        <div class="js-loader text-center hide">{intl l="Please wait, loading"}</div>
-                        <div class="alert alert-warning text-center hide js-alert-no-result">
+                        <div class="js-loader text-center d-none">{intl l="Please wait, loading"}</div>
+                        <div class="alert alert-warning text-center d-none js-alert-no-result">
                             {intl l="No results found for your search."}
                         </div>
-                        <div class="form-group js-block-search-result hide">
+                        <div class="form-group js-block-search-result d-none">
                             <select class="form-control" size="10"></select>
                         </div>
                     </div>
@@ -384,20 +384,20 @@ $(function() {
                      });
 
                      if (have_content) {
-                         $('#attribute_value_selector_empty').addClass('hide');
-                         $('#attribute_value_selector').removeClass('hide');
+                         $('#attribute_value_selector_empty').addClass('d-none');
+                         $('#attribute_value_selector').removeClass('d-none');
                      }
                      else {
-                         $('#attribute_value_selector_empty').removeClass('hide');
-                         $('#attribute_value_selector').addClass('hide');
+                         $('#attribute_value_selector_empty').removeClass('d-none');
+                         $('#attribute_value_selector').addClass('d-none');
                      }
 
                  }
             });
         }
         else {
-            $('#attribute_value_selector_empty').addClass('hide');
-            $('#attribute_value_selector').addClass('hide');
+            $('#attribute_value_selector_empty').addClass('d-none');
+            $('#attribute_value_selector').addClass('d-none');
         }
     });
 
@@ -405,16 +405,19 @@ $(function() {
     $('.add-value-to-combination').click(function(event) {
 
         // Hide error message
-        $('#combination_attributes_error').text('').addClass('hide');
+        $('#combination_attributes_error').text('').addClass('d-none');
 
         // Select all elements
         $('#combination_attributes option').prop('selected', 'selected');
+
+        // value returned by jQuery >3.0 when no option selected has changed from null to []
+        const combinationAttributesVal = Array.isArray($('#combination_attributes').val()) && $('#combination_attributes').val().length ? $('#combination_attributes').val() : null;
 
         $.ajax({
             url      : '{url path="/admin/product/%id/add-attribute-value-to-combination/" id=$product_id}'
                             + $('#attribute_value_id').val()
                             + '/'
-                            + $('#combination_attributes').val()
+                            + combinationAttributesVal
                             + '.xml',
             type     : 'get',
             dataType : 'json',
@@ -429,7 +432,7 @@ $(function() {
                 });
 
                 if (json.error)
-                    $('#combination_attributes_error').text(json.error).removeClass('hide');
+                    $('#combination_attributes_error').text(json.error).removeClass('d-none');
 
                 $('#attribute_id').val('').change();
             }
@@ -606,11 +609,11 @@ $(function() {
             toggle_event = "click";
         } else if ($this.hasClass("pse-assoc-document")) {
             type = "document";
-            toggle_event = "switch-change";
+            toggle_event = "change";
         } else {
             if ($this.data("type")){
                 type = $this.data("type");
-                toggle_event = "switch-change";
+                toggle_event = "change";
             }
         }
 
@@ -641,14 +644,6 @@ $(function() {
                         } else {
                             $file.addClass("is-associated");
                             $file.parent().append("<span class='fas fa-check product-pse-image-join-glyphicon'></span>");
-                        }
-                    } else if (type == "virtual") {
-                        if ( $file.bootstrapSwitch('status') ) {
-                            $(".do-associate").each(function(){
-                                if (type_id != $(this).data("id") && $(this).bootstrapSwitch('status')) {
-                                    $(this).bootstrapSwitch('setState', false);
-                                }
-                            });
                         }
                     }
 
@@ -711,8 +706,8 @@ $(function() {
         };
 
         $modalSearch.dismiss = function(){
-            $modalSearch.find('.js-block-search-result').addClass('hide');
-            $modalSearch.find('.js-alert-no-result').addClass('hide');
+            $modalSearch.find('.js-block-search-result').addClass('d-none');
+            $modalSearch.find('.js-alert-no-result').addClass('d-none');
             $modalSearch.find('.js-input-search').val('');
             $modalSearch.modal('hide');
         };
@@ -739,7 +734,7 @@ $(function() {
                 clearTimeout(searchTimer);
             }
 
-            $modalSearch.find('.js-alert-no-result').addClass('hide');
+            $modalSearch.find('.js-alert-no-result').addClass('d-none');
 
             var ajaxData = { q: val };
             if($modalSearch.data('filterbycategory') == '1'){
@@ -747,7 +742,7 @@ $(function() {
             }
 
             if (val.length > 2) {
-                $modalSearch.find('.js-loader').removeClass('hide');
+                $modalSearch.find('.js-loader').removeClass('d-none');
 
                 searchTimer = setTimeout(function() {
                     $.ajax({
@@ -756,7 +751,7 @@ $(function() {
                         dataType: 'json',
                         method: 'GET',
                         success: function(data) {
-                            $modalSearch.find('.js-loader').addClass('hide');
+                            $modalSearch.find('.js-loader').addClass('d-none');
                             var options = [];
                             for (var id in data) {
                                 options.push('<option value="' + id + '">' + data[id] + '</option>');
@@ -764,22 +759,22 @@ $(function() {
 
                             if (options.length > 0) {
                                 $modalSearch.find(".js-block-search-result select").html(options.join(''));
-                                $modalSearch.find('.js-block-search-result').removeClass('hide');
+                                $modalSearch.find('.js-block-search-result').removeClass('d-none');
                             } else {
                                 this.error();
                             }
                         },
                         error: function() {
-                            $modalSearch.find('.js-loader').addClass('hide');
+                            $modalSearch.find('.js-loader').addClass('d-none');
 
-                            $modalSearch.find('.js-block-search-result').addClass('hide');
-                            $modalSearch.find('.js-alert-no-result').removeClass('hide');
+                            $modalSearch.find('.js-block-search-result').addClass('d-none');
+                            $modalSearch.find('.js-alert-no-result').removeClass('d-none');
                         }
                     });
                 }, 350, this);
             } else {
-                $modalSearch.find('.js-loader').addClass('hide');
-                $modalSearch.find('.js-block-search-result').addClass('hide');
+                $modalSearch.find('.js-loader').addClass('d-none');
+                $modalSearch.find('.js-block-search-result').addClass('d-none');
             }
         });
 

@@ -182,3 +182,20 @@ caption {
         border: $table-border-width solid $table-border-color;
     }
 }
+
+@mixin width-auto {
+    width: auto !important;
+}
+
+table {
+    &.table-fit {
+        @include width-auto;
+        table-layout: auto !important;
+        thead th, tfoot th  {
+            @include width-auto;
+        }
+        tbody td, tfoot td {
+            @include width-auto;
+        }
+    }
+}

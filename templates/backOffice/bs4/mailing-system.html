@@ -125,9 +125,6 @@
 <script type="text/javascript">
 
 jQuery(function($) {
-    $('#enable-smtp').on('switch-change', function (e, data) {
-        $('#smtp_enabled').val(data.value ? 1 : 0);
-    });
 
     $('#test-send').on("click", function(e){
         e.preventDefault();

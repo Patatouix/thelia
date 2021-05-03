@@ -5,7 +5,7 @@
 {block name="check-access"}update{/block}
 
 {block name="main-content"}
-    <div class="documents edit-document">
+    <!-- <div class="documents edit-document"> -->
 
         <div class="container-fluid">
 
@@ -27,7 +27,7 @@
         					   {intl l='Edit document "%name"' name="{$TITLE}"}
         					</div>
 
-                            <div class="form-container">
+                            <div class="col form-container">
                                 <div class="col-md-12">
         						    {form name="$formId"}
         						    	<form method="POST" action="{url path="/admin/document/type/%document/%id/update" document=$documentType id=$ID}" enctype="multipart/form-data" class="clearfix">
@@ -129,7 +129,7 @@
             {/elseloop}
 
         </div>
-    </div>
+    <!-- </div> -->
 {/block}
 
 {block name="javascript-last-call"}

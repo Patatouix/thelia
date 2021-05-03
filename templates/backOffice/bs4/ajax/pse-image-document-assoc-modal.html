@@ -68,8 +68,9 @@
                                                 <td>{$item.filename}</td>
                                                 <td>{$item.title}</td>
                                                 <td>
-                                                    <div class="switch-small do-associate document-switch" data-id="{$item.id}"  data-on="success" data-off="danger" data-on-label="<i class='far fa-check-circle'></i>" data-off-label="<i class='far fa-times-circle'></i>">
-                                                        <input type="checkbox" {if $item.is_associated}checked{/if}>
+                                                    <div class="custom-control custom-switch">
+                                                        <input type="checkbox" id="customSwitch{$item.id}" class="custom-control-input do-associate" data-id="{$item.id}" {if $item.is_associated}checked{/if}>
+                                                        <label for="customSwitch{$item.id}" class="custom-control-label"></label>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -87,7 +88,3 @@
         </div>
     </div>
 </div>
-
-<script>
-    $(".document-switch").bootstrapSwitch();
-</script>

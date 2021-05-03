@@ -82,7 +82,7 @@
                                                 <td><a href="{url path="/admin/configuration/country/update/%id" id=$ID}">{$TITLE}</a></td>
                                                 <td>
                                                     <div class="custom-control custom-switch">
-                                                        <input type="checkbox" id="customSwitchDefault{$ID}" name="by_default" value="{$ID}" class="custom-control-input change-default-toggle" data-id="{$ID}" {if $IS_DEFAULT}checked="checked"{/if}>
+                                                        <input type="checkbox" id="customSwitchDefault{$ID}" name="by_default" value="{$ID}" class="custom-control-input change-default-toggle" data-id="{$ID}" {if $IS_DEFAULT}checked="checked" disabled{/if}>
                                                         <label for="customSwitchDefault{$ID}" class="custom-control-label"></label>
                                                     </div>
                                                 </td>
@@ -268,16 +268,19 @@
 
     <script>
         $(document).ready(function(){
-            // Toogle switch on input radio
-            $('.switch-radio').on('switch-change', function () {
-                $('.switch-radio').bootstrapSwitch('toggleRadioState');
-            });
 
             $('.country-delete').click(function(ev){
                 $('#country_delete_id').val($(this).data('id'));
             });
 
             $('.change-default-toggle').on('change', function(e, data){
+                // simulates radio behavior (only 1 checked)
+                $('.change-default-toggle:checked').not(this).prop({
+                    checked: false,
+                    disabled: false
+                });
+                this.disabled = true;
+
                 if(this.value) {
                     $.ajax({
                         url : "{url path='/admin/configuration/country/toggleDefault'}",

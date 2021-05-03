@@ -142,7 +142,7 @@
 
            var url_management = "{url path="/admin/module/toggle-activation/"}";
            $(".module-activation").on("change", function(e, data){
-
+               const checkbox = this;
                $('body').append('<div class="modal-backdrop fade in" id="loading-event"><div class="loading"></div></div>');
                $.ajax({
                     url: url_management+$(this).data('id')
@@ -151,7 +151,7 @@
                }).done(function() {
                    location.reload();
                }).fail(function(jqXHR, textStatus, errorThrown){
-                    $(this).bootstrapSwitch('toggleState', true);
+                    checkbox.checked = !checkbox.checked;
                     $('#module-failed-body').html(jqXHR.responseJSON.error);
                     $("#module-failed").modal("show");
                });

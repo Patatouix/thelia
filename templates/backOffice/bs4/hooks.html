@@ -335,16 +335,12 @@ form_content        = {$smarty.capture.delete_dialog nofilter}
         };
 
         {literal}
-        // Toogle switch on input radio
-        $('.switch-radio').on('switch-change', function () {
-            $('.switch-radio').bootstrapSwitch('toggleRadioState');
-        });
 
         $('.hook-delete').click(function(ev){
             $('#hook_delete_id').val($(this).data('id'));
         });
 
-        $('.hook-native').on('switch-change', function(e, data){
+        $('.hook-native').on('change', function(e, data){
             $.ajax({
                 url : urls['native'],
                 data : {

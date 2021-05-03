@@ -187,9 +187,9 @@
                                     <td></td>
                                     <td class="text-right">
                                         {if $one_domain_per_lang == 0}
-                                            <a href="{url path="/admin/configuration/languages/domain/activate"}" class="btn btn-success"><span class="fas fa-check-sign"></span> {intl l="activate"}</a>
+                                            <a href="{url path="/admin/configuration/languages/domain/activate"}" class="btn btn-success"><span class="far fa-check-circle"></span> {intl l="activate"}</a>
                                         {else}
-                                            <a href="{url path="/admin/configuration/languages/domain/deactivate"}" class="btn btn-danger"><span class="fas fa-check-sign"></span> {intl l="deactivate"}</a>
+                                            <a href="{url path="/admin/configuration/languages/domain/deactivate"}" class="btn btn-danger"><span class="far fa-times-circle"></span> {intl l="deactivate"}</a>
                                         {/if}
 
                                         <button type="submit" {if $one_domain_per_lang == 0}disabled{/if} class="btn btn-primary"><span class="far fa-check-square"></span> {intl l="Save"}</button>
