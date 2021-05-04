@@ -12,19 +12,16 @@ class ConfirmationController extends BaseFrontController
 {
     public function confirm(Request $request)
     {
-        $newsletterConfirmationId = $request->get('id');
-        $tokenFromUrl = $request->get('token');
+        $alert = 'danger';
 
-        $success = false;
+        if (null !== $newsletterConfirmation = NewsletterConfirmationQuery::create()->findPk($request->get('id', null))) {
+            $tokenFromDb = $newsletterConfirmation->getConfirmationToken();
+            $newsletter = $newsletterConfirmation->getNewsletter();
 
-        if ($newsletterConfirmationId && $tokenFromUrl) {
-            if (null !== $newsletterConfirmation = NewsletterConfirmationQuery::create()->findPk($newsletterConfirmationId)) {
-                $tokenFromDb = $newsletterConfirmation->getConfirmationToken();
-
+            //first check if newsletter is unsubscribed
+            if ($newsletter->getUnsubscribed()) {
                 //compare tokens
-                if ($tokenFromUrl === $tokenFromDb) {
-
-                    $newsletter = $newsletterConfirmation->getNewsletter();
+                if ($request->get('token', null) === $tokenFromDb) {
                     $event = new NewsletterEvent(
                         $newsletter->getEmail(),
                         $newsletter->getLocale()
@@ -33,14 +30,16 @@ class ConfirmationController extends BaseFrontController
 
                     $this->dispatch(TheliaEvents::NEWSLETTER_CONFIRM_SUBSCRIPTION, $event);
 
-                    $success = true;
+                    $alert = 'success';
                 }
+            } else {
+                $alert = 'info';
             }
         }
 
         return $this->render('newsletter', [
-            'confirmation_success' => $success,
-            'email' => ($success ? $newsletter->getEmail() : null)
+            'alert' => $alert,
+            'email' => ($alert !== 'danger' ? $newsletter->getEmail() : null)
         ]);
     }
 }

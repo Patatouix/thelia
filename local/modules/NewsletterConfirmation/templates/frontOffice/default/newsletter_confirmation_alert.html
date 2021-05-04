@@ -1,9 +1,11 @@
-{if isset($confirmation_success)}
-<div class="alert alert-{if $confirmation_success}success{else}danger{/if}" role="alert">
-    {if $confirmation_success}
+{if isset($alert)}
+<div class="alert alert-{$alert}" role="alert">
+    {if $alert == 'success'}
         {intl d='newsletterconfirmation.fo.default' l="Your subscription to the %store newsletter on your email adress %email has been successfully confirmed !" email=$email store={config key="store_name"}}
-    {else}
-        {intl d='newsletterconfirmation.fo.default' l="An error occured. Your subscription to the %store newsletter has not been confirmed." store={config key="store_name"}}
+    {elseif $alert == 'info'}
+        {intl d='newsletterconfirmation.fo.default' l="Your subscription to the %store newsletter on your email adress %email has already been confirmed." email=$email store={config key="store_name"}}
+    {elseif $alert == 'danger'}
+        {intl d='newsletterconfirmation.fo.default' l="An error occured during the newsletter subscription confirmation to %store." store={config key="store_name"}}
     {/if}
 </div>
 {/if}
