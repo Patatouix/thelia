@@ -49,6 +49,7 @@ local/modules/*
 !local/modules/TheliaSmarty/
 !local/modules/TheliaMigrateCountry/
 !local/modules/NewsletterConfirmation/
+!local/modules/AntiSpam/
 local/modules/HookTest/
 
 # Ignore everything in the "templates" directory, except the "default template"
