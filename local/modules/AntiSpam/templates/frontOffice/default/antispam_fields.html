@@ -3,6 +3,11 @@
         ANTISPAM
     </div>
     <div class="panel-body">
+        {* redirection field *}
+        {form_field field="error_url"}
+            <input type="hidden" name="{$name}" value="{url path='/module/antispam/contact/fake-validation'}">
+        {/form_field}
+        {* end of redirection field *}
         {* honeypot field *}
         {form_field field="website"}
             <div class="form-group group-website{if $error} has-error{/if}">

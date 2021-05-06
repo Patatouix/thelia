@@ -49,6 +49,9 @@ class FormAfterBuildListener implements EventSubscriberInterface
 
         $formBuilder = $event->getForm()->getFormBuilder();
 
+        // spam redirection page
+        $formBuilder->add("error_url", "hidden");
+
         // form filling duration field
         $formBuilder->add("form_filling_duration", "hidden", [
             'attr' => [

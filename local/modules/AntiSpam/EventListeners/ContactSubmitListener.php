@@ -7,6 +7,7 @@ use Thelia\Core\Event\Contact\ContactEvent;
 use Thelia\Core\Event\TheliaEvents;
 use Thelia\Core\Event\TheliaFormEvent;
 use Thelia\Core\HttpFoundation\Request;
+use Thelia\Form\Exception\FormValidationException;
 use Thelia\Mailer\MailerFactory;
 use Thelia\Tools\TokenProvider;
 use Thelia\Model\ConfigQuery;
@@ -54,7 +55,10 @@ class ContactSubmitListener implements EventSubscriberInterface
             $isSpam = true;
         }
 
-        var_dump($isSpam); die;
+        //throw exception if spam detected
+        if ($isSpam) {
+            throw new FormValidationException('spam detected !');
+        }
     }
 
     /**
