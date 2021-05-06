@@ -6,6 +6,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Thelia\Core\Event\Contact\ContactEvent;
 use Thelia\Core\Event\TheliaEvents;
 use Thelia\Core\Event\TheliaFormEvent;
+use Thelia\Core\HttpFoundation\Request;
 use Thelia\Mailer\MailerFactory;
 use Thelia\Tools\TokenProvider;
 use Thelia\Model\ConfigQuery;
@@ -16,23 +17,44 @@ use Thelia\Model\ConfigQuery;
  */
 class ContactSubmitListener implements EventSubscriberInterface
 {
-    //const FORM = 'thelia_contact';
+    const FORM_FILLING_MINIMAL_TIME = 3000;
 
-    //protected $mailer;
-    //protected $tokenProvider;
+    protected $request;
 
-    /*public function __construct(MailerFactory $mailer, TokenProvider $tokenProvider)
+    public function __construct(Request $request)
     {
-        //$this->mailer = $mailer;
-        //$this->tokenProvider = $tokenProvider;
-    }*/
+        $this->request = $request;
+    }
 
     /**
      * @param AreaDeleteEvent $event
      */
     public function checkSubmit(ContactEvent $event)
     {
-        var_dump($event->form);
+        $isSpam = false;
+        $data = $event->getForm()->getData();
+
+        //honeypot
+        if (null !== $data['website']) {
+            $isSpam = true;
+        }
+
+        //question
+        if ($this->request->getSession()->get('questionAnswer') !== $data['questionAnswer']) {
+            $isSpam = true;
+        }
+
+        //calculation
+        if ($this->request->getSession()->get('calculationAnswer') !== $data['calculationAnswer']) {
+            $isSpam = true;
+        }
+
+        // form filling duration
+        if (self::FORM_FILLING_MINIMAL_TIME > $data['form_filling_duration']) {
+            $isSpam = true;
+        }
+
+        var_dump($isSpam); die;
     }
 
     /**

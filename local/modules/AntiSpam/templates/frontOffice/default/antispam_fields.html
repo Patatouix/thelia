@@ -1,11 +1,49 @@
-<fieldset id="contact-info" class="panel panel-default">
+<fieldset id="contact-additional-info" class="panel panel-default">
     <div class="panel-heading">
         ANTISPAM
     </div>
     <div class="panel-body">
-        <div class="row">
-        {form_field field="test_field"}
-            ici mon champ anti spam
+        {* honeypot field *}
+        {form_field field="website"}
+            <div class="form-group group-website{if $error} has-error{/if}">
+                <label class="control-label" for="{$label_attr.for}">{$label}</label>
+                <div class="control-input">
+                    <input type="text" name="{$name}" id="{$label_attr.for}" class="form-control" maxlength="255"
+                        placeholder="{intl l="Placeholder contact website"}" value="{$value}" tabindex="-1" autocomplete="off">
+                    {if $error}
+                        <span class="help-block">{$message}</span>
+                    {/if}
+                </div>
+            </div>
         {/form_field}
+        {* end of honeypot field *}
+        {* question field *}
+        {form_field field="questionAnswer"}
+            <div class="form-group group-question{if $error} has-error{/if}">
+                <label class="control-label" for="{$label_attr.for}">{$label} <span class="required">*</span></label>
+                <div class="control-input">
+                    <input type="text" name="{$name}" id="{$label_attr.for}" class="form-control" maxlength="255"
+                        placeholder="{intl l="Placeholder contact question"}" value="{$value}" aria-required="true" required autocomplete="off">
+                    {if $error}
+                        <span class="help-block">{$message}</span>
+                    {/if}
+                </div>
+            </div>
+        {/form_field}
+        {* end of question field *}
+        {* calculation field *}
+        {form_field field="calculationAnswer"}
+            <div class="form-group group-calculation{if $error} has-error{/if}">
+                <label class="control-label" for="{$label_attr.for}">{$label} <span class="required">*</span></label>
+                <div class="control-input">
+                    <input type="text" name="{$name}" id="{$label_attr.for}" class="form-control" maxlength="255"
+                        placeholder="{intl l="Placeholder contact calculation"}" value="{$value}" aria-required="true" required autocomplete="off">
+                    {if $error}
+                        <span class="help-block">{$message}</span>
+                    {/if}
+                </div>
+            </div>
+        {/form_field}
+        {* end of calculation field *}
     </div>
 </fieldset>
