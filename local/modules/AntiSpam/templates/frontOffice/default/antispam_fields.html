@@ -3,9 +3,6 @@
         ANTISPAM
     </div>
     <div class="panel-body">
-        {if $form_error}
-            <div class="alert alert-danger">{$form_error_message}</div>
-        {/if}
         {* question field *}
         {if $question}
         {form_field field="questionAnswer"}
@@ -13,7 +10,7 @@
                 <label class="control-label" for="{$label_attr.for}">{$label} <span class="required">*</span></label>
                 <div class="control-input">
                     <input type="text" name="{$name}" id="{$label_attr.for}" class="form-control" maxlength="255"
-                        placeholder="{intl l="Placeholder contact question"}" value="{$value}" aria-required="true" required autocomplete="off">
+                        placeholder="{intl d='antispam.fo.default' l='Placeholder contact question'}" value="{$value}" aria-required="true" required autocomplete="off">
                     {if $error}
                         <span class="help-block">{$message}</span>
                     {/if}
@@ -29,7 +26,7 @@
                 <label class="control-label" for="{$label_attr.for}">{$label} <span class="required">*</span></label>
                 <div class="control-input">
                     <input type="text" name="{$name}" id="{$label_attr.for}" class="form-control" maxlength="255"
-                        placeholder="{intl l="Placeholder contact calculation"}" value="{$value}" aria-required="true" required autocomplete="off">
+                        placeholder="{intl d='antispam.fo.default' l='Placeholder contact calculation'}" value="{$value}" aria-required="true" required autocomplete="off">
                     {if $error}
                         <span class="help-block">{$message}</span>
                     {/if}

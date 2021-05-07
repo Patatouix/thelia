@@ -13,6 +13,7 @@
 namespace AntiSpam;
 
 use Propel\Runtime\Connection\ConnectionInterface;
+use Thelia\Model\Base\ModuleConfigQuery;
 use Thelia\Module\BaseModule;
 
 class AntiSpam extends BaseModule
@@ -26,5 +27,18 @@ class AntiSpam extends BaseModule
         self::setConfigValue('form_fill_duration', 1);
         self::setConfigValue('question', 1);
         self::setConfigValue('calculation', 1);
+    }
+
+    public function destroy(ConnectionInterface $con = null, $deleteModuleData = false)
+    {
+        if ($deleteModuleData) {
+            $configQuery = ModuleConfigQuery::create();
+            $configQuery
+                ->deleteConfigValue(self::getModuleId(), 'honeypot')
+                ->deleteConfigValue(self::getModuleId(), 'form_fill_duration')
+                ->deleteConfigValue(self::getModuleId(), 'question')
+                ->deleteConfigValue(self::getModuleId(), 'calculation')
+            ;
+        }
     }
 }

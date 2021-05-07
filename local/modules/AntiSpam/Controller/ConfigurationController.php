@@ -13,7 +13,6 @@
 namespace AntiSpam\Controller;
 
 use AntiSpam\AntiSpam;
-use AntiSpam\Model\Config\AntiSpamConfigValue;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Thelia\Controller\Admin\BaseAdminController;
 use Thelia\Core\Security\AccessManager;
@@ -21,7 +20,7 @@ use Thelia\Core\Security\Resource\AdminResources;
 use Thelia\Form\Exception\FormValidationException;
 use Thelia\Tools\URL;
 
-class Configuration extends BaseAdminController
+class ConfigurationController extends BaseAdminController
 {
     public function editConfiguration()
     {

@@ -5,7 +5,7 @@
             <label class="control-label" for="{$label_attr.for}">{$label}</label>
             <div class="control-input">
                 <input type="text" name="{$name}" id="{$label_attr.for}" class="form-control" maxlength="255"
-                    placeholder="{intl l="Placeholder contact website"}" value="{$value}" tabindex="-1" autocomplete="off">
+                    placeholder="{intl d='antispam.fo.default' l='Placeholder contact website'}" value="{$value}" tabindex="-1" autocomplete="off">
                 {if $error}
                     <span class="help-block">{$message}</span>
                 {/if}

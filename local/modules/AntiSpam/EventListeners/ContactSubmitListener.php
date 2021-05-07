@@ -6,19 +6,16 @@ use AntiSpam\AntiSpam;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Thelia\Core\Event\Contact\ContactEvent;
 use Thelia\Core\Event\TheliaEvents;
-use Thelia\Core\Event\TheliaFormEvent;
 use Thelia\Core\HttpFoundation\Request;
+use Thelia\Core\Translation\Translator;
 use Thelia\Form\Exception\FormValidationException;
-use Thelia\Mailer\MailerFactory;
-use Thelia\Tools\TokenProvider;
-use Thelia\Model\ConfigQuery;
-
 
 /**
  * [Description FormAfterBuildListener]
  */
 class ContactSubmitListener implements EventSubscriberInterface
 {
+    //the minimal amount of time necessary for human to fill contact form
     const FORM_FILLING_MINIMAL_TIME = 3000;
 
     protected $request;
@@ -42,12 +39,12 @@ class ContactSubmitListener implements EventSubscriberInterface
         }
 
         //question
-        if (AntiSpam::getConfigValue('question', 1) && $this->request->getSession()->get('questionAnswer') !== strtolower($data['questionAnswer'])) {
+        if (AntiSpam::getConfigValue('question', 1) && $this->cleanString($this->request->getSession()->get('questionAnswer')) !== $this->cleanString($data['questionAnswer'])) {
             $isSpam = true;
         }
 
         //calculation
-        if (AntiSpam::getConfigValue('calculation', 1) && $this->request->getSession()->get('calculationAnswer') !== strtolower($data['calculationAnswer'])) {
+        if (AntiSpam::getConfigValue('calculation', 1) && $this->cleanString($this->request->getSession()->get('calculationAnswer')) !== $this->cleanString($data['calculationAnswer'])) {
             $isSpam = true;
         }
 
@@ -58,8 +55,19 @@ class ContactSubmitListener implements EventSubscriberInterface
 
         //throw exception if spam detected
         if ($isSpam) {
-            throw new FormValidationException('Une erreur s\'est produite lors du contrôle anti-spam. Veuillez réessayer.');
+            throw new FormValidationException(Translator::getInstance()->trans("An error occured during the Antispam verification. Please try again", [], 'antispam'));
         }
+    }
+
+    protected function cleanString($string)
+    {
+        return strtr(
+            utf8_decode(
+                mb_strtolower($string)
+            ),
+            utf8_decode('àáâãäçèéêëìíîïñòóôõöùúûüýÿÀÁÂÃÄÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝ'),
+            'aaaaaceeeeiiiinooooouuuuyyAAAAACEEEEIIIINOOOOOUUUUY'
+        );
     }
 
     /**

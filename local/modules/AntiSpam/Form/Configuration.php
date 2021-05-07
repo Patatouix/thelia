@@ -13,7 +13,6 @@
 namespace AntiSpam\Form;
 
 use AntiSpam\AntiSpam;
-use AntiSpam\Model\Config\Base\AntiSpamConfigValue;
 use Thelia\Core\Translation\Translator;
 use Thelia\Form\BaseForm;
 
@@ -32,14 +31,10 @@ class Configuration extends BaseForm
                 "honeypot",
                 "checkbox",
                 array(
-                    "label" => "honeypot",
+                    "label" => Translator::getInstance()->trans("Honeypot", [], 'antispam'),
                     "label_attr" => [
                         "for" => "honeypot",
-                        "help" => Translator::getInstance()->trans(
-                            'Check if you want to activate honeypot',
-                            [],
-                            AntiSpam::DOMAIN_NAME
-                        )
+                        "help" => Translator::getInstance()->trans('Check if you want to activate honeypot', [], 'antispam')
                     ],
                     "required" => false,
                     "value" => AntiSpam::getConfigValue('honeypot', 1),
@@ -49,14 +44,10 @@ class Configuration extends BaseForm
                 "form_fill_duration",
                 "checkbox",
                 array(
-                    "label" => "form_fill_duration",
+                    "label" => Translator::getInstance()->trans("Form fill duration", [], 'antispam'),
                     "label_attr" => [
                         "for" => "form_fill_duration",
-                        "help" => Translator::getInstance()->trans(
-                            'Check if you want to activate form_fill_duration',
-                            [],
-                            AntiSpam::DOMAIN_NAME
-                        )
+                        "help" => Translator::getInstance()->trans('Check if you want to activate form fill duration check', [], 'antispam')
                     ],
                     "required" => false,
                     "value" => AntiSpam::getConfigValue('form_fill_duration', 1),
@@ -66,14 +57,10 @@ class Configuration extends BaseForm
                 "question",
                 "checkbox",
                 array(
-                    "label" => "question",
+                    "label" => Translator::getInstance()->trans("Question", [], 'antispam'),
                     "label_attr" => [
                         "for" => "question",
-                        "help" => Translator::getInstance()->trans(
-                            'Check if you want to activate question',
-                            [],
-                            AntiSpam::DOMAIN_NAME
-                        )
+                        "help" => Translator::getInstance()->trans('Check if you want to activate question', [], 'antispam')
                     ],
                     "required" => false,
                     "value" => AntiSpam::getConfigValue('question', 1),
@@ -83,14 +70,10 @@ class Configuration extends BaseForm
                 "calculation",
                 "checkbox",
                 array(
-                    "label" => "calculation",
+                    "label" => Translator::getInstance()->trans("Calculation", [], 'antispam'),
                     "label_attr" => [
                         "for" => "calculation",
-                        "help" => Translator::getInstance()->trans(
-                            'Check if you want to activate calculation',
-                            [],
-                            AntiSpam::DOMAIN_NAME
-                        )
+                        "help" => Translator::getInstance()->trans('Check if you want to activate calculation', [], 'antispam')
                     ],
                     "required" => false,
                     "value" => AntiSpam::getConfigValue('calculation', 1),

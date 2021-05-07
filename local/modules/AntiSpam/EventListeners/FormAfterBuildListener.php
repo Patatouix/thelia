@@ -5,14 +5,10 @@ namespace AntiSpam\EventListeners;
 use AntiSpam\AntiSpam;
 use NumberFormatter;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\Form\FormBuilderInterface;
 use Thelia\Core\Event\TheliaEvents;
 use Thelia\Core\Event\TheliaFormEvent;
 use Thelia\Core\Translation\Translator;
-use Thelia\Mailer\MailerFactory;
-use Thelia\Tools\TokenProvider;
-use Thelia\Model\ConfigQuery;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Thelia\Core\HttpFoundation\Request;
 
@@ -26,12 +22,12 @@ class FormAfterBuildListener implements EventSubscriberInterface
         "What is the color of Henri IV's white horse ?" => "white",
         "What is between yesterday and tomorrow ?" => "today",
         "How many legs does have a dog ?" => "four",
-        "Quel chiffre est le plus grand, 7 ou 9?" => "nine",
-        "Quel chiffre est le plus petit, 6 ou 2 ?" => "two",
-        "Quel chiffre est le plus grand, 3 ou 7?" => "seven",
-        "Quel chiffre est le plus grand, 6 ou 5?" => "six",
-        "Quel chiffre est le plus petit, 8 ou 9?" => "eight",
-        "Quel chiffre est le plus grand, 8 ou 2 ?" => "eight"
+        "Which number is the largest, 7 or 9?" => "nine",
+        "Which number is the smallest, 6 or 2 ?" => "two",
+        "Which number is the largest, 3 or 7?" => "seven",
+        "Which number is the largest, 6 or 5?" => "six",
+        "Which number is the smallest, 8 or 9?" => "eight",
+        "Which number is the largest, 8 or 2 ?" => "eight"
     ];
     const OPERATORS = ['+', '-', '*'];
 
@@ -82,7 +78,7 @@ class FormAfterBuildListener implements EventSubscriberInterface
     protected function addHoneypotField(FormBuilderInterface $formBuilder)
     {
         $formBuilder->add("website", "text", [
-            "label" => Translator::getInstance()->trans("Website"),
+            "label" => Translator::getInstance()->trans("Website", [], 'antispam'),
             "label_attr" => [
                 "for" => "website"
             ],
@@ -96,8 +92,8 @@ class FormAfterBuildListener implements EventSubscriberInterface
 
         if ($this->request->isMethod('get')) {
             $questionLabel = array_rand(self::QUESTIONS, 1);
-            $session->set('questionLabel', $questionLabel);
-            $session->set('questionAnswer', self::QUESTIONS[$questionLabel]);
+            $session->set('questionLabel', Translator::getInstance()->trans($questionLabel, [], 'antispam'));
+            $session->set('questionAnswer', Translator::getInstance()->trans(self::QUESTIONS[$questionLabel], [], 'antispam'));
         } elseif ($this->request->isMethod('post')) {
             $questionLabel = $session->get('questionLabel');
         }
@@ -106,7 +102,7 @@ class FormAfterBuildListener implements EventSubscriberInterface
             "constraints" => [
                 new NotBlank(),
             ],
-            "label" => Translator::getInstance()->trans($questionLabel),
+            "label" => Translator::getInstance()->trans($questionLabel, [], 'antispam'),
             "label_attr" => array(
                 "for" => "questionAnswer",
             ),
@@ -118,7 +114,7 @@ class FormAfterBuildListener implements EventSubscriberInterface
     {
         $session = $this->request->getSession();
 
-        $formatter = new NumberFormatter("en", NumberFormatter::SPELLOUT);
+        $formatter = new NumberFormatter($session->getLang()->getCode(), NumberFormatter::SPELLOUT);
 
         if ($this->request->isMethod('get')) {
             $operator = self::OPERATORS[array_rand(self::OPERATORS, 1)];
@@ -138,7 +134,7 @@ class FormAfterBuildListener implements EventSubscriberInterface
                     break;
             }
             $rand = rand(0, 1);
-            $calculationLabel = "Combien font : "
+            $calculationLabel = Translator::getInstance()->trans("How much are : ", [], 'antispam')
                 . ($rand ? $numbers[0] : $formatter->format($numbers[0]))
                 . " "
                 . $operator
@@ -155,7 +151,7 @@ class FormAfterBuildListener implements EventSubscriberInterface
             "constraints" => [
                 new NotBlank(),
             ],
-            "label" => Translator::getInstance()->trans($calculationLabel),
+            "label" => $calculationLabel,
             "label_attr" => array(
                 "for" => "calculationAnswer",
             ),

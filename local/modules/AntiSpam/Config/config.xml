@@ -10,15 +10,11 @@
 
     <services>
         <service id="antispam.form" class="AntiSpam\EventListeners\FormAfterBuildListener" scope="request">
-            <!-- <argument type="service" id="mailer" /> -->
-            <!-- <argument type="service" id="thelia.token_provider" /> -->
             <argument type="service" id="request" />
             <tag name="kernel.event_subscriber" />
         </service>
 
          <service id="antispam.submit" class="AntiSpam\EventListeners\ContactSubmitListener" scope="request">
-            <!-- <argument type="service" id="mailer" /> -->
-            <!-- <argument type="service" id="thelia.token_provider" /> -->
             <argument type="service" id="request" />
             <tag name="kernel.event_subscriber" />
         </service>
