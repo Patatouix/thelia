@@ -2,6 +2,7 @@
 
 namespace AntiSpam\EventListeners;
 
+use AntiSpam\AntiSpam;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Thelia\Core\Event\Contact\ContactEvent;
 use Thelia\Core\Event\TheliaEvents;
@@ -36,28 +37,28 @@ class ContactSubmitListener implements EventSubscriberInterface
         $data = $event->getForm()->getData();
 
         //honeypot
-        if (null !== $data['website']) {
+        if (AntiSpam::getConfigValue('honeypot', 1) && null !== $data['website']) {
             $isSpam = true;
         }
 
         //question
-        if ($this->request->getSession()->get('questionAnswer') !== $data['questionAnswer']) {
+        if (AntiSpam::getConfigValue('question', 1) && $this->request->getSession()->get('questionAnswer') !== strtolower($data['questionAnswer'])) {
             $isSpam = true;
         }
 
         //calculation
-        if ($this->request->getSession()->get('calculationAnswer') !== $data['calculationAnswer']) {
+        if (AntiSpam::getConfigValue('calculation', 1) && $this->request->getSession()->get('calculationAnswer') !== strtolower($data['calculationAnswer'])) {
             $isSpam = true;
         }
 
         // form filling duration
-        if (self::FORM_FILLING_MINIMAL_TIME > $data['form_filling_duration']) {
+        if (AntiSpam::getConfigValue('form_filling_duration', 1) && self::FORM_FILLING_MINIMAL_TIME > $data['form_filling_duration']) {
             $isSpam = true;
         }
 
         //throw exception if spam detected
         if ($isSpam) {
-            throw new FormValidationException('spam detected !');
+            throw new FormValidationException('Une erreur s\'est produite lors du contrôle anti-spam. Veuillez réessayer.');
         }
     }
 

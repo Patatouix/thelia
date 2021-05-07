@@ -12,6 +12,7 @@
 
 namespace AntiSpam;
 
+use Propel\Runtime\Connection\ConnectionInterface;
 use Thelia\Module\BaseModule;
 
 class AntiSpam extends BaseModule
@@ -19,10 +20,11 @@ class AntiSpam extends BaseModule
     /** @var string */
     const DOMAIN_NAME = 'antispam';
 
-    /*
-     * You may now override BaseModuleInterface methods, such as:
-     * install, destroy, preActivation, postActivation, preDeactivation, postDeactivation
-     *
-     * Have fun !
-     */
+    public function postActivation(ConnectionInterface $con = null)
+    {
+        self::setConfigValue('honeypot', 1);
+        self::setConfigValue('form_fill_duration', 1);
+        self::setConfigValue('question', 1);
+        self::setConfigValue('calculation', 1);
+    }
 }

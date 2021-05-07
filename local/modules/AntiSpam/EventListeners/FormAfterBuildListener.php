@@ -2,9 +2,11 @@
 
 namespace AntiSpam\EventListeners;
 
+use AntiSpam\AntiSpam;
 use NumberFormatter;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-
+use Symfony\Component\Form\FormBuilder;
+use Symfony\Component\Form\FormBuilderInterface;
 use Thelia\Core\Event\TheliaEvents;
 use Thelia\Core\Event\TheliaFormEvent;
 use Thelia\Core\Translation\Translator;
@@ -45,21 +47,40 @@ class FormAfterBuildListener implements EventSubscriberInterface
      */
     public function addAntiSpamFields(TheliaFormEvent $event)
     {
-        $session = $this->request->getSession();
-
         $formBuilder = $event->getForm()->getFormBuilder();
 
-        // spam redirection page
-        $formBuilder->add("error_url", "hidden");
-
         // form filling duration field
+        if (AntiSpam::getConfigValue('form_filling_duration', 1)) {
+            $this->addFormFillingDurationField($formBuilder);
+        }
+
+        // honeypot field
+        if (AntiSpam::getConfigValue('honeypot', 1)) {
+            $this->addHoneypotField($formBuilder);
+        }
+
+        // question
+        if (AntiSpam::getConfigValue('question', 1)) {
+            $this->addQuestionField($formBuilder);
+        }
+
+        // calculation
+        if (AntiSpam::getConfigValue('calculation', 1)) {
+            $this->addCalculationField($formBuilder);
+        }
+    }
+
+    protected function addFormFillingDurationField(FormBuilderInterface $formBuilder)
+    {
         $formBuilder->add("form_filling_duration", "hidden", [
             'attr' => [
                 'class' => 'form_filling_duration'
             ]
         ]);
+    }
 
-        // honeypot field
+    protected function addHoneypotField(FormBuilderInterface $formBuilder)
+    {
         $formBuilder->add("website", "text", [
             "label" => Translator::getInstance()->trans("Website"),
             "label_attr" => [
@@ -67,8 +88,12 @@ class FormAfterBuildListener implements EventSubscriberInterface
             ],
             "required" => false
         ]);
+    }
 
-        // question
+    protected function addQuestionField(FormBuilderInterface $formBuilder)
+    {
+        $session = $this->request->getSession();
+
         if ($this->request->isMethod('get')) {
             $questionLabel = array_rand(self::QUESTIONS, 1);
             $session->set('questionLabel', $questionLabel);
@@ -87,8 +112,12 @@ class FormAfterBuildListener implements EventSubscriberInterface
             ),
             "required" => true
         ]);
+    }
 
-        // calcul
+    protected function addCalculationField(FormBuilderInterface $formBuilder)
+    {
+        $session = $this->request->getSession();
+
         $formatter = new NumberFormatter("en", NumberFormatter::SPELLOUT);
 
         if ($this->request->isMethod('get')) {
