@@ -3,6 +3,7 @@
 namespace AntiSpam\EventListeners;
 
 use AntiSpam\AntiSpam;
+use DateTime;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Thelia\Core\Event\Contact\ContactEvent;
 use Thelia\Core\Event\TheliaEvents;
@@ -16,7 +17,7 @@ use Thelia\Form\Exception\FormValidationException;
 class ContactSubmitListener implements EventSubscriberInterface
 {
     //the minimal amount of time necessary for human to fill contact form
-    const FORM_FILLING_MINIMAL_TIME = 3000;
+    //const FORM_FILLING_MINIMAL_TIME = 3000;
 
     protected $request;
 
@@ -33,24 +34,33 @@ class ContactSubmitListener implements EventSubscriberInterface
         $isSpam = false;
         $data = $event->getForm()->getData();
 
+        $config = json_decode(AntiSpam::getConfigValue('antispam_config'), true);
+
         //honeypot
-        if (AntiSpam::getConfigValue('honeypot', 1) && null !== $data['website']) {
+        if ($config['honeypot'] && null !== $data['website']) {
             $isSpam = true;
         }
 
         //question
-        if (AntiSpam::getConfigValue('question', 1) && $this->cleanString($this->request->getSession()->get('questionAnswer')) !== $this->cleanString($data['questionAnswer'])) {
+        if ($config['question'] && $this->cleanString($this->request->getSession()->get('questionAnswer')) !== $this->cleanString($data['questionAnswer'])) {
             $isSpam = true;
         }
 
         //calculation
-        if (AntiSpam::getConfigValue('calculation', 1) && $this->cleanString($this->request->getSession()->get('calculationAnswer')) !== $this->cleanString($data['calculationAnswer'])) {
+        if ($config['calculation'] && $this->cleanString($this->request->getSession()->get('calculationAnswer')) !== $this->cleanString($data['calculationAnswer'])) {
             $isSpam = true;
         }
 
         // form filling duration
-        if (AntiSpam::getConfigValue('form_filling_duration', 1) && self::FORM_FILLING_MINIMAL_TIME > $data['form_filling_duration']) {
-            $isSpam = true;
+        if ($config['form_fill_duration']) {
+            $formFillDuration = (int) date_diff(
+                new DateTime($data['form_load_time']),
+                new DateTime()
+            )->format('%s');
+
+            if ($config['form_fill_duration_limit'] && $config['form_fill_duration_limit'] > $formFillDuration) {
+                $isSpam = true;
+            }
         }
 
         //throw exception if spam detected

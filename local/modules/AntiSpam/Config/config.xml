@@ -25,10 +25,10 @@
             <tag name="hook.event_listener" event="contact.form-top" type="front" method="onContactFormTop" />
             <tag name="hook.event_listener" event="contact.form-bottom" type="front" method="onContactFormBottom" />
             <tag name="hook.event_listener" event="main.stylesheet" type="front" method="onMainStylesheet" />
-            <tag name="hook.event_listener" event="main.body-bottom" type="front" method="onMainBodyBottom" />
         </hook>
         <hook id="antispam.configuration">
             <tag name="hook.event_listener" event="module.configuration" type="back" templates="render:module_configuration.html" />
+            <tag name="hook.event_listener" event="main.footer-js" type="back" templates="js:assets/js/config.js" />
         </hook>
     </hooks>
 

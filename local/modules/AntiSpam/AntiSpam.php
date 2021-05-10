@@ -23,22 +23,22 @@ class AntiSpam extends BaseModule
 
     public function postActivation(ConnectionInterface $con = null)
     {
-        self::setConfigValue('honeypot', 1);
-        self::setConfigValue('form_fill_duration', 1);
-        self::setConfigValue('question', 1);
-        self::setConfigValue('calculation', 1);
+        $antispamConfig = [
+            'honeypot' => 1,
+            'form_fill_duration' => 1,
+            'form_fill_duration_limit' => 3,
+            'question' => 1,
+            'calculation' => 1
+        ];
+
+        self::setConfigValue('antispam_config', json_encode($antispamConfig));
     }
 
     public function destroy(ConnectionInterface $con = null, $deleteModuleData = false)
     {
         if ($deleteModuleData) {
             $configQuery = ModuleConfigQuery::create();
-            $configQuery
-                ->deleteConfigValue(self::getModuleId(), 'honeypot')
-                ->deleteConfigValue(self::getModuleId(), 'form_fill_duration')
-                ->deleteConfigValue(self::getModuleId(), 'question')
-                ->deleteConfigValue(self::getModuleId(), 'calculation')
-            ;
+            $configQuery->deleteConfigValue(self::getModuleId(), 'antispam_config');
         }
     }
 }

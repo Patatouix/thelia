@@ -3,7 +3,8 @@
 namespace AntiSpam\EventListeners;
 
 use AntiSpam\AntiSpam;
-use NumberFormatter;
+use AntiSpam\Model\QuizzTrait;
+use DateTime;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 use Thelia\Core\Event\TheliaEvents;
@@ -17,19 +18,9 @@ use Thelia\Core\HttpFoundation\Request;
  */
 class FormAfterBuildListener implements EventSubscriberInterface
 {
+    use QuizzTrait;
+
     const FORM = 'thelia_contact';
-    const QUESTIONS = [
-        "What is the color of Henri IV's white horse ?" => "white",
-        "What is between yesterday and tomorrow ?" => "today",
-        "How many legs does have a dog ?" => "four",
-        "Which number is the largest, 7 or 9?" => "nine",
-        "Which number is the smallest, 6 or 2 ?" => "two",
-        "Which number is the largest, 3 or 7?" => "seven",
-        "Which number is the largest, 6 or 5?" => "six",
-        "Which number is the smallest, 8 or 9?" => "eight",
-        "Which number is the largest, 8 or 2 ?" => "eight"
-    ];
-    const OPERATORS = ['+', '-', '*'];
 
     protected $request;
 
@@ -45,33 +36,33 @@ class FormAfterBuildListener implements EventSubscriberInterface
     {
         $formBuilder = $event->getForm()->getFormBuilder();
 
+        $config = json_decode(AntiSpam::getConfigValue('antispam_config'), true);
+
         // form filling duration field
-        if (AntiSpam::getConfigValue('form_filling_duration', 1)) {
+        if ($config['form_fill_duration']) {
             $this->addFormFillingDurationField($formBuilder);
         }
 
         // honeypot field
-        if (AntiSpam::getConfigValue('honeypot', 1)) {
+        if ($config['honeypot']) {
             $this->addHoneypotField($formBuilder);
         }
 
         // question
-        if (AntiSpam::getConfigValue('question', 1)) {
+        if ($config['question']) {
             $this->addQuestionField($formBuilder);
         }
 
         // calculation
-        if (AntiSpam::getConfigValue('calculation', 1)) {
+        if ($config['calculation']) {
             $this->addCalculationField($formBuilder);
         }
     }
 
     protected function addFormFillingDurationField(FormBuilderInterface $formBuilder)
     {
-        $formBuilder->add("form_filling_duration", "hidden", [
-            'attr' => [
-                'class' => 'form_filling_duration'
-            ]
+        $formBuilder->add("form_load_time", "hidden", [
+            'data' => (new DateTime())->format('Y-m-d H:i:s')
         ]);
     }
 
@@ -91,18 +82,16 @@ class FormAfterBuildListener implements EventSubscriberInterface
         $session = $this->request->getSession();
 
         if ($this->request->isMethod('get')) {
-            $questionLabel = array_rand(self::QUESTIONS, 1);
-            $session->set('questionLabel', Translator::getInstance()->trans($questionLabel, [], 'antispam'));
-            $session->set('questionAnswer', Translator::getInstance()->trans(self::QUESTIONS[$questionLabel], [], 'antispam'));
-        } elseif ($this->request->isMethod('post')) {
-            $questionLabel = $session->get('questionLabel');
+            $question = $this->getRandomQuestion();
+            $session->set('questionLabel', $question['questionLabel']);
+            $session->set('questionAnswer', $question['answerLabel']);
         }
 
         $formBuilder->add("questionAnswer", "text", [
             "constraints" => [
                 new NotBlank(),
             ],
-            "label" => Translator::getInstance()->trans($questionLabel, [], 'antispam'),
+            "label" => isset($question) ? $question['questionLabel'] : $session->get('questionLabel'),
             "label_attr" => array(
                 "for" => "questionAnswer",
             ),
@@ -114,44 +103,17 @@ class FormAfterBuildListener implements EventSubscriberInterface
     {
         $session = $this->request->getSession();
 
-        $formatter = new NumberFormatter($session->getLang()->getCode(), NumberFormatter::SPELLOUT);
-
         if ($this->request->isMethod('get')) {
-            $operator = self::OPERATORS[array_rand(self::OPERATORS, 1)];
-            $numbers = [
-                rand(0, 9),
-                rand(0, 9)
-            ];
-            switch ($operator) {
-                case "+":
-                    $calculationAnswer = $numbers[0] + $numbers[1];
-                    break;
-                case "-":
-                    $calculationAnswer = $numbers[0] - $numbers[1];
-                    break;
-                case "*":
-                    $calculationAnswer = $numbers[0] * $numbers[1];
-                    break;
-            }
-            $rand = rand(0, 1);
-            $calculationLabel = Translator::getInstance()->trans("How much are : ", [], 'antispam')
-                . ($rand ? $numbers[0] : $formatter->format($numbers[0]))
-                . " "
-                . $operator
-                . " "
-                . ($rand ? $formatter->format($numbers[1]) : $numbers[1])
-                . " ?";
-            $session->set('calculationLabel', $calculationLabel);
-            $session->set('calculationAnswer', $formatter->format($calculationAnswer));
-        } elseif ($this->request->isMethod('post')) {
-            $calculationLabel = $session->get('calculationLabel');
+            $calculation = $this->getRandomCalculation($session->getLang()->getCode());
+            $session->set('calculationLabel', $calculation['calculationLabel']);
+            $session->set('calculationAnswer', $calculation['calculationAnswer']);
         }
 
         $formBuilder->add("calculationAnswer", "text", [
             "constraints" => [
                 new NotBlank(),
             ],
-            "label" => $calculationLabel,
+            "label" => isset($calculation) ? $calculation['calculationLabel'] : $session->get('calculationLabel'),
             "label_attr" => array(
                 "for" => "calculationAnswer",
             ),

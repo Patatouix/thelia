@@ -25,10 +25,12 @@ class HookManager extends BaseHook
 
     public function __construct()
     {
-        $this->honeypot = AntiSpam::getConfigValue('honeypot', 1);
-        $this->form_fill_duration = AntiSpam::getConfigValue('form_fill_duration', 1);
-        $this->question = AntiSpam::getConfigValue('question', 1);
-        $this->calculation = AntiSpam::getConfigValue('calculation', 1);
+        $config = json_decode(AntiSpam::getConfigValue('antispam_config'), true);
+
+        $this->honeypot = $config['honeypot'];
+        $this->form_fill_duration = $config['form_fill_duration'];
+        $this->question = $config['question'];
+        $this->calculation = $config['calculation'];
     }
 
     public function onContactFormTop(HookRenderEvent $event)
@@ -53,13 +55,6 @@ class HookManager extends BaseHook
     {
         if ($this->honeypot) {
             $event->add($this->addCSS('assets/css/antispam.css'));
-        }
-    }
-
-    public function onMainBodyBottom(HookRenderEvent $event)
-    {
-        if ($this->form_fill_duration) {
-            $event->add($this->addJS('assets/js/antispam.js'));
         }
     }
 

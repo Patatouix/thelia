@@ -13,6 +13,7 @@
 namespace AntiSpam\Form;
 
 use AntiSpam\AntiSpam;
+use Symfony\Component\Validator\Constraints\GreaterThan;
 use Thelia\Core\Translation\Translator;
 use Thelia\Form\BaseForm;
 
@@ -26,57 +27,74 @@ class Configuration extends BaseForm
 
     protected function buildForm()
     {
+        $antispamConfig = json_decode(AntiSpam::getConfigValue('antispam_config'), true);
+
         $this->formBuilder
             ->add(
                 "honeypot",
                 "checkbox",
                 array(
-                    "label" => Translator::getInstance()->trans("Honeypot", [], 'antispam'),
+                    "label" => Translator::getInstance()->trans("Honeypot : ", [], 'antispam'),
                     "label_attr" => [
                         "for" => "honeypot",
                         "help" => Translator::getInstance()->trans('Check if you want to activate honeypot', [], 'antispam')
                     ],
                     "required" => false,
-                    "value" => AntiSpam::getConfigValue('honeypot', 1),
+                    "value" => $antispamConfig['honeypot']
                 )
             )
             ->add(
                 "form_fill_duration",
                 "checkbox",
                 array(
-                    "label" => Translator::getInstance()->trans("Form fill duration", [], 'antispam'),
+                    "label" => Translator::getInstance()->trans("Form fill duration : ", [], 'antispam'),
                     "label_attr" => [
                         "for" => "form_fill_duration",
                         "help" => Translator::getInstance()->trans('Check if you want to activate form fill duration check', [], 'antispam')
                     ],
                     "required" => false,
-                    "value" => AntiSpam::getConfigValue('form_fill_duration', 1),
+                    "value" => $antispamConfig['form_fill_duration']
+                )
+            )
+            ->add(
+                "form_fill_duration_limit",
+                "number",
+                array(
+                    "label"      => Translator::getInstance()->trans("Form fill duration limit (in seconds) : ", [], 'antispam'),
+                    "label_attr" => array(
+                        "for" => "form_fill_duration_limit",
+                        "help" => Translator::getInstance()->trans('If the form is submitted faster than this value, it will be considered as spam', [], 'antispam')
+                    ),
+                    "constraints" => array(
+                        new GreaterThan(["value" => 0]),
+                    ),
+                    "data" => $antispamConfig['form_fill_duration_limit']
                 )
             )
             ->add(
                 "question",
                 "checkbox",
                 array(
-                    "label" => Translator::getInstance()->trans("Question", [], 'antispam'),
+                    "label" => Translator::getInstance()->trans("Question : ", [], 'antispam'),
                     "label_attr" => [
                         "for" => "question",
                         "help" => Translator::getInstance()->trans('Check if you want to activate question', [], 'antispam')
                     ],
                     "required" => false,
-                    "value" => AntiSpam::getConfigValue('question', 1),
+                    "value" => $antispamConfig['question']
                 )
             )
             ->add(
                 "calculation",
                 "checkbox",
                 array(
-                    "label" => Translator::getInstance()->trans("Calculation", [], 'antispam'),
+                    "label" => Translator::getInstance()->trans("Calculation : ", [], 'antispam'),
                     "label_attr" => [
                         "for" => "calculation",
                         "help" => Translator::getInstance()->trans('Check if you want to activate calculation', [], 'antispam')
                     ],
                     "required" => false,
-                    "value" => AntiSpam::getConfigValue('calculation', 1),
+                    "value" => $antispamConfig['calculation']
                 )
             )
         ;
