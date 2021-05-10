@@ -4,6 +4,7 @@ namespace AntiSpam\EventListeners;
 
 use AntiSpam\AntiSpam;
 use DateTime;
+use Exception;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Thelia\Core\Event\Contact\ContactEvent;
 use Thelia\Core\Event\TheliaEvents;
@@ -53,12 +54,16 @@ class ContactSubmitListener implements EventSubscriberInterface
 
         // form filling duration
         if ($config['form_fill_duration']) {
-            $formFillDuration = (int) date_diff(
-                new DateTime($data['form_load_time']),
-                new DateTime()
-            )->format('%s');
+            try {
+                $formFillDuration = (int) date_diff(
+                    new DateTime($data['form_load_time']),
+                    new DateTime()
+                )->format('%s');
+            } catch (Exception $e) {
+                $isSpam = true;
+            }
 
-            if ($config['form_fill_duration_limit'] && $config['form_fill_duration_limit'] > $formFillDuration) {
+            if (!$isSpam && $config['form_fill_duration_limit'] > $formFillDuration) {
                 $isSpam = true;
             }
         }
