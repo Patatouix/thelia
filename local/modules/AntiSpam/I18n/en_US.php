@@ -50,4 +50,5 @@ return array(
     "If the form is submitted faster than this value, it will be considered as spam" => "If the form is submitted faster than this value, it will be considered as spam",
     "Question : " => "Question : ",
     "Check if you want to activate question" => "Check if you want to activate question",
+    "Your answer must be written in words" => "Your answer must be written in words."
 );

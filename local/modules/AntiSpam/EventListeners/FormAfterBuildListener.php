@@ -91,6 +91,7 @@ class FormAfterBuildListener implements EventSubscriberInterface
             "label" => isset($question) ? $question['questionLabel'] : $session->get('questionLabel'),
             "label_attr" => array(
                 "for" => "questionAnswer",
+                "help" => Translator::getInstance()->trans("Your answer must be written in words", [], 'antispam')
             ),
             "required" => true
         ]);

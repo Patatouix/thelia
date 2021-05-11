@@ -27,7 +27,7 @@ return array(
     "How many days in a week ?" => "Combien y a t-il de jours dans une semaine ?",
     "seven" => "sept",
     "How many days in July" => "Combien de jours y a t-il en Juillet ?",
-    "thirty-one" => "trente et un",
+    "thirty-one" => "trente-et-un",
     "What is the number after six ?" => "Quel chiffre vient après six ?",
     "Which number is the largest, 7 or 9 ?" => "Quel chiffre est le plus grand, sept ou neuf ?",
     "nine" => "neuf",
@@ -46,5 +46,6 @@ return array(
     "Form fill duration limit (in seconds) : " => "Durée limite de remplissage de formulaire (en secondes) : ",
     "If the form is submitted faster than this value, it will be considered as spam" => "Si le formulaire est rempli plus rapidement, on considère qu'il s'agit de spam",
     "Question : " => "Question : ",
-    "Check if you want to activate question" => "Cochez pour activer la question"
+    "Check if you want to activate question" => "Cochez pour activer la question",
+    "Your answer must be written in words" => "Votre réponse doit être écrite en toutes lettres."
 );

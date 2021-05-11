@@ -73,7 +73,7 @@ class ContactSubmitListener implements EventSubscriberInterface
     {
         return strtr(
             utf8_decode(
-                mb_strtolower($string)
+                mb_strtolower(str_replace('-', ' ', $string))
             ),
             utf8_decode('àáâãäçèéêëìíîïñòóôõöùúûüýÿÀÁÂÃÄÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝ'),
             'aaaaaceeeeiiiinooooouuuuyyAAAAACEEEEIIIINOOOOOUUUUY'
