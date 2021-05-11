@@ -13,6 +13,8 @@
 namespace AntiSpam\Form;
 
 use AntiSpam\AntiSpam;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Validator\Constraints\GreaterThan;
 use Thelia\Core\Translation\Translator;
 use Thelia\Form\BaseForm;
@@ -32,7 +34,7 @@ class Configuration extends BaseForm
         $this->formBuilder
             ->add(
                 "honeypot",
-                "checkbox",
+                CheckboxType::class,
                 array(
                     "label" => Translator::getInstance()->trans("Honeypot : ", [], 'antispam'),
                     "label_attr" => [
@@ -45,7 +47,7 @@ class Configuration extends BaseForm
             )
             ->add(
                 "form_fill_duration",
-                "checkbox",
+                CheckboxType::class,
                 array(
                     "label" => Translator::getInstance()->trans("Form fill duration : ", [], 'antispam'),
                     "label_attr" => [
@@ -58,7 +60,7 @@ class Configuration extends BaseForm
             )
             ->add(
                 "form_fill_duration_limit",
-                "number",
+                NumberType::class,
                 array(
                     "label"      => Translator::getInstance()->trans("Form fill duration limit (in seconds) : ", [], 'antispam'),
                     "label_attr" => array(
@@ -68,12 +70,13 @@ class Configuration extends BaseForm
                     "constraints" => array(
                         new GreaterThan(["value" => 0]),
                     ),
-                    "data" => $antispamConfig['form_fill_duration_limit']
+                    "data" => $antispamConfig['form_fill_duration_limit'],
+                    "scale" => 0
                 )
             )
             ->add(
                 "question",
-                "checkbox",
+                CheckboxType::class,
                 array(
                     "label" => Translator::getInstance()->trans("Question : ", [], 'antispam'),
                     "label_attr" => [
@@ -82,19 +85,6 @@ class Configuration extends BaseForm
                     ],
                     "required" => false,
                     "value" => $antispamConfig['question']
-                )
-            )
-            ->add(
-                "calculation",
-                "checkbox",
-                array(
-                    "label" => Translator::getInstance()->trans("Calculation : ", [], 'antispam'),
-                    "label_attr" => [
-                        "for" => "calculation",
-                        "help" => Translator::getInstance()->trans('Check if you want to activate calculation', [], 'antispam')
-                    ],
-                    "required" => false,
-                    "value" => $antispamConfig['calculation']
                 )
             )
         ;

@@ -27,8 +27,7 @@ class AntiSpam extends BaseModule
             'honeypot' => 1,
             'form_fill_duration' => 1,
             'form_fill_duration_limit' => 3,
-            'question' => 1,
-            'calculation' => 1
+            'question' => 1
         ];
 
         self::setConfigValue('antispam_config', json_encode($antispamConfig));

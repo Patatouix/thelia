@@ -1,6 +1,7 @@
 <?php
 return array(
-    "Placeholder contact website" => "Your website, if you have one",
+    "Placeholder contact bear" => "Bear",
     "Placeholder contact question" => "Answer to the question (in words)",
-    "Placeholder contact calculation" => "Result of the calculation (in words)"
+    "Spam detected" => "Spam detected",
+    "This is a fake success page." => "This is a fake success page."
 );

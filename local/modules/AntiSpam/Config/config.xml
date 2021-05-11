@@ -24,11 +24,12 @@
         <hook id="antispam.contact_form_hook" class="AntiSpam\Hook\HookManager">
             <tag name="hook.event_listener" event="contact.form-top" type="front" method="onContactFormTop" />
             <tag name="hook.event_listener" event="contact.form-bottom" type="front" method="onContactFormBottom" />
-            <tag name="hook.event_listener" event="main.stylesheet" type="front" method="onMainStylesheet" />
+            <tag name="hook.event_listener" event="contact.stylesheet" type="front" method="onContactStylesheet" />
+            <tag name="hook.event_listener" event="contact.javascript-initialization" type="front" method="onContactJSInitialization" />
         </hook>
         <hook id="antispam.configuration">
             <tag name="hook.event_listener" event="module.configuration" type="back" templates="render:module_configuration.html" />
-            <tag name="hook.event_listener" event="main.footer-js" type="back" templates="js:assets/js/config.js" />
+            <tag name="hook.event_listener" event="module.config-js" type="back" templates="js:assets/js/module_config.js" />
         </hook>
     </hooks>
 

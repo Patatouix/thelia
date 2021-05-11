@@ -18,53 +18,47 @@ use Thelia\Core\Hook\BaseHook;
 
 class HookManager extends BaseHook
 {
-    protected $honeypot;
-    protected $form_fill_duration;
-    protected $question;
-    protected $calculation;
+    protected $config;
 
     public function __construct()
     {
-        $config = json_decode(AntiSpam::getConfigValue('antispam_config'), true);
-
-        $this->honeypot = $config['honeypot'];
-        $this->form_fill_duration = $config['form_fill_duration'];
-        $this->question = $config['question'];
-        $this->calculation = $config['calculation'];
+        $this->config = json_decode(AntiSpam::getConfigValue('antispam_config'), true);
     }
 
     public function onContactFormTop(HookRenderEvent $event)
     {
-        if ($this->honeypot || $this->form_fill_duration || $this->question || $this->calculation) {
+        if ($this->config['honeypot'] || $this->config['form_fill_duration'] || $this->config['question']) {
             $event->add($this->render("antispam_alert.html", $this->getAllArguments($event)));
         }
     }
 
     public function onContactFormBottom(HookRenderEvent $event)
     {
-        if ($this->honeypot) {
+        if ($this->config['honeypot']) {
             $event->add($this->render("antispam_honeypot.html", $this->getAllArguments($event)));
         }
 
-        if ($this->question || $this->calculation) {
-            $event->add($this->render("antispam_fields.html", $this->getAllArguments($event)));
+        if ($this->config['question']) {
+            $event->add($this->render("antispam_question.html", $this->getAllArguments($event)));
         }
     }
 
-    public function onMainStylesheet(HookRenderEvent $event)
+    public function onContactStylesheet(HookRenderEvent $event)
     {
-        if ($this->honeypot) {
+        if ($this->config['honeypot']) {
             $event->add($this->addCSS('assets/css/antispam.css'));
+        }
+    }
+
+    public function onContactJSInitialization(HookRenderEvent $event)
+    {
+        if ($this->config['question']) {
+            $event->add($this->addJS("assets/js/question_refresh.js"));
         }
     }
 
     protected function getAllArguments(HookRenderEvent $event)
     {
-        return $event->getTemplateVars() + $event->getArguments() + [
-            'honeypot' => $this->honeypot,
-            'form_fill_duration' => $this->form_fill_duration,
-            'question' => $this->question,
-            'calculation' => $this->calculation
-        ];
+        return $event->getTemplateVars() + $event->getArguments();
     }
 }

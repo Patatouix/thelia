@@ -43,8 +43,7 @@ class ConfigurationController extends BaseAdminController
                 'honeypot' => is_bool($data["honeypot"]) ? (int) ($data["honeypot"]) : $data["honeypot"],
                 'form_fill_duration' => is_bool($data["form_fill_duration"]) ? (int) ($data["form_fill_duration"]) : $data["form_fill_duration"],
                 'form_fill_duration_limit' => $data["form_fill_duration_limit"],
-                'question' => is_bool($data["question"]) ? (int) ($data["question"]) : $data["question"],
-                'calculation' => is_bool($data["calculation"]) ? (int) ($data["calculation"]) : $data["calculation"],
+                'question' => is_bool($data["question"]) ? (int) ($data["question"]) : $data["question"]
             ];
 
             AntiSpam::setConfigValue('antispam_config', json_encode($antispamConfig));

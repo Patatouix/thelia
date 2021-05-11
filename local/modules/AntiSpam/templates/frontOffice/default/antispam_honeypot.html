@@ -1,16 +1,14 @@
 {* honeypot field *}
-{if $honeypot}
-    {form_field field="website"}
-        <div class="form-group group-website{if $error} has-error{/if}">
-            <label class="control-label" for="{$label_attr.for}">{$label}</label>
-            <div class="control-input">
-                <input type="text" name="{$name}" id="{$label_attr.for}" class="form-control" maxlength="255"
-                    placeholder="{intl d='antispam.fo.default' l='Placeholder contact website'}" value="{$value}" tabindex="-1" autocomplete="off">
-                {if $error}
-                    <span class="help-block">{$message}</span>
-                {/if}
-            </div>
+{form_field field="bear"}
+    <div class="form-group group-bear{if $error} has-error{/if}">
+        <label class="control-label" for="{$label_attr.for}">{$label}</label>
+        <div class="control-input">
+            <input type="text" name="{$name}" id="{$label_attr.for}" class="form-control" maxlength="255"
+                placeholder="{intl d='antispam.fo.default' l='Placeholder contact bear'}" value="{$value}" tabindex="-1" autocomplete="off">
+            {if $error}
+                <span class="help-block">{$message}</span>
+            {/if}
         </div>
-    {/form_field}
-{/if}
+    </div>
+{/form_field}
 {* end of honeypot field *}

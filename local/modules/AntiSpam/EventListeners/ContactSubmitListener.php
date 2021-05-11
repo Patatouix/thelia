@@ -38,17 +38,12 @@ class ContactSubmitListener implements EventSubscriberInterface
         $config = json_decode(AntiSpam::getConfigValue('antispam_config'), true);
 
         //honeypot
-        if ($config['honeypot'] && null !== $data['website']) {
+        if ($config['honeypot'] && null !== $data['bear']) {
             $isSpam = true;
         }
 
         //question
         if ($config['question'] && $this->cleanString($this->request->getSession()->get('questionAnswer')) !== $this->cleanString($data['questionAnswer'])) {
-            $isSpam = true;
-        }
-
-        //calculation
-        if ($config['calculation'] && $this->cleanString($this->request->getSession()->get('calculationAnswer')) !== $this->cleanString($data['calculationAnswer'])) {
             $isSpam = true;
         }
 

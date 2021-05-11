@@ -3,9 +3,11 @@
 namespace AntiSpam\EventListeners;
 
 use AntiSpam\AntiSpam;
-use AntiSpam\Model\QuizzTrait;
+use AntiSpam\Model\QuestionGeneratorTrait;
 use DateTime;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Thelia\Core\Event\TheliaEvents;
 use Thelia\Core\Event\TheliaFormEvent;
@@ -18,7 +20,7 @@ use Thelia\Core\HttpFoundation\Request;
  */
 class FormAfterBuildListener implements EventSubscriberInterface
 {
-    use QuizzTrait;
+    use QuestionGeneratorTrait;
 
     const FORM = 'thelia_contact';
 
@@ -52,26 +54,21 @@ class FormAfterBuildListener implements EventSubscriberInterface
         if ($config['question']) {
             $this->addQuestionField($formBuilder);
         }
-
-        // calculation
-        if ($config['calculation']) {
-            $this->addCalculationField($formBuilder);
-        }
     }
 
     protected function addFormFillingDurationField(FormBuilderInterface $formBuilder)
     {
-        $formBuilder->add("form_load_time", "hidden", [
+        $formBuilder->add("form_load_time", HiddenType::class, [
             'data' => (new DateTime())->format('Y-m-d H:i:s')
         ]);
     }
 
     protected function addHoneypotField(FormBuilderInterface $formBuilder)
     {
-        $formBuilder->add("website", "text", [
-            "label" => Translator::getInstance()->trans("Website", [], 'antispam'),
+        $formBuilder->add("bear", TextType::class, [
+            "label" => Translator::getInstance()->trans("Bear", [], 'antispam'),
             "label_attr" => [
-                "for" => "website"
+                "for" => "bear"
             ],
             "required" => false
         ]);
@@ -82,40 +79,18 @@ class FormAfterBuildListener implements EventSubscriberInterface
         $session = $this->request->getSession();
 
         if ($this->request->isMethod('get')) {
-            $question = $this->getRandomQuestion();
+            $question = $this->getRandomQuestion($session->getLang()->getCode());
             $session->set('questionLabel', $question['questionLabel']);
             $session->set('questionAnswer', $question['answerLabel']);
         }
 
-        $formBuilder->add("questionAnswer", "text", [
+        $formBuilder->add("questionAnswer", TextType::class, [
             "constraints" => [
                 new NotBlank(),
             ],
             "label" => isset($question) ? $question['questionLabel'] : $session->get('questionLabel'),
             "label_attr" => array(
                 "for" => "questionAnswer",
-            ),
-            "required" => true
-        ]);
-    }
-
-    protected function addCalculationField(FormBuilderInterface $formBuilder)
-    {
-        $session = $this->request->getSession();
-
-        if ($this->request->isMethod('get')) {
-            $calculation = $this->getRandomCalculation($session->getLang()->getCode());
-            $session->set('calculationLabel', $calculation['calculationLabel']);
-            $session->set('calculationAnswer', $calculation['calculationAnswer']);
-        }
-
-        $formBuilder->add("calculationAnswer", "text", [
-            "constraints" => [
-                new NotBlank(),
-            ],
-            "label" => isset($calculation) ? $calculation['calculationLabel'] : $session->get('calculationLabel'),
-            "label_attr" => array(
-                "for" => "calculationAnswer",
             ),
             "required" => true
         ]);
