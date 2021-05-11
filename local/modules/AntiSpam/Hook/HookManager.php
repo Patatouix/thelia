@@ -53,7 +53,7 @@ class HookManager extends BaseHook
     public function onContactJSInitialization(HookRenderEvent $event)
     {
         if ($this->config['question']) {
-            $event->add($this->addJS("assets/js/question_refresh.js"));
+            $event->add($this->addJS("assets/js/antispam.js"));
         }
     }
 
