@@ -48,10 +48,11 @@
 
                                 {capture "product_tab_tab"}
                                     {forhook rel="product.tab"}
-                                    <li>
+                                    <li class="nav-item">
                                         <a href="#{$id}"
                                             {if $href}data-href="{$href}"{/if}
-                                            data-toggle="tab">{$title}
+                                            data-toggle="tab"
+                                            class="nav-link">{$title}
                                         </a>
                                     </li>
                                     {/forhook}

@@ -50,6 +50,7 @@ local/modules/*
 !local/modules/TheliaMigrateCountry/
 !local/modules/NewsletterConfirmation/
 !local/modules/AntiSpam/
+!local/modules/Schedules/
 local/modules/HookTest/
 
 # Ignore everything in the "templates" directory, except the "default template"
