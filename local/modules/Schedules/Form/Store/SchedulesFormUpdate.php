@@ -10,11 +10,9 @@
 /*      file that was distributed with this source code.                             */
 /*************************************************************************************/
 
-namespace Schedules\Form\Product;
+namespace Schedules\Form\Store;
 
 use Schedules\Schedules;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Component\Validator\Constraints\GreaterThanOrEqual;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 /**
@@ -66,17 +64,6 @@ class SchedulesFormUpdate extends SchedulesForm
                   'label_attr' => ['for' => 'attr-schedules-end'],
                   'required' => false,
                   'widget' => 'single_text',
-            ])
-            ->add('stock', IntegerType::class, [
-                'attr' => [
-                    'min' => 0
-                ],
-                "constraints" => array(
-                    new GreaterThanOrEqual(["value" => 0]),
-                ),
-                'label' => $this->translator->trans("Stock", [], Schedules::DOMAIN_NAME),
-                'label_attr' => ['for' => 'attr-schedules-stock'],
-                'required' => false,
             ])
         ;
     }

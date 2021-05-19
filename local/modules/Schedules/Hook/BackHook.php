@@ -45,4 +45,13 @@ class BackHook extends BaseHook
             ]),
         ]);
     }
+
+    public function onConfigStoreTab(HookRenderBlockEvent $event)
+    {
+        $event->add([
+            'id' => 'schedules',
+            'title' => $this->trans('Schedules', [], Schedules::DOMAIN_NAME),
+            'content' => $this->render('store_schedules.html')
+        ]);
+    }
 }

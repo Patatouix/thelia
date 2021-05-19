@@ -13,6 +13,7 @@
 namespace Schedules;
 
 use Propel\Runtime\Connection\ConnectionInterface;
+use Thelia\Core\Template\TemplateDefinition;
 use Thelia\Module\BaseModule;
 use Thelia\Install\Database;
 use Thelia\Model\ModuleConfigQuery;
@@ -38,5 +39,19 @@ class Schedules extends BaseModule
             $database->insertSql(null, array(__DIR__ . '/Config/Sql/destroy.sql'));
             ModuleConfigQuery::create()->deleteConfigValue(self::getModuleId(), 'is_initialized');
         }
+    }
+
+    public function getHooks()
+    {
+        return [
+            [
+                "active" => true,
+                "block" => true,
+                "code" => "config-store.tab",
+                "description" => "Add tabs in the admin store configuration page",
+                "title" => "Store configuration tabs",
+                "type" => TemplateDefinition::BACK_OFFICE,
+            ],
+        ];
     }
 }

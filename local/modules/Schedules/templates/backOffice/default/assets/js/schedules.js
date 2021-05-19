@@ -1,4 +1,4 @@
-$(function () {
+$(function () { console.log('yo');
 
     // create a default schedule
     $('a.schedules-default').on('click', function(e) {
@@ -40,6 +40,7 @@ $(function () {
         $("#attr-schedules-schedule-id").val($(this).data('schedule-id'));
         $("#attr-schedules-begin input").val($(this).data('begin'));
         $("#attr-schedules-end input").val($(this).data('end'));
+        $("#attr-schedules-stock input").val($(this).data('stock'));
         $('#attr-schedules-day option[value="' + $(this).data('day') + '"]').prop('selected', true);
         $("#attr-schedules-period-begin input").val("");
         $("#attr-schedules-period-end input").val("");
@@ -56,6 +57,7 @@ $(function () {
         $("#attr-schedules-end input").val($(this).data('end'));
         $("#attr-schedules-period-begin input").val($(this).data('periodbegin'));
         $("#attr-schedules-period-end input").val($(this).data('periodend'));
+        $("#attr-schedules-stock input").val($(this).data('stock'));
         $('#attr-schedules-day option[value="' + $(this).data('day') + '"]').prop('selected', true);
         $("#update-attr-schedules-closed").val(0);
         $("#attr-schedules-period-begin input, #attr-schedules-period-end input").prop('required', true);
@@ -70,6 +72,7 @@ $(function () {
         $("#attr-schedules-end input").val($(this).data('end'));
         $("#attr-schedules-period-begin input").val($(this).data('periodbegin'));
         $("#attr-schedules-period-end input").val($(this).data('periodend'));
+        $("#attr-schedules-stock input").val($(this).data('stock'));
         $('#attr-schedules-day option[value="' + $(this).data('day') + '"]').prop('selected', true);
         $("#update-attr-schedules-closed").val(1);
         $("#attr-schedules-period-begin input, #attr-schedules-period-end input").prop('required', true);

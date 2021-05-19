@@ -17,6 +17,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TimeType;
+use Symfony\Component\Validator\Constraints\GreaterThanOrEqual;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Thelia\Form\BaseForm;
 
@@ -97,10 +98,21 @@ class SchedulesForm extends BaseForm
             ])
             ->add('product_id', IntegerType::class, [
                   'attr' => [],
-                  'constraints' => array(new NotBlank(), ),
+                  'constraints' => array(new NotBlank()),
                   'label' => $this->translator->trans("Product", [], Schedules::DOMAIN_NAME),
                   'label_attr' => ['for' => 'attr-schedules-product-id'],
                   'required' => true,
+            ])
+            ->add('stock', IntegerType::class, [
+                'attr' => [
+                    'min' => 0,
+                ],
+                "constraints" => array(
+                    new GreaterThanOrEqual(["value" => 0]),
+                ),
+                'label' => $this->translator->trans("Stock", [], Schedules::DOMAIN_NAME),
+                'label_attr' => ['for' => 'attr-schedules-stock'],
+                'required' => false,
             ])
         ;
     }

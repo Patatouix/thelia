@@ -214,7 +214,7 @@ class SchedulesContentController extends ContentController
             // Get the form field values
             $data = $form->getData();
 
-            $this->hydrateObjectArray($data);
+            $this->hydrateObjectArray($data, true);
 
             // Substitute _ID_ in the URL with the ID of the created object
             $successUrl = $cloneForm->getSuccessUrl();
@@ -308,7 +308,7 @@ class SchedulesContentController extends ContentController
         return !($data["begin"] && $data["end"]);
     }
 
-    protected function hydrateObjectArray($data)
+    protected function hydrateObjectArray($data, $clone = false)
     {
         $schedule = new Schedule();
         $contentSchedule = new ContentSchedule();
@@ -316,6 +316,11 @@ class SchedulesContentController extends ContentController
         if (isset($data['schedule_id']) && (null != $existingSchedule = ScheduleQuery::create()->findPk($data['schedule_id']))) {
             $schedule = $existingSchedule;
             $contentSchedule = $schedule->getContentSchedule();
+
+            if (true === $clone) {
+                $schedule = $schedule->copy();
+                $contentSchedule = $contentSchedule->copy();
+            }
         }
 
         // set schedule

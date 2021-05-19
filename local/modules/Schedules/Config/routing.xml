@@ -32,4 +32,22 @@
         <default key="_controller">Schedules\Controller\Back\SchedulesContentController::deleteScheduleAction</default>
     </route>
 
+    <!-- Store -->
+    <!-- TODO : demander si meilleur moyen d'override config-store.html -->
+    <route id="admin.configuration.store.default" path="/admin/configuration/store">
+        <default key="_controller">Schedules\Controller\Back\SchedulesStoreController::getConfigStore</default>
+    </route>
+    <route id="schedules.store.create" path="/admin/module/schedules/store/create" methods="post">
+        <default key="_controller">Schedules\Controller\Back\SchedulesStoreController::createScheduleAction</default>
+    </route>
+    <route id="schedules.store.update" path="/admin/module/schedules/store/update" methods="post">
+        <default key="_controller">Schedules\Controller\Back\SchedulesStoreController::updateScheduleAction</default>
+    </route>
+    <route id="schedules.store.clone" path="/admin/module/schedules/store/clone" methods="post">
+        <default key="_controller">Schedules\Controller\Back\SchedulesStoreController::cloneScheduleAction</default>
+    </route>
+    <route id="schedules.store.delete" path="/admin/module/schedules/store/delete" methods="post">
+        <default key="_controller">Schedules\Controller\Back\SchedulesStoreController::deleteScheduleAction</default>
+    </route>
+
 </routes>

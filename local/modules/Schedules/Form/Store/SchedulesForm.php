@@ -10,7 +10,7 @@
 /*      file that was distributed with this source code.                             */
 /*************************************************************************************/
 
-namespace Schedules\Form\Content;
+namespace Schedules\Form\Store;
 
 use Schedules\Schedules;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -93,13 +93,6 @@ class SchedulesForm extends BaseForm
                   'attr' => [],
                   'label' => $this->translator->trans("Closed", [], Schedules::DOMAIN_NAME),
                   'label_attr' => ['for' => 'attr-schedules-closed'],
-                  'required' => true,
-            ])
-            ->add('content_id', IntegerType::class, [
-                  'attr' => [],
-                  'constraints' => array(new NotBlank()),
-                  'label' => $this->translator->trans("Content", [], Schedules::DOMAIN_NAME),
-                  'label_attr' => ['for' => 'attr-schedules-content-id'],
                   'required' => true,
             ])
         ;

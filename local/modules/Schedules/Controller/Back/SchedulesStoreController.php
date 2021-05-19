@@ -12,7 +12,7 @@
 
 namespace Schedules\Controller\Back;
 
-use Thelia\Controller\Admin\ProductController;
+use Thelia\Controller\Admin\ContentController;
 use Thelia\Core\Security\Resource\AdminResources;
 use Thelia\Core\Security\AccessManager;
 use Thelia\Form\Exception\FormValidationException;
@@ -23,19 +23,36 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Propel\Runtime\Propel;
 
 use Schedules\Schedules as SchedulesModule;
-use Schedules\Model\ProductSchedule;
-use Schedules\Model\ProductScheduleQuery;
+use Schedules\Model\StoreSchedule;
+use Schedules\Model\StoreScheduleQuery;
 use Schedules\Model\Schedule;
 use Schedules\Model\ScheduleQuery;
+use Thelia\Form\Definition\AdminForm;
 
 /**
- * Class SchedulesProductController
+ * Class SchedulesStoreController
  * @package Schedules\Controller
  * @author Thierry Caresmel <thierry@pixel-plurimedia.fr>
  */
-class SchedulesProductController extends ProductController
+class SchedulesStoreController extends ContentController
 {
     protected $service;
+
+    public function getConfigStore()
+    {
+        if (null !== $response = $this->checkAuth(AdminResources::STORE, array(), AccessManager::VIEW)) {
+            return $response;
+        }
+
+        // The form is self-hydrated
+        $configStoreForm = $this->createForm(AdminForm::CONFIG_STORE);
+
+        $this->getParserContext()->addForm($configStoreForm);
+
+        return $this->render('config_store_with_tabs', [
+            'current_tab' => $this->getRequest()->get('current_tab', 'general')
+        ]);
+    }
 
     /**
      * Create an object
@@ -50,7 +67,7 @@ class SchedulesProductController extends ProductController
         }
 
         // Create the Creation Form
-        $creationForm = $this->createForm('schedules.product.create');
+        $creationForm = $this->createForm('schedules.store.create');
 
         $con = Propel::getConnection();
         $con->beginTransaction();
@@ -143,7 +160,7 @@ class SchedulesProductController extends ProductController
         // Error (Default: false)
         $error_msg = false;
         // Create the Form from the request
-        $changeForm = $this->createForm('schedules.product.update');
+        $changeForm = $this->createForm('schedules.store.update');
 
         $con = Propel::getConnection();
         $con->beginTransaction();
@@ -203,7 +220,7 @@ class SchedulesProductController extends ProductController
         }
 
         // Create the Creation Form
-        $cloneForm = $this->createForm('schedules.product.clone');
+        $cloneForm = $this->createForm('schedules.store.clone');
 
         $con = Propel::getConnection();
         $con->beginTransaction();
@@ -270,8 +287,8 @@ class SchedulesProductController extends ProductController
                 $this->getRequest()->query->get("_token")
             );
 
-            if (null != $productSchedule = ProductScheduleQuery::create()->findPk($this->getRequest()->request->get("schedule_id"))) {
-                $productSchedule->delete();
+            if (null != $storeSchedule = StoreScheduleQuery::create()->findPk($this->getRequest()->request->get("schedule_id"))) {
+                $storeSchedule->delete();
             }
 
             $con->commit();
@@ -311,15 +328,15 @@ class SchedulesProductController extends ProductController
     protected function hydrateObjectArray($data, $clone = false)
     {
         $schedule = new Schedule();
-        $productSchedule = new ProductSchedule();
+        $storeSchedule = new StoreSchedule();
 
         if (isset($data['schedule_id']) && (null != $existingSchedule = ScheduleQuery::create()->findPk($data['schedule_id']))) {
             $schedule = $existingSchedule;
-            $productSchedule = $schedule->getProductSchedule();
+            $storeSchedule = $schedule->getStoreSchedule();
 
             if (true === $clone) {
                 $schedule = $schedule->copy();
-                $productSchedule = $productSchedule->copy();
+                $storeSchedule = $storeSchedule->copy();
             }
         }
 
@@ -344,16 +361,9 @@ class SchedulesProductController extends ProductController
         }
         $schedule->save();
 
-        // set productSchedule
-        if (isset($data['product_id'])) {
-            $productSchedule->setProductId($data['product_id']);
-        }
-        if (isset($data['stock'])) {
-            $productSchedule->setStock($data['stock']);
-        }
-        $productSchedule->setSchedule($schedule);
-        $productSchedule->save();
+        $storeSchedule->setSchedule($schedule);
+        $storeSchedule->save();
 
-        return $productSchedule;
+        return $storeSchedule;
     }
 }

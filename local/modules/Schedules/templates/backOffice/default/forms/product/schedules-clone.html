@@ -18,4 +18,17 @@
         </select>
     </div>
     {/form_field}
+
+    {form_field form=$form field="stock"}
+    <div class="form-group{if $error} has-error{/if}">
+        <label class="control-label" for="{$label_attr.for}">{intl l=$label d="schedules.bo.default"}{if $required}<span class="required">*</span>{/if}</label>
+        {form_error form=$form field="stock"}{$message}{/form_error}
+        <div class='input-group date' id="{$label_attr.for}">
+            <input type='number' class="form-control" name="{$name}" value="{$value}" {$attr} />
+            <div class="input-group-append">
+                <span class="input-group-text"><i class="fas fa-cubes"></i></span>
+            </div>
+        </div>
+    </div>
+    {/form_field}
 {/form}

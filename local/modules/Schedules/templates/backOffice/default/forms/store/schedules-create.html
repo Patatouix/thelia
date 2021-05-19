@@ -1,8 +1,8 @@
 {form name=$form_name}
     {form_hidden_fields form=$form}
 
-    {render_form_field form=$form field="success_url" value={url path="/admin/products/update?product_id={$product_id|default:$PRODUCT_ID}&current_tab=schedules"}}
-    {render_form_field form=$form field="error_url" value={url path="/admin/products/update?product_id={$product_id|default:$PRODUCT_ID}&current_tab=schedules"}}
+    {render_form_field form=$form field="success_url" value={url path="/admin/configuration/store?current_tab=schedules"}}
+    {render_form_field form=$form field="error_url" value={url path="/admin/configuration/store?current_tab=schedules"}}
 
     {form_field form=$form field="closed"}
     <input type="hidden" id="{if $update|default:false == true}update-{/if}{$label_attr.for}" name="{$name}" value="{$closed|default:0}" />
@@ -143,22 +143,4 @@
     </div>
     {/form_field}
 
-    {form_field form=$form field="stock"}
-    <div class="form-group{if $error} has-error{/if}">
-        <label class="control-label" for="{$label_attr.for}">{intl l=$label d="schedules.bo.default"}{if $required}<span class="required">*</span>{/if}</label>
-        {form_error form=$form field="stock"}{$message}{/form_error}
-        <div class='input-group date' id="{$label_attr.for}">
-            <input type='number' class="form-control" name="{$name}" value="{$STOCK}" {$attr} />
-            <div class="input-group-append">
-                <span class="input-group-text"><i class="fas fa-cubes"></i></span>
-            </div>
-        </div>
-    </div>
-    {/form_field}
-
-    {form_field form=$form field="product_id"}
-    <div class="form-group hidden">
-        <input type="hidden" class="form-control" name="{$name}" id="{$label_attr.for}" value="{$product_id|default:$PRODUCT_ID}" />
-    </div>
-    {/form_field}
 {/form}

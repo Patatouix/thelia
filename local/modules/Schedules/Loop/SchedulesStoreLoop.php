@@ -13,8 +13,8 @@
 namespace Schedules\Loop;
 
 use Schedules\Schedules;
-use Schedules\Model\ProductSchedule;
-use Schedules\Model\ProductScheduleQuery;
+use Schedules\Model\StoreSchedule;
+use Schedules\Model\StoreScheduleQuery;
 use Propel\Runtime\ActiveQuery\Criteria;
 use Thelia\Core\Template\Element\BaseLoop;
 use Thelia\Core\Template\Element\LoopResult;
@@ -24,10 +24,10 @@ use Thelia\Core\Template\Loop\Argument\Argument;
 use Thelia\Core\Template\Loop\Argument\ArgumentCollection;
 
 /**
- * Class SchedulesProductLoop
+ * Class SchedulesStoreLoop
  * @package Schedules\Loop
  */
-class SchedulesProductLoop extends BaseLoop implements PropelSearchLoopInterface
+class SchedulesStoreLoop extends BaseLoop implements PropelSearchLoopInterface
 {
     /**
      * Definition of loop arguments
@@ -39,7 +39,6 @@ class SchedulesProductLoop extends BaseLoop implements PropelSearchLoopInterface
         return new ArgumentCollection(
 
             Argument::createIntListTypeArgument('schedule_id'),
-            Argument::createIntListTypeArgument('product_id'),
             Argument::createBooleanTypeArgument('default_period'),
             Argument::createBooleanTypeArgument('hide_past', false),
             Argument::createBooleanTypeArgument('closed', false),
@@ -52,8 +51,7 @@ class SchedulesProductLoop extends BaseLoop implements PropelSearchLoopInterface
                 'begin',
                 'begin_reverse',
                 'period_begin',
-                'period_begin_reverse',
-                'stock'
+                'period_begin_reverse'
             ], 'schedule_id')
 
         );
@@ -66,7 +64,7 @@ class SchedulesProductLoop extends BaseLoop implements PropelSearchLoopInterface
      */
     public function buildModelCriteria()
     {
-        $query = ProductScheduleQuery::create();
+        $query = StoreScheduleQuery::create();
 
         if ($scheduleId = $this->getScheduleId()) {
             $query->filterByScheduleId($scheduleId);
@@ -74,10 +72,6 @@ class SchedulesProductLoop extends BaseLoop implements PropelSearchLoopInterface
 
         if ($day = $this->getDay()) {
             $query->useScheduleQuery()->filterByDay($day)->endUse();
-        }
-
-        if ($productId = $this->getProductId()) {
-            $query->filterByProductId($productId);
         }
 
         if (true == $this->getDefaultPeriod()) {
@@ -117,12 +111,6 @@ class SchedulesProductLoop extends BaseLoop implements PropelSearchLoopInterface
                 case 'period_begin_reverse':
                     $query->useScheduleQuery()->orderByPeriodBegin(Criteria::DESC)->endUse();
                     break;
-                case 'stock':
-                    $query->orderByStock();
-                    break;
-                case 'stock_reverse':
-                    $query->orderByStock(Criteria::DESC);
-                    break;
                 default:
                     break;
             }
@@ -138,20 +126,18 @@ class SchedulesProductLoop extends BaseLoop implements PropelSearchLoopInterface
      */
     public function parseResults(LoopResult $loopResult)
     {
-        /** @var ProductSchedule $schedules */
+        /** @var StoreSchedule $schedules */
         foreach ($loopResult->getResultDataCollection() as $schedules) {
             $loopResultRow = new LoopResultRow($schedules);
 
             $loopResultRow
                 ->set('SCHEDULE_ID', $schedules->getScheduleId())
-                ->set('PRODUCT_ID', $schedules->getProductId())
                 ->set('DAY', $schedules->getSchedule()->getDay())
                 ->set('DAY_LABEL', $this->getDayLabel($schedules->getSchedule()->getDay()))
                 ->set('BEGIN', $schedules->getSchedule()->getBegin())
                 ->set('END', $schedules->getSchedule()->getEnd())
                 ->set('PERIOD_BEGIN', $schedules->getSchedule()->getPeriodBegin())
-                ->set('PERIOD_END', $schedules->getSchedule()->getPeriodEnd())
-                ->set('STOCK', $schedules->getStock());
+                ->set('PERIOD_END', $schedules->getSchedule()->getPeriodEnd());
 
 
             $loopResult->addRow($loopResultRow);
