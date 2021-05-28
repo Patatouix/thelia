@@ -5,6 +5,7 @@
     {$pse_count=1}
     {$product_virtual={product attr="virtual"}}
     {$check_availability={config key="check-available-stock" default="1"}}
+    {$scheduled=1}
 
     {$pse=[]}
     {$combination_label=[]}
@@ -265,6 +266,31 @@
                         </fieldset>
 
 
+                    {/if}
+
+                    <!-- todo : calculer $scheduled -->
+                    {if $scheduled}
+                        <fieldset>
+                            {form_field field='schedule_date'}
+                            <div class="form-group">
+                                <label for="truc">Date</label>
+                                <div class="input-group">
+                                    <select name="{$name}" class="form-control" id="truc">
+                                    {foreach $choices as $choice}
+                                        <option value="{if $choice->value > 0}{$choice->value}{/if}">{$choice->label}</option>
+                                    {/foreach}
+                                    </select>
+                                    <div class="btn input-group-addon" style="padding: 6px 12px;" data-target="#schedules-dates-modal" data-toggle="modal">
+                                        Calendar <i class="fa fa-calendar"></i>
+                                    </div>
+                                </div>
+                                {if $error}
+                                    <span class="help-block">{$message}</span>
+                                {/if}
+                            </div>
+                            {/form_field}
+                        </fieldset>
+                        {include file="modal/schedules-dates-modal.html"}
                     {/if}
 
                     <fieldset class="product-cart form-inline">
