@@ -269,21 +269,29 @@
                     {/if}
 
                     <!-- todo : meilleur moyen pour checker si le field existe ? -->
-                    <!-- {if $form->getFormBuilder()->has('schedule_date')} -->
+                    {if $form->getFormBuilder()->has('schedule_date')}
                         <fieldset>
                             {form_field field='schedule_date'}
                             <div class="form-group">
                                 <label for="{$label_attr.for}">{$label}</label>
-                                <div class="input-group">
+                                {if $hasQuickView == true}
                                     <select name="{$name}" class="form-control" id="{$label_attr.for}" {if $required}required="required"{/if}>
                                         {loop type="scheduledate" name="scheduledate" product_id={product attr="id"}}
                                             {if $STOCK > 0}<option value="{$ID}" data-stock="{$STOCK}">{$LABEL}</option>{/if}
                                         {/loop}
                                     </select>
-                                    <div class="btn input-group-addon" style="padding: 6px 12px;" data-target="#schedules-dates-modal" data-toggle="modal">
-                                        Calendar <i class="fa fa-calendar"></i>
+                                {else}
+                                    <div class="input-group">
+                                        <select name="{$name}" class="form-control" id="{$label_attr.for}" {if $required}required="required"{/if}>
+                                            {loop type="scheduledate" name="scheduledate" product_id={product attr="id"}}
+                                                {if $STOCK > 0}<option value="{$ID}" data-stock="{$STOCK}">{$LABEL}</option>{/if}
+                                            {/loop}
+                                        </select>
+                                        <div class="btn input-group-addon" style="padding: 6px 12px;" data-target="#schedules-dates-modal" data-toggle="modal">
+                                            Calendar <i class="fa fa-calendar"></i>
+                                        </div>
                                     </div>
-                                </div>
+                                {/if}
                                 {if $error}
                                     <span class="help-block">{$message}</span>
                                 {/if}
@@ -291,7 +299,7 @@
                             {/form_field}
                         </fieldset>
                         {include file="modal/schedules-dates-modal.html"}
-                    <!-- {/if} -->
+                    {/if}
 
                     <fieldset class="product-cart form-inline">
                         {form_field field='quantity'}
