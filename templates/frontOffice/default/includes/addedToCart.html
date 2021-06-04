@@ -30,6 +30,9 @@
                 {loop type="attribute_combination" name="product_options" product_sale_elements={$smarty.get.pse_id} order="manual"}
                     <p>{$ATTRIBUTE_TITLE} : {$ATTRIBUTE_AVAILABILITY_TITLE}</p>
                 {/loop}
+                {loop type="scheduledate" name="scheduledate" schedule_date_id={$smarty.get.schedule_date}}
+                    <p>{intl d='schedules.bo.default' l='Schedule date'} : {$LABEL}</p>
+                {/loop}
             </td>
             <td class="col-md-4">
                 {loop type="product_sale_elements" name="product_price" id={$smarty.get.pse_id}}

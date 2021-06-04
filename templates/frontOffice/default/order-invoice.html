@@ -124,6 +124,11 @@
                                         <dt class="attributeView">{$ATTRIBUTE_TITLE}</dt>
                                         <dd>{$ATTRIBUTE_AVAILABILITY_TITLE}</dd>
                                     {/loop}
+
+                                    {loop type="scheduledate" name="scheduledate" cart_item_id="$ITEM_ID"}
+                                        <dt>{intl d='schedules.bo.default' l='Schedule date'}</dt>
+                                        <dd>{$LABEL}</dd>
+                                    {/loop}
                                 </dl>
                             </div>
                         </td>
@@ -460,4 +465,3 @@ jQuery(function($) {
 {block name="after-javascript-include"}
 {hook name="order-invoice.after-javascript-include"}
 {/block}
-

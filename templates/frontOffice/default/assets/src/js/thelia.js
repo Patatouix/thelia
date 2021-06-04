@@ -470,14 +470,15 @@ var pseManager = (function($){
                 var url_action  = $(this).attr("action"),
                     product_id  = $("input[name$='product_id']",this).val(),
                     pse_id  = $("input.pse-id",this).val(),
-                    quantity = $('#quantity',this).val()
+                    quantity = $('#quantity',this).val(),
+                    schedule_date = $('#schedule_date').val()
                 ;
 
                 $.ajax({type: "POST", data: $(this).serialize(), url: url_action,
                     success: function(data){
                         $(".cart-container").html($(data).html());
                         // addCartMessageUrl is initialized in layout.tpl
-                        $.ajax({url:addCartMessageUrl, data:{ product_id: product_id, pse_id: pse_id, quantity: quantity },
+                        $.ajax({url:addCartMessageUrl, data:{ product_id: product_id, pse_id: pse_id, quantity: quantity, schedule_date: schedule_date },
                             success: function (data) {
                                 // Hide all currently active bootbox dialogs
                                 bootbox.hideAll();
