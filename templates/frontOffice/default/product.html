@@ -282,7 +282,7 @@
                                             {/loop}
                                         </select>
                                         <div class="btn input-group-addon" style="padding: 6px 12px;" data-target="#schedules-dates-modal" data-toggle="modal">
-                                            Calendar <i class="fa fa-calendar"></i>
+                                            {intl d='schedules.fo.default' l="Calendar"} <i class="fa fa-calendar"></i>
                                         </div>
                                     </div>
                                     {if $error}
@@ -294,7 +294,7 @@
                             {include file="modal/schedules-dates-modal.html"}
                         {/ifloop}
                         {elseloop rel="scheduledate"}
-                            <p>Pas de dates</p>
+                            <p>{intl d='schedules.fo.default' l="No scheduled dates"}</p>
                         {/elseloop}
                     {/if}
 
