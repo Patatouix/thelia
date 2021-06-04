@@ -270,20 +270,14 @@
 
                     <!-- todo : meilleur moyen pour checker si le field existe ? -->
                     {if $form->getFormBuilder()->has('schedule_date')}
-                        <fieldset>
-                            {form_field field='schedule_date'}
-                            <div class="form-group">
-                                <label for="{$label_attr.for}">{$label}</label>
-                                {if $hasQuickView == true}
-                                    <select name="{$name}" class="form-control" id="{$label_attr.for}" {if $required}required="required"{/if}>
-                                        {loop type="scheduledate" name="scheduledate" product_id={product attr="id"}}
-                                            {if $STOCK > 0}<option value="{$ID}" data-stock="{$STOCK}">{$LABEL}</option>{/if}
-                                        {/loop}
-                                    </select>
-                                {else}
+                        {ifloop rel="scheduledate"}
+                            <fieldset>
+                                {form_field field='schedule_date'}
+                                <div class="form-group">
+                                    <label for="{$label_attr.for}">{$label}</label>
                                     <div class="input-group">
                                         <select name="{$name}" class="form-control" id="{$label_attr.for}" {if $required}required="required"{/if}>
-                                            {loop type="scheduledate" name="scheduledate" product_id={product attr="id"}}
+                                            {loop type="scheduledate" name="scheduledate" product_id={product attr="id"} check_cart="true"}
                                                 {if $STOCK > 0}<option value="{$ID}" data-stock="{$STOCK}">{$LABEL}</option>{/if}
                                             {/loop}
                                         </select>
@@ -291,14 +285,17 @@
                                             Calendar <i class="fa fa-calendar"></i>
                                         </div>
                                     </div>
-                                {/if}
-                                {if $error}
-                                    <span class="help-block">{$message}</span>
-                                {/if}
-                            </div>
-                            {/form_field}
-                        </fieldset>
-                        {include file="modal/schedules-dates-modal.html"}
+                                    {if $error}
+                                        <span class="help-block">{$message}</span>
+                                    {/if}
+                                </div>
+                                {/form_field}
+                            </fieldset>
+                            {include file="modal/schedules-dates-modal.html"}
+                        {/ifloop}
+                        {elseloop rel="scheduledate"}
+                            <p>Pas de dates</p>
+                        {/elseloop}
                     {/if}
 
                     <fieldset class="product-cart form-inline">
